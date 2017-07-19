@@ -41,7 +41,11 @@ class User < ActiveRecord::Base
     has_many :forms
     has_many :referrals, :foreign_key => "user_id", :class_name => "Referral"
     has_many :clients, :through => :referrals
+<<<<<<< HEAD
     has_many :events
+=======
+    has_one :event
+>>>>>>> fdb950f... added models ownership and event
     has_many :ownerships
     has_many :admins, :through => :ownerships
 
