@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
     if user_signed_in?
       @user = current_user
       if @user.role == "client"
-        #do stuff
+        @events = Event.where(:user_id => @user.id).all
       elsif @user.role == "referrer"
         user_ids = @user.clients.map do |c|
           c.id
