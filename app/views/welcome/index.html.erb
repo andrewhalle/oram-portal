@@ -1,19 +1,25 @@
 <% if @user != nil or @curr_admin != nil %>
-	<div class="case_tracker">
-		<h1 id="event_list_title">Latest</h1>
-		<table id="events">
-			<tr>
-				<th>Client</th>
-				<th>Event</th>
-			</tr>
-			<% @events.each do |e| %>
+	<% if @user and @user.role == "client" %>
+		<div id="status_bar">
+			
+		</div>
+	<% else %>
+		<div id="case_tracker">
+			<h1 id="event_list_title">Latest</h1>
+			<table id="events">
 				<tr>
-					<td><%= e.user.first_name + " " + e.user.last_name %></td>
-					<td><%= e.message %></td>
+					<th>Client</th>
+					<th>Event</th>
 				</tr>
-			<% end %>
-		</table>
-	</div>
+				<% @events.each do |e| %>
+					<tr>
+						<td><%= e.user.first_name + " " + e.user.last_name %></td>
+						<td><%= e.message %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	<% end %>
 <% else %>
 	<div class="landing-content">
 		<div class="landing-links">
