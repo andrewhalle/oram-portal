@@ -20,7 +20,7 @@ class AdminsController < ApplicationController
 	def show_clients
 		@curr_admin = current_admin
 		if @curr_admin.role == "central"
-			@clients = User.all
+			@clients = User.where(role: 1).all
 		elsif @curr_admin.role == "employee"
 			@clients = Form.where(form_type: 3).order("created_at DESC")
 			if params[:status] and params[:status] != 'Status'

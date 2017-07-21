@@ -13,10 +13,9 @@ Background: Clients in the database and logged in as an admin
 
   And I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+    | oram        | admin     | admin321@gmail.com  | oramadmin  | central  |
 
 Scenario: Admin viewing the list of clients
-  Given Pending
   Given I follow "Clients"
   Then I should see "Bryan"
   Then I should see "George"
@@ -26,7 +25,6 @@ Scenario: Admin viewing the list of clients
   And the phase of "George Clooney" should be "Phase 3"
 
 Scenario: Admin trying to mark statuses of clients
-  Given Pending
   Given I follow "Clients"
   And I view the profile of "Bryan Adams"
   And I press "Approve"
@@ -39,23 +37,22 @@ Scenario: Admin trying to mark statuses of clients
   Then the status of "Michael Jordan" should be "Incomplete"
 
 Scenario: Admin trying to edit client profile 
-  Given PENDING
-  Given I am on the clients page
-  And I view the profile of "Quach Nhi"
+  Given Pending
+  Given I follow "Clients"
+  And I view the profile of "Joe Bob"
   And I press "Edit Profile"
   Then I should be on the edit profile page
 
 Scenario: Admin trying to delete client profile
-  Given PENDING
-  Given I am on the clients page
-  And I view the profile of "Kelly Yen"
+  Given Pending
+  Given I follow "Clients"
+  And I view the profile of "Michael Jordan"
   And I press "Delete Profile"
   And I go back to the clients page
-  Then I should not see "Kelly Yen"
+  Then I should not see "Michael Jordan"
   
 Scenario: Admin changing client phase
-  Given PENDING
-  Given I am on the clients page
+  Given I follow "Clients"
   Given I view the profile of "George Clooney"
   And I select "Phase 4" from the "Change Phase" field
   And I press "Change Phase"

@@ -47,9 +47,12 @@ employee.ownerships << o
 referral = Referral.create
 referral.user_id = 3
 referral.client_id = 2
+referral.save
 
-referral_form = Form.create
-referral_form.form_type = 2
-referral_form.user_id = 3
-referral_form.first_name = "Test"
-referral_form.last_name = "Referral"
+questionnaire = Form.create()
+questionnaire.form_type = 3
+questionnaire.user_id = 2
+questionnaire.first_name = "Test"
+questionnaire.last_name = "Questionnaire"
+questionnaire.save()
+client.save
