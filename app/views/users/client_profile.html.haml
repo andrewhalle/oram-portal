@@ -15,7 +15,7 @@
 			.phase-change-select
 				= form_for :edit_client, :url => admin_change_client_phase_path(:action => 'post') do |f|
 					.field
-						= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase), :id => "Changed Phase"
+						= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase), id: 'changed_phase'
 						= f.submit 'Change Phase'
 
 	.panel-body

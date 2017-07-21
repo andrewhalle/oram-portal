@@ -41,7 +41,7 @@ Scenario: Removing a client from a caseworker
   Given I follow "Clients"
     And "Sam Iam" is a Caseworker of "George Clooney"
     And "Andrew Wood" is a Caseworker of "George Clooney"
-  Then I view the profile "George Clooney"
+  Then I view the profile of "George Clooney"
   And I remove "Sam Iam" as a Caseworker from "George Clooney"
   Then I should not see "Sam Iam"
   And "Andrew Wood" should be a Caseworker of "George Clooney"
