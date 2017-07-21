@@ -42,7 +42,6 @@ client.save
 
 o = Ownership.create
 o.user = client
-<<<<<<< HEAD
 employee.ownerships << o
 
 e = Event.create
@@ -61,6 +60,3 @@ questionnaire.first_name = "Test"
 questionnaire.last_name = "Questionnaire"
 questionnaire.form_json = JSON.generate({"First Name": "Test", "Last Name": "Questionnaire"})
 questionnaire.save()
-=======
-employee.ownerships << o
->>>>>>> fdb950f... added models ownership and event
