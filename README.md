@@ -14,3 +14,13 @@ export form_key=iDEDgbGZr0nVHshYs8jK0TnJpWo2fOSyhZlQdmtCHJv2eXXFVlZlGiAGbA2h5CKd
 ###Notes
 * phantomjs installation is required for testing with cucumber and rspec
 * form_key: iDEDgbGZr0nVHshYs8jK0TnJpWo2fOSyhZlQdmtCHJv2eXXFVlZlGiAGbA2h5CKdM4DTfyBbh8BuFhCn
+
+To use railroady gem:
+For mac user install graphviz:
+brew install graphviz
+
+For ubuntu users
+sudo apt-get install graphviz
+
+run the command below to generate svg files
+rake diagram:all

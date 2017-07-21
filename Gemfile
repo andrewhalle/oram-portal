@@ -84,6 +84,7 @@ end
 # debugger is useful in development mode too
 group :development, :test do
   gem 'jasmine-rails' # if you plan to use JavaScript/CoffeeScript
+  gem 'railroady'
 end
 # setup Cucumber, RSpec, autotest support
 group :test do
