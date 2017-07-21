@@ -5,6 +5,11 @@ class UsersController < ApplicationController
 		@curr_admin = current_admin
 		@user = User.find(params[:id])
 		@form_hash = {}
+		if !@user.events.last.nil?
+			@last_event_message = @user.events.last.message
+		else
+			@last_event_message = 'This user has had no events before!'
+		end
 		if @user.role == "referrer"
 			if !@user.forms.empty? && !@user.forms.where(form_type: 1).empty?
 				referrer_forms = @user.forms.where(form_type: 1)
