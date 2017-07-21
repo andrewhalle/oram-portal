@@ -17,6 +17,9 @@
 					.field
 						= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase), id: 'changed_phase'
 						= f.submit 'Change Phase'
+			.latest-event
+				%p< 
+					%b= 'Latest Event Message: ' + @last_event_message
 
 	.panel-body
 		- @form_hash.each do |key, value|

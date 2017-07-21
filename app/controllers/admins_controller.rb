@@ -69,8 +69,6 @@ class AdminsController < ApplicationController
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@client).deliver_now # sends the email
-		elsif status == "Complete"
-			@client.phase = "Phase 3"
 		end
 		redirect_to clients_path
 	end
@@ -96,8 +94,10 @@ class AdminsController < ApplicationController
 		prev_phase = @client.phase
 		@client.phase = params[:edit_client]["changed_phase"]
 		@client.save
-		flash[:notice] = "You successfully moved #{@client.first_name} #{@client.last_name} from #{prev_phase} to #{@client.phase}"
-		newEvent = @client.events.build()
+		message = "#{@client.first_name} #{@client.last_name} has been moved from #{prev_phase} to #{@client.phase}"
+		flash[:notice] = message
+		newEvent = @client.events.build(:user_id => :id, :message => message)
+		@client.save
 		redirect_to client_path
 	end
 
