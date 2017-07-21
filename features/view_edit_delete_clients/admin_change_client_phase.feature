@@ -32,3 +32,10 @@ Scenario: Admin changing client phase
   And I follow "Clients"
   Then the phase of "George Clooney" should be "Phase 4"
  
+ Scenario: Admin changing client phase generates an event
+  Given I follow "Clients"
+  Given I view the profile of "George Clooney"
+  When I select "Phase 5" from the change phase dropdown
+  And I press "Change Phase"
+  Then I should see "Latest Event"
+  And I should see "oram admin change George Clooney from Phase 4 to Phase 5"
