@@ -44,3 +44,8 @@ client.save
 o = Ownership.create
 o.user = client
 employee.ownerships << o
+
+e = Event.create
+e.user = client
+e.message = "This is some test text!"
+e.save
