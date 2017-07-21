@@ -83,3 +83,7 @@ When (/I select "([^"]*)" from the status dropdown/) do |option|
       find("option[value='Rejected']").click
     end
 end
+
+When (/I select "([^"]*)" from the phase change dropwdown/) do |option|
+  find("option[value='Status']").click
+end

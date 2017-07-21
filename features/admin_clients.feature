@@ -54,6 +54,6 @@ Scenario: Admin trying to delete client profile
 Scenario: Admin changing client phase
   Given I follow "Clients"
   Given I view the profile of "George Clooney"
-  And I select "Phase 4" from the "Change Phase" field
+  And I select "Phase 4" from phase change dropdown
   And I press "Change Phase"
   Then the phase of "George Clooney" should be "Phase 4"
