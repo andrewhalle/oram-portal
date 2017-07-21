@@ -38,7 +38,6 @@ client.phone = "+01-234-567-8910"
 client.skype = "skype_id"
 client.password = "password"
 client.role = 1
-client.phase = "Phase 1"
 client.save
 
 o = Ownership.create
@@ -49,3 +48,15 @@ e = Event.create
 e.user = client
 e.message = "This is some test text!"
 e.save
+referral = Referral.create
+referral.user_id = 3
+referral.client_id = 2
+referral.save
+
+questionnaire = Form.create()
+questionnaire.form_type = 3
+questionnaire.user_id = 2
+questionnaire.first_name = "Test"
+questionnaire.last_name = "Questionnaire"
+questionnaire.form_json = JSON.generate({"First Name": "Test", "Last Name": "Questionnaire"})
+questionnaire.save()

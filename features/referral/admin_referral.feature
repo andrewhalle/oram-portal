@@ -1,4 +1,4 @@
-Feature: Case Worker checking the list of referrals
+Feature: Central Admin checking the list of referrals
   As an ORAM administrator
   In order to approve or reject referred clients
   I want to be able to view the list of all current referrals with links to their forms
@@ -14,29 +14,33 @@ Background: Referrer creating referrals and loggin in as admin
 
   Given that I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
-Scenario: Case Worker checking to see if the client appears in the table
+Scenario: Central Admin checking to see if the client appears in the table
   Given I follow "Referrals"
   Then I should see "Billy"
 
-Scenario: Case Worker marking referrals as approved
+Scenario: Central Admin marking referrals as approved
   Given I follow "Referrals"
   Then I should see "Billy"
   When I view the profile of "Billy Joe"
   Then I should see "Billy Joe"
   When I press "Approve"
+  Then I should be on the new user invitation page
+  When I follow "Referrals"
   Then the status of "Billy Joe" should be "Approved"
 
-Scenario: Case Worker marking referrals as rejected
+Scenario: Central Admin marking referrals as rejected
   Given I follow "Referrals"
   Then I should see "Billy"
   When I view the profile of "Billy Joe"
   Then I should see "Billy Joe"
   When I press "Reject"
   Then the status of "Billy Joe" should be "Rejected"
+  Given I follow "Clients"
+  Then I should not see "Billy Joe"
 
-Scenario: Case Worker marking referrals as Incomplete
+Scenario: Central Admin marking referrals as Incomplete
   Given I follow "Referrals"
   Then I should see "Billy"
   When I view the profile of "Billy Joe"

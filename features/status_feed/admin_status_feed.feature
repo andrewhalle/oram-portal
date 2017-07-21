@@ -8,11 +8,11 @@ Background: Logging is an an Admin to check statuses
     | Central	    | Admin       | central@admin.com   | password	| 'test'               | referrer    |
 
   Given the following clients exist:
-    | first_name  | last_name   | email                 | password     	  | role			    | invitation_accepted_at | status   |
-    | Bryan       | Adams     	| bryan@adams.com       | oram123         | referrer	    | 'test'                 | Approved |
-    | George      | Clooney     | george@clooney.com    | oram123         | client			  | 'test'                 | Approved |
-    | Michael     | Jordan    	| michael@jordan.com    | oram123         | client			  | 'test'                 | Rejected |
-    | Joe         | Bob        	| joe@bob.com           | oram123         | client			  | 'test'                 | Approved |
+    | first_name  | last_name   | email                 | password     	  | role			    | invitation_accepted_at | 
+    | Bryan       | Adams     	| bryan@adams.com       | oram123         | referrer	    | 'test'                 | 
+    | George      | Clooney     | george@clooney.com    | oram123         | client			  | 'test'                 |
+    | Michael     | Jordan    	| michael@jordan.com    | oram123         | client			  | 'test'                 |
+    | Joe         | Bob        	| joe@bob.com           | oram123         | client			  | 'test'                 | 
 
 Scenario: Checking if RASF (Referrer Approval Status Feed) exists 
   Given PENDING

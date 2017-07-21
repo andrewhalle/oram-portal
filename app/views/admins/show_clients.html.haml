@@ -4,23 +4,25 @@
     %tr
       %th First Name
       %th Last Name
-      -if @curr_admin.role == "employee"
-        %th= select_tag "status",
-              options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),
-              id: 'select_button',
-              class: 'filter',
-              :onchange => "filter_by_status(this.value)"
+      // -if @curr_admin.role == "employee"
+      %th= select_tag "status",
+            options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),
+            id: 'select_button',
+            class: 'filter',
+            :onchange => "filter_by_status(this.value)"
+      %th= select_tag "phase",
+        options_for_select(["All", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6"], @phase),
+        id: 'select_button',
+        class: 'filter',
+        :onchange => "filter_by_phase(this.value)"
       %th
   %tbody
     - @clients.each do |client|
       %tr
         %td.first_name= client.first_name
         %td.last_name= client.last_name
-        -if @curr_admin.role == "employee"
-          %td.status= client.status
+        %td.status= client.forms.where(form_type: 3).first.status
+        %td.phase= client.phase
         %td.more_info= link_to "View Profile", client_path(client.id)
-        %td.assign_client= f.label "Caseworker"
         %br
-        = f.select(:role, Admin.roles.keys.map {|role| [role.titleize,role]},  {:include_blank => 'Select Account Type'}, {:class => "form-control slct-box"})
-        %p= f.submit t("devise.invitations.new.submit_button")
-    <% end %>
+
