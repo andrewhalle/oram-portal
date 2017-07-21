@@ -12,6 +12,12 @@
 				= button_to 'Reject', mark_client_status_path(:status => "Rejected", :form_id => @form_id), {:method => 'post', :class => 'btn btn-large btn-danger'}
 			.form-profile-button
 				= button_to 'Incomplete', mark_client_status_path(:status => "Incomplete", :form_id => @form_id), {:method => 'post', :class => 'btn btn-large btn-warning'}
+			.phase-change-select
+				= form_for :edit_client, :url => admin_change_client_phase_path(:action => 'post') do |f|
+					.field
+						= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase)
+						= f.submit 'Change Phase'
+
 	.panel-body
 		- @form_hash.each do |key, value|
 			.form-info

@@ -54,5 +54,5 @@ questionnaire.form_type = 3
 questionnaire.user_id = 2
 questionnaire.first_name = "Test"
 questionnaire.last_name = "Questionnaire"
+questionnaire.form_json = JSON.generate({"First Name": "Test", "Last Name": "Questionnaire"})
 questionnaire.save()
-client.save

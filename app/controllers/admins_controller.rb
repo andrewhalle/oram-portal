@@ -90,6 +90,16 @@ class AdminsController < ApplicationController
 		end
 		redirect_to admin_referrals_path
 	end
+	
+	def change_client_phase
+		@client = User.find_by_id(params[:id])
+		prev_phase = @client.phase
+		@client.phase = params[:edit_client]["changed_phase"]
+		@client.save
+		flash[:notice] = "You successfully moved #{@client.first_name} #{@client.last_name} from #{prev_phase} to #{@client.phase}"
+		newEvent = @client.events.build()
+		redirect_to client_path
+	end
 
 	def show_all
 		@curr_admin = current_admin
