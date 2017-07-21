@@ -1,7 +1,7 @@
-Feature: Admin checking to see the list of referrals in the system
-  As an ORAM administrator
-  In order to view the profiles of current referrals
-  I want to be able to view a table containing all existing referrals and links to their forms
+Feature: Case Worker checking to see the list of referrals in the system
+  As an ORAM Case Worker
+  In order to view the profiles of current referrers
+  I want to be able to view a table containing all existing referrers and links to their forms
 
 Background: Referrers in the database
 
@@ -13,10 +13,10 @@ Background: Referrers in the database
     | Adrian		  | Greenberg | adrian@greenberg.com| oram123	  | 'test'                 | referrer |
     | Donald		  | Trump		  | donald@trump.com		| oram123	  | 'test'                 | referrer |
 
-Scenario: Administrator viewing the table with all referrers
-  Given that I am logged in as the following admin:
-    | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+Scenario: Case Worker viewing the table with all referrers
+  Given that I am logged in as the following Case Worker:
+    | first_name  | last_name       | email                     | password         |    role   |
+    | oram        | Case Worker     | Case Worker321@gmail.com  | oramCase Worker  | employee  |
 
   And I follow "Referrers"
   Then I should see "Bryan"

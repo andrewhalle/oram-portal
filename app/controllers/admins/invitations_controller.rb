@@ -36,5 +36,4 @@ class Admins::InvitationsController < Devise::InvitationsController
         invitable.save!
      end
   end
-
 end

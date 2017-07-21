@@ -28,6 +28,7 @@ class AdminsController < ApplicationController
 			end
 			@status = params[:status]
 		end
+
 		render :show_clients
 	end
 
@@ -68,6 +69,8 @@ class AdminsController < ApplicationController
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@client).deliver_now # sends the email
+		elsif status == "Complete"
+			@client.phase = "Phase 3"
 		end
 		redirect_to clients_path
 	end
@@ -78,8 +81,24 @@ class AdminsController < ApplicationController
 		@form = Form.find(id)
 		@form.status = status
 		@form.save
-		flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
+		if status == "Approved"
+			flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}, next step is to invite as client."
+			redirect_to new_user_invitation_path
+			return
+		else
+			flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
+		end
 		redirect_to admin_referrals_path
+	end
+	
+	def change_client_phase
+		@client = User.find_by_id(params[:id])
+		prev_phase = @client.phase
+		@client.phase = params[:edit_client]["changed_phase"]
+		@client.save
+		flash[:notice] = "You successfully moved #{@client.first_name} #{@client.last_name} from #{prev_phase} to #{@client.phase}"
+		newEvent = @client.events.build()
+		redirect_to client_path
 	end
 
 	def show_all

@@ -9,7 +9,7 @@ Background: Logging in as an admin
 
   Given I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+    | oram        | admin     | admin321@gmail.com  | oramadmin  | central  |
 
 Scenario: Admins can invite users to make an account
   When I follow "Invite User"

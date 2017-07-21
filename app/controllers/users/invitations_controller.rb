@@ -33,6 +33,7 @@ class Users::InvitationsController < Devise::InvitationsController
      role = params[:user][:role]
      resource_class.invite!(invite_params, current_inviter) do |invitable|
         invitable.role = role
+        invitable.phase = "Phase 2"
         invitable.save!
      end
   end

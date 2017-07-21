@@ -3,5 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 @filter_by_status = (s) ->
-  window.location.href = "/referrers/?status=" + s
+  window.location.href = "/clients/?status=" + s
+  return
+  
+@filter_by_phase = (p) ->
+  window.location.href = "/clients/?phase=" + p
   return

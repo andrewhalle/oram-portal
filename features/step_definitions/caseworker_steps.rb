@@ -28,3 +28,20 @@ end
 When(/^I click "([^"]*)"$/) do |arg1|
   click_button(arg1)
 end
+
+Then(/^"([^"]*)" should be a Caseworker of "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^"([^"]*)" should be a Client of "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^"([^"]*)" is a Caseworker of "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+
+Then(/^I remove "([^"]*)" as a Caseworker from "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
