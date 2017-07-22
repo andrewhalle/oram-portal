@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
 		if @curr_admin.role == "central"
 			@referrers = User.where(role: 0).all
 		elsif @curr_admin.role == "employee"
-			@referrers = Form.where(form_type: 1)
+			@referrers = User.where(role:0).where(status: "Approved").all
 			if params[:status] and params[:status] != 'Status'
 				@referrers = @referrers.where(status: params[:status])
 			end
@@ -22,7 +22,8 @@ class AdminsController < ApplicationController
 		if @curr_admin.role == "central"
 			@clients = User.where(role: 1).all
 		elsif @curr_admin.role == "employee"
-			@clients = Form.where(form_type: 3).order("created_at DESC")
+			@clients = @curr_admin.users
+			#@clients = Form.where(form_type: 3).order("created_at DESC")
 			if params[:status] and params[:status] != 'Status'
 				@clients = @clients.where(status: params[:status]).all
 			end
@@ -40,13 +41,12 @@ class AdminsController < ApplicationController
 
 	def mark_referrer_status
 		id = params[:id]
-		form_id = params[:form_id]
 		status = params[:status]
 		@referrer = User.find_by_id(id)
-		@form = Form.find_by_id(form_id)
-		@form.status = status
-		@form.save
-		flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
+		@form = @referrer.forms.where(form_type: 1).first
+		@referrer.status = status
+		@referrer.save
+		flash[:notice] = "#{@referrer.first_name} #{@referrer.last_name} has been marked as #{@referrer.status.downcase}"
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@referrer).deliver_now # sends the email

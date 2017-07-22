@@ -71,6 +71,7 @@ referral.save
 
 e = Event.create
 e.user = client
+e.admin = central
 e.message = "This is some test text!"
 e.save
 

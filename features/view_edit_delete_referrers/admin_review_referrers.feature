@@ -16,7 +16,7 @@ Background: referrers in the database
 
 	And I am logged in as the following admin:
 	    | first_name  | last_name | email               | password   | role     |
-	    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+	    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
 Scenario: Approving the prospective Referrer profile
 	Given I am on the referrers page
@@ -26,7 +26,6 @@ Scenario: Approving the prospective Referrer profile
 	And I should see "Bryan Adams has been marked as approved"
 
 Scenario: Rejecting the prospective Referrer profile
-	Given Pending
 	Given I am on the referrers page
 	When I view the profile of "Bryan Adams"
 	And I press "Reject"
@@ -34,7 +33,6 @@ Scenario: Rejecting the prospective Referrer profile
 	And I should see "Bryan Adams has been marked as rejected"
 
 Scenario: Marking the prospective Referrer profile as incomplete
-	Given Pending
 	Given I am on the referrers page
 	When I view the profile of "Bryan Adams"
 	And I press "Incomplete"
