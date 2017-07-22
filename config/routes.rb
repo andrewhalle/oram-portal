@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'users/:id' => 'users#show'
   get 'admins' => 'admins#show_all', :as => 'admins'
   get 'admins/:id' => 'admins#show', :as => 'admin'
+  get 'admins/:id/profile' => 'admins#show_my_profile', :as => 'show_my_profile'
   get 'referrers/:id' => 'users#show', :as => 'referrer'
 
   get 'clients' => 'admins#show_clients', :as => 'clients'

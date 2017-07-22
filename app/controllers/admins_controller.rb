@@ -133,6 +133,12 @@ class AdminsController < ApplicationController
 		end
 	end
 	
+	def show_my_profile
+		@curr_admin = current_admin
+		@admin = Admin.find_by_id(params[:id])
+		render :show_my_profile
+	end
+	
 	def show
 		@curr_admin = current_admin
 		@admin = Admin.find_by_id(params[:id])
