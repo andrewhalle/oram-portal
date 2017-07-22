@@ -22,19 +22,18 @@ Background: Logging in as an Admin
     
     And I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
 Scenario: Adding a client to a caseworkers
-  Given pending
   Given I follow "Clients"
   And I view the profile of "Bryan Adams"
-  And I select "Anna Karenina" from "Employees"
-  And I press "Assign"
-  Then I should be on the user profile page
-  And "Anna Karenina" should be a Caseworker of "Bryan Adams"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  Then I should be on the profile page of user "Bryan Adams"
+  And I should see "Caseworkers: Anna Karenina"
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
-  And "Bryan Adams" should be a Client of "Anna Karenina"
+  And I should see "Clients: Bryan Adams"
   
 Scenario: Removing a client from a caseworker
   Given pending

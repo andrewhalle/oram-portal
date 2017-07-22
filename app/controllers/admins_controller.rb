@@ -95,8 +95,18 @@ class AdminsController < ApplicationController
 		@client.phase = params[:edit_client]["changed_phase"]
 		@client.save
 		message = "#{@client.first_name} #{@client.last_name} has been moved from #{prev_phase} to #{@client.phase}"
-		flash[:notice] = message
 		newEvent = @client.events.build(:user_id => :id, :message => message)
+		@client.save
+		flash[:notice] = message
+		redirect_to client_path
+	end
+	
+	def assign_caseworker
+		@client = User.find_by_id(params[:id])
+		caseworker = params[:edit_client]["assign_caseworker"]
+		first, last = caseworker.split(' ')
+		caseworker_id = Admin.where(role: 1).where(first_name: first).where(last_name: last).first.id
+		@client.ownerships.build(:user_id => :id, :admin_id => caseworker_id)
 		@client.save
 		redirect_to client_path
 	end

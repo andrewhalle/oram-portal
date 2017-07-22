@@ -17,6 +17,14 @@
 					.field
 						= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase), id: 'changed_phase'
 						= f.submit 'Change Phase'
+			.assign-caseworker-select
+				= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|
+					.field
+						= f.select :assign_caseworker, options_for_select(Admin.Caseworkers), id: 'assign_caseworker'
+						= f.submit 'Assign Caseworker'
+			.caseworkers
+				%p<
+					%b= 'Caseworkers: ' + @caseworker_name
 			.latest-event
 				%p< 
 					%b= 'Latest Event Message: ' + @last_event_message

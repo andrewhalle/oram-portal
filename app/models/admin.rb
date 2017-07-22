@@ -32,4 +32,18 @@ class Admin < ActiveRecord::Base
   
   has_many :ownerships
   has_many :users, :through => :ownerships
+  
+  def self.Caseworkers
+    caseworkers_db = self.where(role: 1).all
+    caseworkers = []
+    caseworkers_db.each do |caseworker|
+        caseworkers.append("#{caseworker.first_name}" + " " + "#{caseworker.last_name}")
+    end
+    caseworkers
+  end
+  
+  def full_name
+    return "#{first_name}" + " " + "#{last_name}"
+  end
+  
 end

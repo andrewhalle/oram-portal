@@ -44,9 +44,12 @@ o = Ownership.create
 o.user = client
 employee.ownerships << o
 
-referral = Referral.create
-referral.user_id = 3
-referral.client_id = 2
+referral = Form.create()
+referral.form_type = 2
+referral.user_id = 1
+referral.first_name = "Test"
+referral.last_name = "Referral"
+referral.form_json = JSON.generate({"First Name": "Test", "Last Name": "Questionnaire"})
 referral.save
 
 questionnaire = Form.create()

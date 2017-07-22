@@ -27,7 +27,9 @@ Rails.application.routes.draw do
   put 'clients/:id' => 'users#update_client_profile', :as => 'client_update'
   post 'clients/:id/update_status' => 'admins#mark_client_status', :as => 'mark_client_status'
   post 'clients/:id/update_phase' => 'admins#change_client_phase', :as => 'admin_change_client_phase'
-
+  post 'clients/:id/assign_caseworker' => 'admins#assign_caseworker', :as => 'admin_assign_caseworker'
+  
+  
   get 'referrals/:id' => 'forms#show', :as => 'referral'
   post 'referrals/:id/update_status' => 'admins#mark_form_status', :as => 'mark_form_status'
 
