@@ -4,4 +4,6 @@
 		%h5= @admin.email
 		.clients
 			%p<
-				%b= 'Clients: ' + @client_name
+				%b= 'Clients: '
+				- @client_names.each do |client|
+					= client + ', '

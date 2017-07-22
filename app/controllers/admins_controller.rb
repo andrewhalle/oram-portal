@@ -136,11 +136,14 @@ class AdminsController < ApplicationController
 	def show
 		@curr_admin = current_admin
 		@admin = Admin.find_by_id(params[:id])
-		if !@admin.ownerships.last.nil?
-			client_id = @admin.ownerships.last.user_id
-			@client_name = User.find_by_id(client_id).full_name
+		@client_names = []
+		if !@admin.ownerships.empty?
+			@admin.ownerships.each do |ownership|
+				client_id = ownership.user_id
+				@client_names.append(User.find_by_id(client_id).full_name)
+			end
 		else
-			@client_name = 'This caseworker has no clients.'
+			@client_names = 'This caseworker has no clients.'
 		end
 		render :admin_profile
 	end

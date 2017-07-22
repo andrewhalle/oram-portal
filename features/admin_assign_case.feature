@@ -35,6 +35,22 @@ Scenario: Assigning a caseworker to a client
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
   And I should see "Clients: Bryan Adams"
+
+Scenario: Assigning multiple clients to a caseworker
+  Given I follow "Clients"
+  And I view the profile of "Bryan Adams"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I follow "Clients"
+  And I view the profile of "George Clooney"
+  And I should see "Latest Event Message: This user has had no events before!"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker" 
+  And I should see "Latest Event Message: George Clooney has been assigned to caseworker Anna Karenina"
+  And I should see "Caseworkers: Anna Karenina"
+  Given I follow "Admins"
+  And I view the profile of "Anna Karenina"
+  And I should see "Clients: Bryan Adams,George Clooney"
   
 Scenario: Assigning multiple caseworkers to a client
   Given I follow "Clients"
