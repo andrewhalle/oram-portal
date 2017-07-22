@@ -60,6 +60,7 @@ o = Ownership.create
 o.user = client
 employee.ownerships << o
 
+<<<<<<< HEAD
 referral = Form.create()
 referral.form_type = 2
 referral.user_id = 1
@@ -67,6 +68,11 @@ referral.first_name = "Test"
 referral.last_name = "Referral"
 referral.form_json = JSON.generate({"First Name": "Test", "Last Name": "Questionnaire"})
 referral.save
+
+e = Event.create
+e.user = client
+e.message = "This is some test text!"
+e.save
 
 questionnaire = Form.create()
 questionnaire.form_type = 3
