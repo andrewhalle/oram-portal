@@ -6,8 +6,8 @@ Feature: Case Worker Login Portal
 
 Background: Case Worker in the database
   Given the following Case Workers exist:
-    | first_name  | last_name | email               | password   |
-    | oram        | Case Worker     | Case Worker321@gmail.com  | oramCase Worker  |
+    | first_name  | last_name       | email                     | password        | role    |
+    | oram        | Case Worker     | Case Worker321@gmail.com  | oramCase Worker  | employee |
 
 Scenario: Accessing the login page
   Given I am on the home page

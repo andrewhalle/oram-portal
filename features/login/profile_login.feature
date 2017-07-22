@@ -7,8 +7,8 @@ Feature: Login Portal
 Background: Users in the database
 
   Given the following users exist:
-    | first_name  | last_name | email               | password |
-    | oram        | account      | oram123@gmail.com   | oram123  |
+    | first_name  | last_name | email               | password | role    |
+    | oram        | account      | oram123@gmail.com   | oram123  | client |
 
 Scenario: Accessing the login page
   Given I am on the home page

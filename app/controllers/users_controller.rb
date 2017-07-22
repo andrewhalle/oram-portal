@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 				@caseworker_names.append(Admin.find_by_id(caseworker_id).full_name)
 			end
 		else
-			@caseworker_names = 'This user has no caseworkers.'
+			@caseworker_names.append('This user has no caseworkers.')
 		end
 		if !@user.events.last.nil?
 			@last_event_message = @user.events.last.message

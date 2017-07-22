@@ -11,10 +11,11 @@ Background: Referrer creating referrals and loggin in as admin
   And I follow "Refer Client"
   And I complete the client referral form
   And I press "Submit"
+  And I follow "Sign out"
 
-  Given that I am logged in as the following admin:
+  And I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
+    | oram        | admin     | admin321@gmail.com  | oramadmin  | central  |
 
 Scenario: Central Admin checking to see if the client appears in the table
   Given I follow "Referrals"

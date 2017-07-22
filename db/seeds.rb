@@ -60,7 +60,7 @@ o = Ownership.create
 o.user = client
 employee.ownerships << o
 
-<<<<<<< HEAD
+
 referral = Form.create()
 referral.form_type = 2
 referral.user_id = 1

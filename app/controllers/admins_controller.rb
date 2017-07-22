@@ -143,7 +143,7 @@ class AdminsController < ApplicationController
 				@client_names.append(User.find_by_id(client_id).full_name)
 			end
 		else
-			@client_names = 'This caseworker has no clients.'
+			@client_names.append('This caseworker has no clients.')
 		end
 		render :admin_profile
 	end
