@@ -18,8 +18,8 @@
 				</tr>
 				<% @events.each do |e| %>
 					<tr>
-						<td><%= e.user.first_name + " " + e.user.last_name %></td>
-						<td><%= e.admin.full_name %></td>
+						<td><%= if !e.user.nil? && !e.user.first_name.nil? then e.user.full_name end %></td>
+						<td><%= if !e.admin.nil? && !e.admin.first_name.nil? then e.admin.full_name end%></td>
 						<td><%= e.message %></td>
 						<td><%= e.created_at %></td>
 						<td><%= e.updated_at %></td>

@@ -47,8 +47,12 @@ class User < ActiveRecord::Base
 
     mount_uploader :case_document, CaseDocumentUploader
 
-
-
+    def initialize(attributes = nil)
+      super(attributes)
+      events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} created an account.")
+      save
+      # Do whatever you want in here.
+    end
     
     #Adding stuff for tracker 
     def self.Application_phases

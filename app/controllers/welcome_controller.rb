@@ -21,6 +21,5 @@ class WelcomeController < ApplicationController
         @events = Event.where(:user_id => user_ids).all
       end
     end
-
   end
 end

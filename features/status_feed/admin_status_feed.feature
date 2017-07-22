@@ -18,7 +18,7 @@ Scenario: Checking if CASF (Central Admin Status Feed) exists
   Given I am on the home page 
   Then I should see "Latest"
     And I should see "Joe Bob"
-    And I should see "Approved"
+    And I should see "User Joe Bob created an account"
       
 Scenario: Checking if CASF (Client Approval Status Feed) exists 
   Given PENDING
