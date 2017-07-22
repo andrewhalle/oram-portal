@@ -1,10 +1,12 @@
 <% if @user != nil or @curr_admin != nil %>
 	<% if @user and @user.role == "client" %>
-		<div id="status">
+		<div id="case_tracking_status">
 			<p id="status_text">You're currently in phase 1.</p>
 			<div id="status_bar"></div>
 		</div>
-		<!--<script type="text/javascript" src="status.js"></script>-->
+		<script>
+			setTimeout(function() { animateStatus(<%= @user.phase[-1] %>); }, 200);
+		</script>
 	<% end %>
 		<div id="case_tracker">
 			<h1 id="event_list_title">Latest</h1>
