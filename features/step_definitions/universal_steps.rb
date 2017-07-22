@@ -49,6 +49,17 @@ Given /the following referrers exist/ do |referrers_table|
     end
 end
 
+Given(/^the following relations exist:$/) do |relations_table|
+  # table is a Cucumber::MultilineArgument::DataTable
+ # Write code here that turns the phrase above into concrete actions
+  relations_table.hashes.each do |relations|
+    client_first_name, client_last_name = relations["client"].split(' ')
+    client_id = User.where(first_name: client_first_name).where(last_name: client_last_name).first.id
+    admin_first_name, admin_last_name = relations["caseworker"].split(' ')
+    admin_id = Admin.where(first_name: admin_first_name).where(last_name: admin_last_name).first.id
+    Ownership.create(:user_id => client_id, :admin_id => admin_id)
+  end
+end
 
 #originally taken from what was called client_document_steps.rb
 When /I upload the file "(.*)"/ do |file_name|
