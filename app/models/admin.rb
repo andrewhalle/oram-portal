@@ -34,10 +34,9 @@ class Admin < ActiveRecord::Base
   has_many :events
   has_many :users, :through => :ownerships
   
-  def initialize(attributes)
-    super(attributes)
+  def initialize(attributes = nil)
+    super
     events.build(:admin_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} created an account.")
-    save
     # Do whatever you want in here.
   end
   

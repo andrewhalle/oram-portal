@@ -44,13 +44,14 @@ class User < ActiveRecord::Base
     has_many :events
     has_many :ownerships
     has_many :admins, :through => :ownerships
+    
+
 
     mount_uploader :case_document, CaseDocumentUploader
 
     def initialize(attributes = nil)
-      super(attributes)
+      super
       events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} created an account.")
-      save
       # Do whatever you want in here.
     end
     
