@@ -88,6 +88,10 @@ When(/^I select "([^"]*)" from the change phase dropdown$/) do |arg1|
   select(arg1, :from => "edit_client_changed_phase", visible: false) # Write code here that turns the phrase above into concrete actions
 end
 
+When(/^I select "([^"]*)" from the caseworker dropdown$/) do |arg1|
+  select(arg1, :from => "edit_client_assign_caseworker", visible: false) # Write code here that turns the phrase above into concrete actions
+end
+
 Given(/^that I am on the signup page$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end

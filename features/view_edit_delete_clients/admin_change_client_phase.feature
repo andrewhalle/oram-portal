@@ -6,10 +6,10 @@ Feature: Administrator viewing client profiles and being able to approve/reject 
 Background: Clients in the database and logged in as an admin
   Given the following clients exist:
     | first_name  | last_name   | email                 | password     	  | role					| invitation_accepted_at | phase    |
-    | Bryan       | Adams     	| bryan@adams.com       | oram123         | client			  | 'test'                 | "Phase 1"|
-    | George      | Clooney     | george@clooney.com    | oram123         | client			  | 'test'                 | "Phase 3"|
-    | Michael     | Jordan    	| michael@jordan.com    | oram123         | client			  | 'test'                 | "Phase 4"|
-    | Joe         | Bob     	  | joe@bob.com           | oram123         | client			  | 'test'                 | "Phase 5"|
+    | Bryan       | Adams     	| bryan@adams.com       | oram123         | client			  | 'test'                 | Phase 1|
+    | George      | Clooney     | george@clooney.com    | oram123         | client			  | 'test'                 | Phase 3|
+    | Michael     | Jordan    	| michael@jordan.com    | oram123         | client			  | 'test'                 | Phase 4|
+    | Joe         | Bob     	  | joe@bob.com           | oram123         | client			  | 'test'                 | Phase 5|
 
   And I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
@@ -37,5 +37,5 @@ Scenario: Admin changing client phase
   Given I view the profile of "George Clooney"
   When I select "Phase 5" from the change phase dropdown
   And I press "Change Phase"
-  Then I should see "Latest Event"
-  And I should see "oram admin change George Clooney from Phase 4 to Phase 5"
+  Then I should see "Latest Event Message:"
+  And I should see "George Clooney has been moved from Phase 3 to Phase 5"

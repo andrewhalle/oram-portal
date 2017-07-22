@@ -22,20 +22,66 @@ Background: Logging in as an Admin
     
     And I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
-Scenario: Adding a client to a caseworkers
-  Given pending
+Scenario: Assigning a caseworker to a client
   Given I follow "Clients"
   And I view the profile of "Bryan Adams"
-  And I select "Anna Karenina" from "Employees"
-  And I press "Assign"
-  Then I should be on the user profile page
-  And "Anna Karenina" should be a Caseworker of "Bryan Adams"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  Then I should be on the profile page of user "Bryan Adams"
+  And I should see "Caseworkers: Anna Karenina"
+  And I should see "Latest Event Message: Bryan Adams has been assigned to caseworker Anna Karenina"
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
-  And "Bryan Adams" should be a Client of "Anna Karenina"
+  And I should see "Clients: Bryan Adams"
+
+Scenario: Assigning multiple clients to a caseworker
+  Given I follow "Clients"
+  And I view the profile of "Bryan Adams"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I follow "Clients"
+  And I view the profile of "George Clooney"
+  And I should see "Latest Event Message: This user has had no events before!"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker" 
+  And I should see "Latest Event Message: George Clooney has been assigned to caseworker Anna Karenina"
+  And I should see "Caseworkers: Anna Karenina"
+  Given I follow "Admins"
+  And I view the profile of "Anna Karenina"
+  And I should see "Clients: Bryan Adams,George Clooney"
   
+Scenario: Assigning multiple caseworkers to a client
+  Given I follow "Clients"
+  And I view the profile of "Bryan Adams"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I select "Sam Iam" from the caseworker dropdown
+  And I press "Assign Caseworker" 
+  And I should see "Latest Event Message: Bryan Adams has been assigned to caseworker Sam Iam"
+  And I should see "Caseworkers: Anna Karenina,Sam Iam"
+  Given I follow "Admins"
+  And I view the profile of "Anna Karenina"
+  And I should see "Clients: Bryan Adams"
+
+Scenario: Assigning the same caseworker to a client twice shouldn't duplicate
+  Given I follow "Clients"
+  And I view the profile of "Bryan Adams"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I select "Sam Iam" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker" 
+  And I should see "Latest Event Message: Bryan Adams has been assigned to caseworker Sam Iam"
+  And I should see "Caseworkers: Anna Karenina,Sam Iam"
+  And I should not see "Caseworkers: Anna Karenina,Sam Iam,Anna Karenina"
+  Given I follow "Admins"
+  And I view the profile of "Anna Karenina"
+  And I should see "Clients: Bryan Adams"
+  And I should not see "Clients: Bryan Adams,Bryan Adams"
+
 Scenario: Removing a client from a caseworker
   Given pending
   Given I follow "Clients"

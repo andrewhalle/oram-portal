@@ -69,8 +69,6 @@ class AdminsController < ApplicationController
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@client).deliver_now # sends the email
-		elsif status == "Complete"
-			@client.phase = "Phase 3"
 		end
 		redirect_to clients_path
 	end
@@ -96,8 +94,29 @@ class AdminsController < ApplicationController
 		prev_phase = @client.phase
 		@client.phase = params[:edit_client]["changed_phase"]
 		@client.save
-		flash[:notice] = "You successfully moved #{@client.first_name} #{@client.last_name} from #{prev_phase} to #{@client.phase}"
-		newEvent = @client.events.build()
+		message = "#{@client.first_name} #{@client.last_name} has been moved from #{prev_phase} to #{@client.phase}"
+		newEvent = @client.events.build(:user_id => :id, :message => message)
+		@client.save
+		flash[:notice] = message
+		redirect_to client_path
+	end
+	
+	def assign_caseworker
+		@client = User.find_by_id(params[:id])
+		caseworker = params[:edit_client]["assign_caseworker"]
+		first, last = caseworker.split(' ')
+		caseworker_id = Admin.where(role: 1).where(first_name: first).where(last_name: last).first.id
+		
+		if !@client.ownerships.where(user_id: params[:id]).empty? && !@client.ownerships.where(user_id: params[:id]).where(admin_id: caseworker_id).empty?
+			#means that this ownership already exists!
+			flash[:warning] = "#{@client.first_name} #{@client.last_name} has already been assigned to caseworker #{first} #{last}!"
+		else
+			@client.ownerships.build(:user_id => params[:id], :admin_id => caseworker_id)
+			message = "#{@client.first_name} #{@client.last_name} has been assigned to caseworker #{first} #{last}"
+			newEvent = @client.events.build(:user_id => params[:id], :message => message)
+			@client.save
+			flash[:notice] = message
+		end
 		redirect_to client_path
 	end
 
@@ -117,6 +136,15 @@ class AdminsController < ApplicationController
 	def show
 		@curr_admin = current_admin
 		@admin = Admin.find_by_id(params[:id])
+		@client_names = []
+		if !@admin.ownerships.empty?
+			@admin.ownerships.each do |ownership|
+				client_id = ownership.user_id
+				@client_names.append(User.find_by_id(client_id).full_name)
+			end
+		else
+			@client_names.append('This caseworker has no clients.')
+		end
 		render :admin_profile
 	end
 end
