@@ -32,6 +32,7 @@ class UsersController < ApplicationController
 				@form_id = client_form.first.id
 				@form_hash = JSON.parse(client_form.first.form_json)
 			end
+			@events = Event.where(:user_id => @user.id).all.reverse
 			render :client_profile
 		end
 	end
