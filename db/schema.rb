@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722031316) do
+ActiveRecord::Schema.define(version: 20170722204406) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -37,6 +37,9 @@ ActiveRecord::Schema.define(version: 20170722031316) do
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
     t.integer  "role"
+    t.string   "phone",                  default: ""
+    t.string   "address",                default: ""
+    t.string   "skype",                  default: ""
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
@@ -105,9 +108,9 @@ ActiveRecord::Schema.define(version: 20170722031316) do
     t.integer  "invitations_count",      default: 0
     t.integer  "role"
     t.string   "case_document"
-    t.string   "address",                default: ""
-    t.string   "phone",                  default: ""
-    t.string   "skype",                  default: ""
+    t.string   "address"
+    t.string   "phone"
+    t.string   "skype"
     t.string   "phase",                  default: "Phase 1"
     t.string   "status",                 default: "Incomplete"
   end
