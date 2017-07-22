@@ -11,12 +11,18 @@
 			<table id="events">
 				<tr>
 					<th>Client</th>
+					<th>Admin</th>
 					<th>Event</th>
+					<th>Created</th>
+					<th>Last Modified</th>
 				</tr>
 				<% @events.each do |e| %>
 					<tr>
 						<td><%= e.user.first_name + " " + e.user.last_name %></td>
+						<td><%= e.admin.full_name %></td>
 						<td><%= e.message %></td>
+						<td><%= e.created_at %></td>
+						<td><%= e.updated_at %></td>
 					</tr>
 				<% end %>
 			</table>

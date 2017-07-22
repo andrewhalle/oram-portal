@@ -1,11 +1,11 @@
-Feature: ORAM Employee checking the status of clients via the status feed.
+Feature: Central Admin checking the status of clients via the status feed.
   As an ORAM administrator
   I want to be able to see a status feed on the landing page that displays the status of all referrers and prospective clients.
 
 Background: Logging is an an Admin to check statuses
-  Given that I am logged in as the following referrer:
+  Given that I am logged in as the following admin:
     | first_name	| last_name	| email             	| password	| invitation_accepted_at | role        |
-    | Central	    | Admin       | central@admin.com   | password	| 'test'               | referrer    |
+    | Central	    | Admin       | central@admin.com   | password	| 'test'               | central     |
 
   Given the following clients exist:
     | first_name  | last_name   | email                 | password     	  | role			    | invitation_accepted_at | 
@@ -14,10 +14,9 @@ Background: Logging is an an Admin to check statuses
     | Michael     | Jordan    	| michael@jordan.com    | oram123         | client			  | 'test'                 |
     | Joe         | Bob        	| joe@bob.com           | oram123         | client			  | 'test'                 | 
 
-Scenario: Checking if RASF (Referrer Approval Status Feed) exists 
-  Given PENDING
+Scenario: Checking if CASF (Central Admin Status Feed) exists 
   Given I am on the home page 
-  Then I should see "Referrer Approval Status Feed"
+  Then I should see "Latest"
     And I should see "Joe Bob"
     And I should see "Approved"
       

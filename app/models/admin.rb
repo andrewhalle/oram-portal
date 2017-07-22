@@ -31,6 +31,7 @@ class Admin < ActiveRecord::Base
   enum role: [:central, :employee]
   
   has_many :ownerships
+  has_many :events
   has_many :users, :through => :ownerships
   
   def self.Caseworkers
