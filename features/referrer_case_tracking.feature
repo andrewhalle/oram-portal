@@ -10,19 +10,13 @@ Background: Clients in the database and logged in as an Case Worker
     | Michael     | Jordan    	| michael@jordan.com    | oram123         | client			  | 'test'                 |
     | Joe         | Bob     	| joe@bob.com           | oram123         | client			  | 'test'                 |
 
-  And I am logged in as the following Case Worker:
-    | first_name  | last_name                       | email                     | password         |
-    | oram        | Case Worker                     | Case Worker321@gmail.com  | oramCase Worker  |
+  And I am logged in as the following referrer:
+    | first_name  | last_name                       | email                     | password         | role |
+    | oram        | Case Worker                     | Case Worker321@gmail.com  | oramCase Worker  | referrer |
 
 Scenario: A referrer checking a client status 
-  Given PENDING
+  Given pending
   Given I follow "Clients"
-  And I view the profile of "Bryan Adams"
-  And I press "Case Status"
-  Then the case status of "Bryan Adams" should be "Approved"
-  And I view the profile of "George Clooney"
-  And I press "Case Status"
-  Then the status of "George Clooney" should be "Rejected"
-  And I view the profile of "Michael Jordan"
-  And I press "case Status"
-  Then the status of "Michael Jordan" should be "Incomplete"
+  Then the status of "Bryan Adams" should be "Approved"
+  And the status of "George Clooney" should be "Rejected"
+  And the status of "Michael Jordan" should be "Incomplete"

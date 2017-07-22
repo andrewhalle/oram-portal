@@ -26,7 +26,6 @@ Scenario: Approving the prospective Referrer profile
 	And I should see "Bryan Adams has been marked as approved"
 
 Scenario: Rejecting the prospective Referrer profile
-	Given Pending
 	Given I am on the referrers page
 	When I view the profile of "Bryan Adams"
 	And I press "Reject"
@@ -34,7 +33,6 @@ Scenario: Rejecting the prospective Referrer profile
 	And I should see "Bryan Adams has been marked as rejected"
 
 Scenario: Marking the prospective Referrer profile as incomplete
-	Given Pending
 	Given I am on the referrers page
 	When I view the profile of "Bryan Adams"
 	And I press "Incomplete"

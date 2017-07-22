@@ -1,4 +1,4 @@
-Feature: Case Worker viewing client profiles and being able to approve/reject them
+Feature: Case Worker viewing client profiles and being able to change their phases
   As an ORAM Case Worker
   In order to mark client refugees statuses as approved, rejected, or incomplete
   I want to be able to see a table of all clients and be able to view their individual profiles
@@ -46,4 +46,14 @@ Scenario: Caseworker should also see all the referrals
     Then I should see "George"
     And I should not see "Michael"
     And I should not see "Alice"
+
+Scenario: Caseworker should be able to change client phase
+  Given I follow "Clients"
+  And I view the profile of "George Clooney"
+  When I select "Phase 4" from the change phase dropdown
+  And I press "Change Phase"
+  And I follow "Clients"
+  Then the phase of "George Clooney" should be "Phase 4"
+ 
+
 

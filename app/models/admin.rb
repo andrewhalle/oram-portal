@@ -56,12 +56,12 @@ class Admin < ActiveRecord::Base
     user_ids
   end
   
-  def get_user_params(param)
-    user_params = users.map do |u|
-      u.send(param)
-    end
-    user_params
-  end
+  # def get_user_params(param)
+  #   user_params = users.map do |u|
+  #     u.send(param)
+  #   end
+  #   user_params
+  # end
   
   def full_name
     return "#{first_name}" + " " + "#{last_name}"
