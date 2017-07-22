@@ -5,11 +5,14 @@ class UsersController < ApplicationController
 		@curr_admin = current_admin
 		@user = User.find(params[:id])
 		@form_hash = {}
-		if !@user.ownerships.last.nil?
-			caseworker_id = @user.ownerships.last.admin_id
-			@caseworker_name = Admin.find_by_id(caseworker_id).full_name
+		@caseworker_names = []
+		if !@user.ownerships.nil?
+			@user.ownerships.each do |ownership|
+				caseworker_id = ownership.admin_id
+				@caseworker_names.append(Admin.find_by_id(caseworker_id).full_name)
+			end
 		else
-			@caseworker_name = 'This user has no caseworkers.'
+			@caseworker_names = 'This user has no caseworkers.'
 		end
 		if !@user.events.last.nil?
 			@last_event_message = @user.events.last.message

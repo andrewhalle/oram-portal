@@ -24,7 +24,9 @@
 						= f.submit 'Assign Caseworker'
 			.caseworkers
 				%p<
-					%b= 'Caseworkers: ' + @caseworker_name
+					%b= 'Caseworkers: '
+					- @caseworker_names.each do |caseworker|
+						= caseworker + ', '
 			.latest-event
 				%p< 
 					%b= 'Latest Event Message: ' + @last_event_message

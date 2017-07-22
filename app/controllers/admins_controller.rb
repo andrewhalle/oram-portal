@@ -106,8 +106,17 @@ class AdminsController < ApplicationController
 		caseworker = params[:edit_client]["assign_caseworker"]
 		first, last = caseworker.split(' ')
 		caseworker_id = Admin.where(role: 1).where(first_name: first).where(last_name: last).first.id
-		@client.ownerships.build(:user_id => :id, :admin_id => caseworker_id)
-		@client.save
+		
+		if !@client.ownerships.where(user_id: params[:id]).empty? && !@client.ownerships.where(user_id: params[:id]).where(admin_id: caseworker_id).empty?
+			#means that this ownership already exists!
+			flash[:warning] = "#{@client.first_name} #{@client.last_name} has already been assigned to caseworker #{first} #{last}!"
+		else
+			@client.ownerships.build(:user_id => params[:id], :admin_id => caseworker_id)
+			message = "#{@client.first_name} #{@client.last_name} has been assigned to caseworker #{first} #{last}"
+			newEvent = @client.events.build(:user_id => params[:id], :message => message)
+			@client.save
+			flash[:notice] = message
+		end
 		redirect_to client_path
 	end
 

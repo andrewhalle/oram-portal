@@ -40,6 +40,22 @@ client.password = "password"
 client.role = 1
 client.save
 
+employee2 = Admin.create
+employee2.first_name = "employee2"
+employee2.last_name = "admin"
+employee2.email = "employee2@admin.com"
+employee2.password = "password"
+employee2.role = 1
+employee2.save
+
+employee3 = Admin.create
+employee3.first_name = "employee3"
+employee3.last_name = "admin"
+employee3.email = "employee3@admin.com"
+employee3.password = "password"
+employee3.role = 1
+employee3.save
+
 o = Ownership.create
 o.user = client
 employee.ownerships << o
