@@ -16,7 +16,7 @@ Background: referrers in the database
 
 	And I am logged in as the following admin:
 	    | first_name  | last_name | email               | password   | role     |
-	    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+	    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
 Scenario: Approving the prospective Referrer profile
 	Given I am on the referrers page

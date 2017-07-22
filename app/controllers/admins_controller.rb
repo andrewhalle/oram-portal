@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
 		if @curr_admin.role == "central"
 			@referrers = User.where(role: 0).all
 		elsif @curr_admin.role == "employee"
-			@referrers = Form.where(form_type: 1)
+			@referrers = User.where(role: 0).where(status: "Approved")
 			if params[:status] and params[:status] != 'Status'
 				@referrers = @referrers.where(status: params[:status])
 			end
@@ -45,6 +45,8 @@ class AdminsController < ApplicationController
 		status = params[:status]
 		@referrer = User.find_by_id(id)
 		@form = Form.find_by_id(form_id)
+		@referrer.status = status
+		@referrer.save
 		@form.status = status
 		@form.save
 		flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
