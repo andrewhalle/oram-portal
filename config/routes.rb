@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   get 'admins/:id/setting/edit' => 'admins#admin_settings_edit', :as => 'admin_settings_edit'
   get 'admins/:id/setting/delete' => 'admins#admin_destroy', :as => 'admin_destroy'
   patch 'admins/:id/setting' => 'admins#admin_edit_save', :as => 'edit_save_admin'
+  
+  get 'referrer/:id/setting' => 'users#referrer_setting', :as => 'referrer_setting'
+  get 'referrers/:id' => 'users#show', :as => 'referrer'
 
   get 'clients' => 'admins#show_clients', :as => 'clients'
   get 'referrals' => 'admins#show_referrals', :as => 'admin_referrals'
