@@ -1,16 +1,5 @@
 function clientTogglePersonalRelationshipToReferrer() {
-	var yes = $('.client-personal-relationship-to-referrer').first().val() === "Yes";
-	var no = $('.client-personal-relationship-to-referrer').first().val() === "No";
-	if (yes) {
-		$('.client-personal-relationship-yes-questionnaire').slideDown();
-		$('.client-personal-relationship-no-questionnaire').slideUp();
-	} else if (no) {
-		$('.client-personal-relationship-no-questionnaire').slideDown();
-		$('.client-personal-relationship-yes-questionnaire').slideUp();
-	} else {
-		$('.client-personal-relationship-yes-questionnaire').slideUp();
-		$('.client-personal-relationship-no-questionnaire').slideUp();
-	}
+	togglePersonalRelationship('.client-personal-relationship-to-referrer', '.client-personal-relationship-yes-questionnaire', '.client-personal-relationship-no-questionnaire');
 }
 
 function showHideElement(controlFunction, el) {

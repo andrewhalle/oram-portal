@@ -133,19 +133,23 @@ function hideDocumentaryOtherExplanation() {
 	}
 }
 
-function togglePersonalRelationshipToClient() {
-	var yes = $('.personal-relationship-to-client').first().val() === "Yes";
-	var no = $('.personal-relationship-to-client').first().val() === "No";
+function togglePersonalRelationship(relationshipClass, yesClass, noClass) {
+	var yes = $(relationshipClass).first().val() === "Yes";
+	var no = $(relationshipClass).first().val() === "No";
 	if (yes) {
-		$('.personal-relationship-yes').slideDown();
-		$('.personal-relationship-no').slideUp();
+		$(yesClass).slideDown();
+		$(noClass).slideUp();
 	} else if (no) {
-		$('.personal-relationship-no').slideDown();
-		$('.personal-relationship-yes').slideUp();
+		$(noClass).slideDown();
+		$(yesClass).slideUp();
 	} else {
-		$('.personal-relationship-yes').slideUp();
-		$('.personal-relationship-no').slideUp();
+		$(yesClass).slideUp();
+		$(noClass).slideUp();
 	}
+}
+
+function togglePersonalRelationshipToClient() {
+	togglePersonalRelationship('.personal-relationship-to-client', '.personal-relationship-yes', '.personal-relationship-no');
 }
 
 function hideProfessionalRelationshipOptions() {
