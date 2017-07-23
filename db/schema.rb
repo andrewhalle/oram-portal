@@ -108,9 +108,9 @@ ActiveRecord::Schema.define(version: 20170722204406) do
     t.integer  "invitations_count",      default: 0
     t.integer  "role"
     t.string   "case_document"
-    t.string   "address"
-    t.string   "phone"
-    t.string   "skype"
+    t.string   "address",                default: ""
+    t.string   "phone",                  default: ""
+    t.string   "skype",                  default: ""
     t.string   "phase",                  default: "Phase 1"
     t.string   "status",                 default: "Incomplete"
   end
