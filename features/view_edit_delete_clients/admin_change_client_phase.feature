@@ -37,5 +37,5 @@ Scenario: Admin changing client phase
   Given I view the profile of "George Clooney"
   When I select "Phase 5" from the change phase dropdown
   And I press "Change Phase"
-  Then I should see "Latest Event Message:"
+  Then I should see "Last Client Activity:"
   And I should see "George Clooney has been moved from Phase 3 to Phase 5"

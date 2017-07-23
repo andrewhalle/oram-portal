@@ -27,11 +27,13 @@ Background: Logging in as an Admin
 Scenario: Assigning a caseworker to a client
   Given I follow "Clients"
   And I view the profile of "Bryan Adams"
+  And I view "Caseworkers"
   And I select "Anna Karenina" from the caseworker dropdown
   And I press "Assign Caseworker"
   Then I should be on the profile page of user "Bryan Adams"
-  And I should see "Caseworkers: Anna Karenina"
-  And I should see "Latest Event Message: Bryan Adams has been assigned to caseworker Anna Karenina"
+  And I view "Caseworkers"
+  And I should see "Anna Karenina"
+  And I should see "Bryan Adams has been assigned to caseworker Anna Karenina"
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
   And I should see "Clients: Bryan Adams"
@@ -39,15 +41,17 @@ Scenario: Assigning a caseworker to a client
 Scenario: Assigning multiple clients to a caseworker
   Given I follow "Clients"
   And I view the profile of "Bryan Adams"
+  And I view "Caseworkers"
   And I select "Anna Karenina" from the caseworker dropdown
   And I press "Assign Caseworker"
   And I follow "Clients"
   And I view the profile of "George Clooney"
-  And I should see "Latest Event Message: User George Clooney created an account."
+  And I should see "User George Clooney created an account."
+  And I view "Caseworkers"
   And I select "Anna Karenina" from the caseworker dropdown
   And I press "Assign Caseworker" 
-  And I should see "Latest Event Message: George Clooney has been assigned to caseworker Anna Karenina"
-  And I should see "Caseworkers: Anna Karenina"
+  And I should see "George Clooney has been assigned to caseworker Anna Karenina"
+  And I should see "Anna Karenina"
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
   And I should see "Clients: Bryan Adams,George Clooney"
@@ -55,12 +59,13 @@ Scenario: Assigning multiple clients to a caseworker
 Scenario: Assigning multiple caseworkers to a client
   Given I follow "Clients"
   And I view the profile of "Bryan Adams"
+  And I view "Caseworkers"
   And I select "Anna Karenina" from the caseworker dropdown
   And I press "Assign Caseworker"
   And I select "Sam Iam" from the caseworker dropdown
   And I press "Assign Caseworker" 
-  And I should see "Latest Event Message: Bryan Adams has been assigned to caseworker Sam Iam"
-  And I should see "Caseworkers: Anna Karenina,Sam Iam"
+  And I should see "Bryan Adams has been assigned to caseworker Sam Iam"
+  And I should see "Anna Karenina"
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
   And I should see "Clients: Bryan Adams"
@@ -68,15 +73,18 @@ Scenario: Assigning multiple caseworkers to a client
 Scenario: Assigning the same caseworker to a client twice shouldn't duplicate
   Given I follow "Clients"
   And I view the profile of "Bryan Adams"
+  And I view "Caseworkers"
   And I select "Anna Karenina" from the caseworker dropdown
   And I press "Assign Caseworker"
+  And I view "Caseworkers"
   And I select "Sam Iam" from the caseworker dropdown
   And I press "Assign Caseworker"
+  And I view "Caseworkers"
   And I select "Anna Karenina" from the caseworker dropdown
   And I press "Assign Caseworker" 
-  And I should see "Latest Event Message: Bryan Adams has been assigned to caseworker Sam Iam"
-  And I should see "Caseworkers: Anna Karenina,Sam Iam"
-  And I should not see "Caseworkers: Anna Karenina,Sam Iam,Anna Karenina"
+  And I should see "Bryan Adams has been assigned to caseworker Sam Iam"
+  And I should see "Anna Karenina"
+  And I should not see "Anna Karenina,Sam Iam,Anna Karenina"
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
   And I should see "Clients: Bryan Adams"

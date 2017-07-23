@@ -1,5 +1,5 @@
 %h1#client_list_title Clients
-%table#clients
+%table#clients.table-hover
   %thead
     %tr
       %th First Name
@@ -11,7 +11,7 @@
             class: 'filter',
             :onchange => "filter_by_status(this.value)"
       %th= select_tag "phase",
-        options_for_select(["All", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6"], @phase),
+        options_for_select(["All", "Pending", "Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Rejected"], @phase),
         id: 'select_button',
         class: 'filter',
         :onchange => "filter_by_phase(this.value)"
