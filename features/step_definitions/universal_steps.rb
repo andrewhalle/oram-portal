@@ -115,3 +115,6 @@ When(/^I select "([^"]*)" from the caseworker dropdown$/) do |arg1|
   select(arg1, :from => "edit_client_assign_caseworker", visible: false) # Write code here that turns the phrase above into concrete actions
 end
 
+And(/^I view "Caseworkers"$/) do
+  find('#menu1', :text => 'Caseworkers').click
+end
