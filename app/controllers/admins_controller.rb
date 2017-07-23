@@ -133,6 +133,12 @@ class AdminsController < ApplicationController
 		end
 	end
 	
+	def show_my_profile
+		@curr_admin = current_admin
+		@admin = Admin.find_by_id(params[:id])
+		render :show_my_profile
+	end
+	
 	def show
 		@curr_admin = current_admin
 		@admin = Admin.find_by_id(params[:id])
@@ -146,5 +152,61 @@ class AdminsController < ApplicationController
 			@client_names.append('This caseworker has no clients.')
 		end
 		render :admin_profile
+	end
+	
+	 def admin_settings_edit
+	 	@curr_admin = current_admin
+		@admin = Admin.find_by_id(params[:id])
+		render :admin_edit_profile
+    end
+    
+    def admin_setting
+    	@curr_admin = current_admin
+		render :admin_edit_profile
+    end
+    
+    def admin_edit_save
+    	Admin.update(params[:id], 
+    	{:first_name => params["user"]["first_name"], 
+    	:last_name => params["user"]["last_name"], 
+    	:email => params["user"]["email"], 
+    	:phone => params["user"]["phone"], 
+    	:address => params["user"]["address"],
+    	:skype => params["user"]["skype"]})
+    	redirect_to :admin_setting
+    end
+    
+    def admin_destroy
+		redirect_to destroy_user_session_path
+		@admin = User.find_by_id(params[:id])
+		@admin.destroy
+	end
+	
+	 def admin_settings_edit
+	 	@curr_admin = current_admin
+		@admin = Admin.find_by_id(params[:id])
+		render :admin_edit_profile
+    end
+    
+    def admin_setting
+    	@curr_admin = current_admin
+		render :admin_edit_profile
+    end
+    
+    def admin_edit_save
+    	Admin.update(params[:id], 
+    	{:first_name => params["user"]["first_name"], 
+    	:last_name => params["user"]["last_name"], 
+    	:email => params["user"]["email"], 
+    	:phone => params["user"]["phone"], 
+    	:address => params["user"]["address"],
+    	:skype => params["user"]["skype"]})
+    	redirect_to :admin_setting
+    end
+    
+    def admin_destroy
+		redirect_to destroy_user_session_path
+		@admin = User.find_by_id(params[:id])
+		@admin.destroy
 	end
 end

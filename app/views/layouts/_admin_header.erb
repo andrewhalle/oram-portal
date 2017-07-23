@@ -30,12 +30,16 @@
   <ul class="nav navbar-nav">
     <%  if @curr_admin.role == 'central' %>
       <li class="header-link content-link"><%= link_to "ORAM Website", "http://oramrefugee.org", class: "hvr-underline-from-left"%> </li>
+      <li class="header-link content-link"><%= link_to "Profile", show_my_profile_path(@curr_admin), class: "hvr-underline-from-left"%> </li>
+      
+
       <li class="header-link content-link"><%= link_to "Admins", admins_path, :value => "display_admins_button", :method => :get, class: "hvr-underline-from-left" %> </li>
       <li class="header-link content-link"><%= link_to "Referrers", referrers_path, :value => "display_referrers_button", :method => :get, class: "hvr-underline-from-left" %> </li>
       <li class="header-link content-link"><%= link_to "Clients", clients_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
       <li class="header-link content-link"><%= link_to "Referrals", admin_referrals_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
       <li class="header-link content-link"><%= link_to 'Invite User', new_user_invitation_path, class: "hvr-underline-from-left", :method => :get %> </li>
       <li class="header-link content-link"><%= link_to 'Invite Admin', new_admin_invitation_path, class: "hvr-underline-from-left", :method => :get %> </li>
+      <li class="header-link content-link"><%= link_to "Settings", admin_setting_path(current_admin.id), class: "hvr-underline-from-left"%> </li>
     <% elsif @curr_admin.role == 'employee' %>
       <li class="header-link content-link"><%= link_to "ORAM Website", "http://oramrefugee.org", class: "hvr-underline-from-left"%> </li>
       <li class="header-link content-link"><%= link_to "Referrers", referrers_path, :value => "display_referrers_button", :method => :get, class: "hvr-underline-from-left" %> </li>

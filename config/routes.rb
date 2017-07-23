@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   get 'users/:id' => 'users#show'
   get 'admins' => 'admins#show_all', :as => 'admins'
   get 'admins/:id' => 'admins#show', :as => 'admin'
-  get 'referrers/:id' => 'users#show', :as => 'referrer'
+  get 'admins/:id/profile' => 'admins#show_my_profile', :as => 'show_my_profile'
+  get 'admins/:id/setting' => 'admins#admin_setting', :as => 'admin_setting'
+  get 'admins/:id/setting/edit' => 'admins#admin_settings_edit', :as => 'admin_settings_edit'
+  get 'admins/:id/setting/delete' => 'admins#admin_destroy', :as => 'admin_destroy'
+  patch 'admins/:id/setting' => 'admins#admin_edit_save', :as => 'edit_save_admin'
 
   get 'clients' => 'admins#show_clients', :as => 'clients'
   get 'referrals' => 'admins#show_referrals', :as => 'admin_referrals'
