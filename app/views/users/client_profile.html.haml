@@ -1,44 +1,86 @@
-.panel.panel-default.panel-form
-	.panel-heading
-		%h3= @user.full_name
-		%h5= @user.email
-		%h5= @user.phase
-		.caseworkers
-			%p<
-				%b= 'Caseworkers: '
-				- @caseworker_names.each do |caseworker|
-					= caseworker + ', '
-		.latest-event
-			%p< 
-				%b= 'Latest Event Message: ' + @last_event_message
-		- if current_user && current_user.role == "client" && @user.id == current_user.id
-			= link_to 'Edit', client_edit_path(@user.id), :method => :get
-		- if current_admin
-			.form-profile-button
-				= button_to 'Approve', mark_client_status_path(:status => "Approved", :form_id => @form_id), {:method => 'post', :class => 'btn btn-large btn-success'}
-			.form-profile-button
-				= button_to 'Reject', mark_client_status_path(:status => "Rejected", :form_id => @form_id), {:method => 'post', :class => 'btn btn-large btn-danger'}
-			.form-profile-button
-				= button_to 'Incomplete', mark_client_status_path(:status => "Incomplete", :form_id => @form_id), {:method => 'post', :class => 'btn btn-large btn-warning'}
-			.phase-change-select
-				= form_for :edit_client, :url => admin_change_client_phase_path(:action => 'post') do |f|
-					.field
-						= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase), id: 'changed_phase'
-						= f.submit 'Change Phase'
-			.assign-caseworker-select
-				= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|
-					.field
-						= f.select :assign_caseworker, options_for_select(Admin.Caseworkers), id: 'assign_caseworker'
-						= f.submit 'Assign Caseworker'
+.container-fluid.panel.panel-default
+	.panel-body.container-fluid
+		.row
+			.col-md-8
+				%h1= @user.full_name
+				%p= @user.email
+				- if current_user && current_user.role == "client" && @user.id == current_user.id
+					= link_to 'Edit', client_edit_path(@user.id), :method => :get
+				%hr
+				%h5= @user.phase
+				%h5= "Questionnaire status: " + @user.status
+				%p<
+					%h5 Last Client Activity: 
+					= @last_event_message
 
+
+			.col-md-4
+				- if current_admin
+					.panel.panel-review.panel-info
+						%b Change Questionnaire Status
+						%br
+						.form-profile-button
+							= button_to 'Approve', mark_client_status_path(:status => "Approved", :form_id => @form_id), {:method => 'post', :class => 'btn btn-sm btn-success'}
+						.form-profile-button
+							= button_to 'Reject', mark_client_status_path(:status => "Rejected", :form_id => @form_id), {:method => 'post', :class => 'btn btn-sm btn-danger'}
+						.form-profile-button
+							= button_to 'Incomplete', mark_client_status_path(:status => "Incomplete", :form_id => @form_id), {:method => 'post', :class => 'btn btn-sm btn-warning'}
+						%br
+						%b Change Client Phase
+						%br
+						.phase-change-select
+							= form_for :edit_client, :url => admin_change_client_phase_path(:action => 'post') do |f|
+								.row.form-group
+									= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase), id: 'changed_phase', class: 'form-control inline-block select'
+									= f.submit 'Change Phase', class: 'btn btn-sm btn-default inline-block'
 
 	.panel-body
-		- @form_hash.each do |key, value|
-			.form-info
-				%div.form-question
-					= key + ":"
-				%div.form-response
-					- if value.instance_of?(Array)
-						= value.join(', ')
-					- else
-						= value
+		%ul.nav.nav-tabs
+			%li.active
+				%a{"data-toggle" => "tab", :href => "#home"} Status Feed
+			%li
+				%a{"data-toggle" => "tab", :href => "#menu1"} Caseworkers
+			%li
+				%a{"data-toggle" => "tab", :href => "#menu2"} Documents
+			%li
+				%a{"data-toggle" => "tab", :href => "#menu3"} Questionnaire
+		.tab-content
+			#home.tab-pane.fade.in.active
+				%h3 Client Activity Feed
+				%p Shows a feed of latest events related to the client.
+				= render "partials/status_feed.html.erb"
+			#menu1.tab-pane.fade
+				%h3.text-center Caseworkers
+				.caseworkers.text-center
+					- @caseworker_names.each do |caseworker|
+						.container-fluid
+							.row
+								.panel.panel-info.panel-user.col-centered
+									%h6.text-center= caseworker
+								.glyphicon.glyphicon-remove
+									
+						
+				.assign-caseworker-select.container-fluid
+					= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|
+						.row.form-group.panel-default
+							.col-md-9
+								= f.select :assign_caseworker, options_for_select(Admin.Caseworkers), id: 'assign_caseworker', class: 'form-control'
+							.col-md-3
+								= f.submit 'Assign Caseworker', class: 'btn btn-sm btn-default'
+			#menu2.tab-pane.fade
+				%h3 All Documents
+			#menu3.tab-pane.fade
+				.panel-body
+					- @form_hash.each do |key, value|
+						.form-info
+							%div.form-question
+								= key + ":"
+							%div.form-response
+								- if value.instance_of?(Array)
+									= value.join(', ')
+								- else
+									= value				
+		
+		
+
+
