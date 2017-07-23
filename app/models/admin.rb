@@ -31,7 +31,14 @@ class Admin < ActiveRecord::Base
   enum role: [:central, :employee]
   
   has_many :ownerships
+  has_many :events
   has_many :users, :through => :ownerships
+  
+  def initialize(attributes = nil)
+    super
+    events.build(:admin_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} created an account.")
+    # Do whatever you want in here.
+  end
   
   def self.Caseworkers
     caseworkers_db = self.where(role: 1).all
@@ -42,8 +49,38 @@ class Admin < ActiveRecord::Base
     caseworkers
   end
   
+  def get_user_ids
+    user_ids = @curr_admin.users.map do |u|
+      u.id
+    end
+    user_ids
+  end
+  
+  # def get_user_params(param)
+  #   user_params = users.map do |u|
+  #     u.send(param)
+  #   end
+  #   user_params
+  # end
+  
   def full_name
     return "#{first_name}" + " " + "#{last_name}"
   end
   
+  #this currently returns an array of dictionaries instead of an activerecord relation.
+# 	def get_referrers_associated_with_users
+# 		user_names = get_user_params("full_name")
+# 		referrals = Form.where(form_type: 2).all
+# 		referrers = []
+# 		user_names.each do |user_name|
+# 			referrals.each do |referral|
+# 				if user_name == referral.full_name && referral.status != "Rejected"
+# 					referrer = User.where(:id => referral.user_id).first
+# 					referrers.append({"first_name" => referrer.first_name, "last_name" => referrer.last_name, "id"=> referrer.id})
+# 				end
+# 			end
+# 		end
+# 		referrers
+# 	end
+
 end

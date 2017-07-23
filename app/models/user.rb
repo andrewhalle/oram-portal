@@ -44,10 +44,17 @@ class User < ActiveRecord::Base
     has_many :events
     has_many :ownerships
     has_many :admins, :through => :ownerships
+    
+
 
     mount_uploader :case_document, CaseDocumentUploader
 
-
+    def initialize(attributes = nil)
+      super
+      events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} created an account.")
+      # Do whatever you want in here.
+    end
+    
     #Adding stuff for tracker 
     def self.Application_phases
       return ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6"]
