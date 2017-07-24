@@ -24,21 +24,11 @@ function hideORAMContactOptional() {
 }
 
 function hideLGBTIQAssociationOptional() {
-	var checked = $('.LGBTIQ-association').first().val() === "Yes";
-	if (checked) {
-		$('.LGBTIQ-association-optional').slideDown();
-	} else {
-		$('.LGBTIQ-association-optional').slideUp();
-	}
+	hideItem('.AccountsLGBTIQ-association', '.LGBTIQ-association-optional');
 }
 
 function hideVettingTrainingOptional() {
-	var checked = $('.vetting-training').first().val() === "Yes";
-	if (checked) {
-		$('.vetting-training-optional').slideDown();
-	} else {
-		$('.vetting-training-optional').slideUp();
-	}
+	hideItem('.vetting-training', '.vetting-training-optional');
 }
 
 $(document).on('click', '.LGBTIQ-option', hideLGBTIQOptional);
