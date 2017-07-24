@@ -50,7 +50,7 @@ class Admin < ActiveRecord::Base
   end
   
   def get_user_ids
-    user_ids = @curr_admin.users.map do |u|
+    user_ids = self.users.map do |u|
       u.id
     end
     user_ids
