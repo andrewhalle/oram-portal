@@ -64,18 +64,19 @@ class UsersController < ApplicationController
 		end
 		if @user_form.save
 			flash[:notice] = "Form successfully saved"
-			redirect_to redirect_path(@user) and return
+			rd_path = eval(redirect_path)
+			redirect_to rd_path and return
 		end
 		flash[:error] = "Form failed to save"
 		redirect_to root_path
 	end
 	
 	def update_referrer_profile
-		update_profile(1, referrer_path)
+		update_profile(1, "referrer_path(@user)")
 	end
 	
 	def update_client_profile
-		update_profile(3, client_path)
+		update_profile(3, "client_path(@user)")
 	end
 
 	def edit_client_profile
