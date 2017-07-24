@@ -9,6 +9,13 @@ Given /the following users exist/ do |users_table|
   end
 end
 
+Given(/^the following forms exist:$/) do |table|
+  # table is a Cucumber::MultilineArgument::DataTable
+  table.hashes.each do |form|
+    Form.create(form)
+  end
+end
+
 #taken from login_steps by Alice
 Given /the following clients exist/ do |clients_table|
   clients_table.hashes.each do |client|
