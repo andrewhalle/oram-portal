@@ -95,7 +95,7 @@ class AdminsController < ApplicationController
 		@client.phase = params[:edit_client]["changed_phase"]
 		@client.save
 		message = "#{@client.first_name} #{@client.last_name} has been moved from #{prev_phase} to #{@client.phase}"
-		newEvent = @client.events.build(:user_id => :id, :message => message)
+		@client.events.build(:user_id => :id, :message => message)
 		@client.save
 		flash[:notice] = message
 		redirect_to client_path
@@ -113,7 +113,7 @@ class AdminsController < ApplicationController
 		else
 			@client.ownerships.build(:user_id => params[:id], :admin_id => caseworker_id)
 			message = "#{@client.first_name} #{@client.last_name} has been assigned to caseworker #{first} #{last}"
-			newEvent = @client.events.build(:user_id => params[:id], :message => message)
+			@client.events.build(:user_id => params[:id], :message => message)
 			@client.save
 			flash[:notice] = message
 		end
@@ -154,7 +154,7 @@ class AdminsController < ApplicationController
 		render :admin_profile
 	end
 	
-	 def admin_settings_edit
+	def admin_settings_edit
 	 	@curr_admin = current_admin
 		@admin = Admin.find_by_id(params[:id])
 		render :admin_edit_profile
@@ -176,35 +176,7 @@ class AdminsController < ApplicationController
     	redirect_to :admin_setting
     end
     
-    def admin_destroy
-		redirect_to destroy_user_session_path
-		@admin = User.find_by_id(params[:id])
-		@admin.destroy
-	end
-	
-	 def admin_settings_edit
-	 	@curr_admin = current_admin
-		@admin = Admin.find_by_id(params[:id])
-		render :admin_edit_profile
-    end
-    
-    def admin_setting
-    	@curr_admin = current_admin
-		render :admin_edit_profile
-    end
-    
-    def admin_edit_save
-    	Admin.update(params[:id], 
-    	{:first_name => params["user"]["first_name"], 
-    	:last_name => params["user"]["last_name"], 
-    	:email => params["user"]["email"], 
-    	:phone => params["user"]["phone"], 
-    	:address => params["user"]["address"],
-    	:skype => params["user"]["skype"]})
-    	redirect_to :admin_setting
-    end
-    
-    def admin_destroy
+	def admin_destroy
 		redirect_to destroy_user_session_path
 		@admin = User.find_by_id(params[:id])
 		@admin.destroy
