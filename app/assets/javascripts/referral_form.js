@@ -7,121 +7,65 @@ function displayCannotProvideAssistance() {
 	}
 }
 
-function hideKimlikNumber() {
-	var checked = $('.kimlik').first().val() === "Yes";
+function hideItem(conditionClass, itemClass) {
+	var checked = $(conditionClass).first().val() === "Yes";
 	if (checked) {
-		$('.kimlik-number').slideDown();
+		$(itemClass).slideDown();
 	} else {
-		$('.kimlik-number').slideUp();
+		$(itemClass).slideUp();
 	}
+}
+
+function hideKimlikNumber() {
+	hideItem('.kimlik', '.kimlik-number');
 }
 
 function hideUNHCRNumber() {
-	var checked = $('.refugee-status').first().val() === "Yes";
-	if (checked) {
-		$('.unhcr-case-number').slideDown();
-	} else {
-		$('.unhcr-case-number').slideUp();
-	}
+	hideItem('.refugee-status', '.unhcr-case-number');
 }
 
 function hideOpenAboutSexualOrientationOrGender() {
-	var checked = $('.open-about').first().val() === "Yes";
-	if (checked) {
-		$('.open-with').slideDown();
-	} else {
-		$('.open-with').slideUp();
-	}
+	hideItem('.open-about', '.open-with');
 }
 
 function hideClientDangersSelect() {
-	var checked = $('.dangerous-aware').first().val() === "Yes";
-	if (checked) {
-		$('.client-dangers1').slideDown();
-	} else {
-		$('.client-dangers1').slideUp();
-	}
+	hideItem('.dangerous-aware', '.client-dangers1');
 }
 
 function hideVerbalAbuseClientDangersSelect() {
-	var checked = $('.verbal-abuse').first().val() === "Yes";
-	if (checked) {
-		$('.client-dangers2').slideDown();
-	} else {
-		$('.client-dangers2').slideUp();
-	}
+	hideItem('.verbal-abuse', '.client-dangers2');
 }
 
 function hidePhysicalAbuseClientDangersSelect() {
-	var checked = $('.physical-abuse').first().val() === "Yes";
-	if (checked) {
-		$('.client-dangers3').slideDown();
-	} else {
-		$('.client-dangers3').slideUp();
-	}
+	hideItem('.physical-abuse', '.client-dangers3');
 }
 
 function hideOtherAbuseOverview() {
-	var checked = $('.other-abuse').first().val() === "Yes";
-	if (checked) {
-		$('.other-violence-overview').slideDown();
-	} else {
-		$('.other-violence-overview').slideUp();
-	}
+	hideItem('.other-abuse', '.other-violence-overview');
 }
 
 function hideSexualViolenceClientDangersSelect() {
-	var checked = $('.sexual-violence').first().val() === "Yes";
-	if (checked) {
-		$('.client-dangers4').slideDown();
-	} else {
-		$('.client-dangers4').slideUp();
-	}
+	hideItem('.sexual-violence', '.client-dangers4');
 }
 
 function hideMentalIllnessOptions() {
-	var checked = $('.mental-illness').first().val() === "Yes";
-	if (checked) {
-		$('.mental-illness-optional').slideDown();
-	} else {
-		$('.mental-illness-optional').slideUp();
-	}
+	hideItem('.mental-illness', '.mental-illness-optional');
 }
 
 function hideArrestedOptions() {
-	var checked = $('.arrested').first().val() === "Yes";
-	if (checked) {
-		$('.arrested-optional').slideDown();
-	} else {
-		$('.arrested-optional').slideUp();
-	}
+	hideItem('.arrested', '.arrested-optional');
 }
 
 function hidePersecutionOptions() {
-	var checked = $('.persecution').first().val() === "Yes";
-	if (checked) {
-		$('.persecution-optional').slideDown();
-	} else {
-		$('.persecution-optional').slideUp();
-	}
+	hideItem('.persecution', '.persecution-optional');
 }
 
 function hideMedicalConcernOptions() {
-	var checked = $('.medical-concern').first().val() === "Yes";
-	if (checked) {
-		$('.medical-concern-optional').slideDown();
-	} else {
-		$('.medical-concern-optional').slideUp();
-	}
+	hideItem('.medical-concern', '.medical-concern-optional');
 }
 
 function hideDocumentaryEvidenceOptions() {
-	var checked = $('.documentary-evidence').first().val() === "Yes";
-	if (checked) {
-		$('.documentary-evidence-optional').slideDown();
-	} else {
-		$('.documentary-evidence-optional').slideUp();
-	}
+	hideItem('.documentary-evidence', '.documentary-evidence-optional');
 }
 
 function hideDocumentaryOtherExplanation() {
@@ -153,12 +97,7 @@ function togglePersonalRelationshipToClient() {
 }
 
 function hideProfessionalRelationshipOptions() {
-	var checked = $('.personal-relationship-professional').first().val() === "Yes";
-	if (checked) {
-		$('.personal-relationship-organization').slideDown();
-	} else {
-		$('.personal-relationship-organization').slideUp();
-	}
+	hideItem('.personal-relationship-professional', '.personal-relationship-organization');
 }
 
 function hideWhichOrganizationOptions() {
@@ -171,12 +110,7 @@ function hideWhichOrganizationOptions() {
 }
 
 function hidePersonalRelationshipLevel() {
-	var checked = $('.yes-personal-relationship').first().val() === "Yes";
-	if (checked) {
-		$('.friendship-level').slideDown();
-	} else {
-		$('.friendship-level').slideUp();
-	}
+	hideItem('.yes-personal-relationship', '.friendship-level');
 }
 
 
