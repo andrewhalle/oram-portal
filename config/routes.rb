@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'admins/:id/setting/edit' => 'admins#admin_settings_edit', :as => 'admin_settings_edit'
   get 'admins/:id/setting/delete' => 'admins#admin_destroy', :as => 'admin_destroy'
   patch 'admins/:id/setting' => 'admins#admin_edit_save', :as => 'edit_save_admin'
+  get 'admins/:id/setting/change_password' => 'admins#admin_pass_change', :as => 'admin_pass_change'
+  patch 'admins/:id/setting' => 'admins#admin_pass_save', :as => 'admin_pass_save'
 
   get 'clients' => 'admins#show_clients', :as => 'clients'
   get 'referrals' => 'admins#show_referrals', :as => 'admin_referrals'

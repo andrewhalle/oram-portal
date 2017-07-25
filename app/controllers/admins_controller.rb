@@ -155,30 +155,53 @@ class AdminsController < ApplicationController
 	end
 	
 	def admin_settings_edit
-	 	@curr_admin = current_admin
+		@curr_admin = current_admin
 		@admin = Admin.find_by_id(params[:id])
 		render :admin_edit_profile
-    end
+	end
     
     def admin_setting
     	@curr_admin = current_admin
-		render :admin_edit_profile
+    	@admin = Admin.find_by_id(params[:id])
+		render :admin_setting
     end
     
     def admin_edit_save
+    	@curr_admin = current_admin
     	Admin.update(params[:id], 
-    	{:first_name => params["user"]["first_name"], 
-    	:last_name => params["user"]["last_name"], 
-    	:email => params["user"]["email"], 
-    	:phone => params["user"]["phone"], 
-    	:address => params["user"]["address"],
-    	:skype => params["user"]["skype"]})
+    	{:first_name => params["admin"]["first_name"], 
+    	:last_name => params["admin"]["last_name"], 
+    	:email => params["admin"]["email"], 
+    	:phone => params["admin"]["phone"], 
+    	:address => params["admin"]["address"],
+    	:skype => params["admin"]["skype"]})
     	redirect_to :admin_setting
     end
     
 	def admin_destroy
 		redirect_to destroy_user_session_path
-		@admin = User.find_by_id(params[:id])
+		@admin = Admin.find_by_id(params[:id])
 		@admin.destroy
 	end
+	
+	def admin_pass_change
+		@curr_admin = current_admin
+    	@admin = Admin.find_by_id(params[:id])
+    	render :admin_pass_change
+	end
+	
+	def admin_pass_save
+		@curr_admin = current_admin
+		if (:encrypted_password == @curr_admin.encrypted_password)
+			if (:pass_reset1 == :pass_reset2)
+		    	Admin.update(params[:id], 
+		    	{:pass_reset1 => params["admin"]["encrypted_password"]})
+		    else
+		    	#return a message that password1 isn't equal to password2
+		    end
+		 else
+		 	#return a message that the given password is not correct
+	    end
+    	redirect_to :admin_setting
+    end
 end
