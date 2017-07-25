@@ -9,8 +9,8 @@ Background: client and admin in database
     | client     | user      | test@test.com | password | client |
   
   And the following admins exist:
-    | first_name | last_name | email          | password | role   |
-    | central    | admin     | admin@test.com | password | client |
+    | first_name | last_name | email          | password | role    |
+    | central    | admin     | admin@test.com | password | central |
   
   And I'm signed in as "central admin"
   And I'm on the profile page for "client user"
