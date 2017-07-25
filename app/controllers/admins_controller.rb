@@ -191,12 +191,13 @@ class AdminsController < ApplicationController
 	end
 	
 	def admin_pass_save
-		byebug
 		@curr_admin = current_admin
-		curr = Admin.create(:password => :encrypted_password).encrypted_password
-		if (curr == @curr_admin.encrypted_password)
-			if (:pass_reset1 == :pass_reset2)
-				new_pass = Admin.create(:password => :pass_reset1).encrypted_password
+		curr = params["admin"]["encrypted_password"]
+		if (@curr_admin.valid_password?(curr))
+			pass1 = params["admin"]["pass_reset1"]
+			pass2 = params["admin"]["pass_reset2"]
+			if (pass1 == pass2)
+				new_pass = Admin.create(:password => pass1).encrypted_password
 		    	@curr_admin.encrypted_password = new_pass
 		    	@curr_admin.save
 		    else
