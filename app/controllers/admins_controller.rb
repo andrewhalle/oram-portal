@@ -185,9 +185,19 @@ class AdminsController < ApplicationController
 	end
 	
 	def admin_pass_change
+		byebug
 		@curr_admin = current_admin
     	@admin = Admin.find_by_id(params[:id])
-    	render :admin_pass_change
+    	if(@admin.update(admin_params))
+    		bypass_sign_in(@admin)
+    		redirect_to root_path
+    	else
+    		render :admin_pass_change
+    	end
+	end
+	
+	def admin_params
+		params.require(:admin).permit(:password, :password_confirmation)
 	end
 	
 	def admin_pass_save
