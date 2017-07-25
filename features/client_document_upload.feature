@@ -8,7 +8,7 @@ Background: Client in the database
     | first_name  | last_name   | email                 | password     	  | role					|
     | Bryan       | Adams     	| bryan@adams.com       | oram123         | client			  |
 
-Scenario: Viewing Case Document
+Scenario: Upload Case Document
   Given I follow "Documents"
   Then I should see "Case Document"
   When I click chose a file 
