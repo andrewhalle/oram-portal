@@ -21,9 +21,9 @@ Scenario: Valid User Logging In
   When I fill in "user_email" with "oram123@gmail.com"
   When I fill in "user_password" with "oram123"
   When I press "Log in"
-  #Then I should be on the home page - redirecting to questionnaire now if it doesn't exist
-  #And I should see "Signed in successfully."
-  Then I should see "Please fill out your questionnaire first."
+  Then I should be on the home page
+  And I should see "Signed in successfully."
+  #Then I should see "Please fill out your questionnaire first." we're seeding a form now
 
 Scenario: User login info does not exist
  Given I am on the login page
