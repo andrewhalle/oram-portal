@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722204406) do
+ActiveRecord::Schema.define(version: 20170725060014) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20170722204406) do
     t.string   "phone",                  default: ""
     t.string   "address",                default: ""
     t.string   "skype",                  default: ""
+    t.string   "pass_reset1"
+    t.string   "pass_reset2"
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true

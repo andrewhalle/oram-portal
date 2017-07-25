@@ -1,14 +1,16 @@
 <div class="panel panel-default panel-form">
   <div class="panel-heading">
-  	<h4> Change Your Profile </h4>
+  	<h4> Your Profile Information </h4>
   </div>
-  <div class="panel-body">
-   
-   <h2 class="header-link content-link"><%= button_to "Edit Profile", admin_settings_edit_path(current_admin.id), {:method => :get, class: "hvr-underline-from-left"}%> </h2>
-   <br></br>
-   
-   <h2 class="header-link content-link"><%= button_to "Change Password", admin_setting_path(current_admin.id), {:method => :get, class: "hvr-underline-from-left"}%> </h2>
-   <br></br>
- 
+	<div class="panel-body">
+	 <%= form_for @admin, :url => edit_save_admin_path(@admin.id)  do |f| %>
+  First name: <%= f.text_field :first_name %><br />
+  Last name : <%= f.text_field :last_name %><br />
+  Email: <%= f.text_field :email %><br />
+  Phone : <%= f.text_field :phone %><br />
+  Address: <%= f.text_field :address %><br />
+  Skype : <%= f.text_field :skype %><br />
+  <%= f.submit %>
+<% end %>
 	</div>
 </div>

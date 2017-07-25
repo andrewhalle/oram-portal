@@ -31,8 +31,6 @@
     <%  if @curr_admin.role == 'central' %>
       <li class="header-link content-link"><%= link_to "ORAM Website", "http://oramrefugee.org", class: "hvr-underline-from-left"%> </li>
       <li class="header-link content-link"><%= link_to "Profile", show_my_profile_path(@curr_admin), class: "hvr-underline-from-left"%> </li>
-      
-
       <li class="header-link content-link"><%= link_to "Admins", admins_path, :value => "display_admins_button", :method => :get, class: "hvr-underline-from-left" %> </li>
       <li class="header-link content-link"><%= link_to "Referrers", referrers_path, :value => "display_referrers_button", :method => :get, class: "hvr-underline-from-left" %> </li>
       <li class="header-link content-link"><%= link_to "Clients", clients_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>

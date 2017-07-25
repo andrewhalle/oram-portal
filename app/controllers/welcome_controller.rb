@@ -2,11 +2,6 @@ class WelcomeController < ApplicationController
   def index
     if user_signed_in?
       @user = current_user
-      forms = @user.forms
-      if forms.empty?
-        flash[:notice] = "Please fill out your questionnaire first."
-        redirect_to client_edit_path(@user.id), params and return
-      end
       if @user.role == "client"
         @events = Event.where(:user_id => @user.id).all.reverse
       elsif @user.role == "referrer"
