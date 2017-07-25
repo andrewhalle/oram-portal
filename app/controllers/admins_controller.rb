@@ -192,16 +192,17 @@ class AdminsController < ApplicationController
 	
 	def admin_pass_save
 		@curr_admin = current_admin
-		if (:encrypted_password == @curr_admin.encrypted_password)
-			if (:pass_reset1 == :pass_reset2)
-		    	Admin.update(params[:id], 
-		    	{:pass_reset1 => params["admin"]["encrypted_password"]})
-		    else
-		    	#return a message that password1 isn't equal to password2
-		    end
-		 else
-		 	#return a message that the given password is not correct
-	    end
+		# if (:encrypted_password == @curr_admin.encrypted_password)
+		# 	if (:pass_reset1 == :pass_reset2)
+		#     	Admin.update(params[:id], 
+		#     	{:pass_reset1 => params["admin"]["encrypted_password"]})
+		#     else
+		#     	#return a message that password1 isn't equal to password2
+		#     end
+		#  else
+		#  	#return a message that the given password is not correct
+	 #   end
     	redirect_to :admin_setting
     end
+    
 end
