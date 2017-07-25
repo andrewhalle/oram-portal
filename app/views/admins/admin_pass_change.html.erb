@@ -3,8 +3,8 @@
   	<h4> Your Profile Information </h4>
   </div>
 	<div class="panel-body">
-	 <%= form_for @admin, :url => admin_pass_save_path(@admin.id)  do |f| %>
-  Current Password: <%= f.text_field :encrypted_password %><br />
+	 <%= form_for @admin, :url => admin_pass_save_path(@admin.id), :method => :patch  do |f| %>
+  Current Password: <%= f.text_field :encrypted_password, :value => '' %><br />
   New Password : <%= f.text_field :pass_reset1, :value => '' %><br />
   Confirm New Password: <%= f.text_field :pass_reset2, :value => '' %><br />
   <%= f.submit %>

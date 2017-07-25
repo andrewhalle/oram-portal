@@ -7,7 +7,7 @@
    <h2 class="header-link content-link"><%= button_to "Edit Profile", admin_settings_edit_path(current_admin.id), {:method => :get, class: "hvr-underline-from-left"}%> </h2>
    <br></br>
    
-   <h2 class="header-link content-link"><%= button_to "Change Password", edit_admin_password_path(), {:method => :get, class: "hvr-underline-from-left"}%> </h2>
+   <h2 class="header-link content-link"><%= button_to "Change Password", admin_pass_change_path(), {:method => :get, class: "hvr-underline-from-left"}%> </h2>
    <br></br>
   
    <h2 class="header-link content-link"><%= button_to "Delete Profile", admin_destroy_path(current_admin.id), :method => :get, data: {confirm: "Are you sure you want to delete your profile? This action cannot be undone."},  class: "hvr-underline-from-left"%> </h2>

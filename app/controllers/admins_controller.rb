@@ -185,33 +185,26 @@ class AdminsController < ApplicationController
 	end
 	
 	def admin_pass_change
-		byebug
 		@curr_admin = current_admin
     	@admin = Admin.find_by_id(params[:id])
-    	if(@admin.update(admin_params))
-    		bypass_sign_in(@admin)
-    		redirect_to root_path
-    	else
-    		render :admin_pass_change
-    	end
-	end
-	
-	def admin_params
-		params.require(:admin).permit(:password, :password_confirmation)
+    	render :admin_pass_change
 	end
 	
 	def admin_pass_save
+		byebug
 		@curr_admin = current_admin
-		# if (:encrypted_password == @curr_admin.encrypted_password)
-		# 	if (:pass_reset1 == :pass_reset2)
-		#     	Admin.update(params[:id], 
-		#     	{:pass_reset1 => params["admin"]["encrypted_password"]})
-		#     else
-		#     	#return a message that password1 isn't equal to password2
-		#     end
-		#  else
-		#  	#return a message that the given password is not correct
-	 #   end
+		curr = Admin.create(:password => :encrypted_password).encrypted_password
+		if (curr == @curr_admin.encrypted_password)
+			if (:pass_reset1 == :pass_reset2)
+				new_pass = Admin.create(:password => :pass_reset1).encrypted_password
+		    	@curr_admin.encrypted_password = new_pass
+		    	@curr_admin.save
+		    else
+		    	#return a message that password1 isn't equal to password2
+		    end
+		 else
+		 	#return a message that the given password is not correct
+	    end
     	redirect_to :admin_setting
     end
     
