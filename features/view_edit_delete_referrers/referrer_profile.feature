@@ -7,14 +7,13 @@ Scenario: Only referrer should see the edit link
     Given I am logged in as the following referrer:
       | first_name	| last_name	| email             	| password	| invitation_accepted_at | role        |
       | Bryan			  | Adams     | bryan@adams.com		  | oram123	  | 'test'                 | referrer    |
-    Then I should see "About"
     And I follow "Profile"
     Then I should see "Edit"
 
 Scenario: Admin should not be able to edit the referrer profile
     Given I am logged in as the following admin:
       | first_name  | last_name | email               | password   | role     |
-      | oram2       | admin     | admin321@gmail.com  | oramadmin  | employee |
+      | oram2       | admin     | admin321@gmail.com  | oramadmin  | central |
 
     And the following referrers exist:
       | first_name	| last_name	| email             	| password	| invitation_accepted_at |

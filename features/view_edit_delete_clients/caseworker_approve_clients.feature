@@ -10,17 +10,22 @@ Background: Clients in the database and logged in as an Case Worker
     | George      | Clooney     | george@clooney.com    | oram123         | client			  | 'test'                 |
     | Michael     | Jordan    	| michael@jordan.com    | oram123         | client			  | 'test'                 |
     | Joe         | Bob     	  | joe@bob.com           | oram123         | client			  | 'test'                 |
-
-  And I am logged in as the following Case Worker:
-    | first_name  | last_name       | email                     | password          |
-    | oram        | Case Worker     | case_worker321@gmail.com  | oram_case_worker  |
+  
+  And I am logged in as the following admin:
+    | first_name  | last_name       | email                     | password          | role      |
+    | oram        | caseworker     | case_worker321@gmail.com  | oram_case_worker  | employee  |
+  
+    And the following relations exist:
+    | client      | caseworker      |
+    | Bryan Adams | oram caseworker |
+    | George Clooney | oram caseworker|
 
 Scenario: Case Worker viewing the list of clients
   Given I follow "Clients"
   Then I should see "Bryan"
-  Then I should see "George"
-  Then I should see "Michael"
-  Then I should see "Joe"
+    And I should see "George"
+    And I should not see "Michael"
+    And I should not see "Joe"
 
 Scenario: Case Worker trying to mark statuses of clients
   Given I follow "Clients"
@@ -30,9 +35,9 @@ Scenario: Case Worker trying to mark statuses of clients
   And I view the profile of "George Clooney"
   And I press "Reject"
   Then the status of "George Clooney" should be "Rejected"
-  And I view the profile of "Michael Jordan"
+  And I view the profile of "Bryan Adams"
   And I press "Incomplete"
-  Then the status of "Michael Jordan" should be "Incomplete"
+  Then the status of "Bryan Adams" should be "Incomplete"
 
 Scenario: Case Worker trying to follow case status of clients
   Given PENDING

@@ -1,4 +1,4 @@
-Feature: update the status of a pending application
+Feature: Central Admin filtering referrers by status
 
   As an ORAM administrator
   In order to update the pending application status
@@ -16,31 +16,36 @@ Background: referrers in the database
 
 	And I am logged in as the following admin:
 	    | first_name  | last_name | email               | password   | role     |
-	    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+	    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
 Scenario: ORAM administrator visiting the prospective Referrer profile
 	When I follow "Referrers"
 	Then I should be on the referrers page
 
 Scenario: filter for incomplete applications
+    Given pending
 	Given I am on the referrers page
 	When I select "Incomplete" from the status dropdown
 	Then I should see "Hannah Montana"
 	And I should see "Donald Trump"
+	And I should not see "Hillary Clinton"
 
 Scenario: filter through all of the rejected applications
+    Given pending
 	Given I am on the referrers page
 	When I select "Rejected" from the status dropdown
 	Then I should see "Hillary Clinton"
+	And I should not see "Donald Trump"
 
 Scenario: filter through all of the approved applications
+    Given pending
 	Given I am on the referrers page
 	When I select "Approved" from the status dropdown
 	Then I should see "Adrian Greenberg"
 
-#Scenario: send a notification to a referrer with an incomplete application
-#  When I go to the applications page
-#  And I go to the review page for "Hannah Montana"
-#  And I press "Notify of Application incompleteness"
-#  Then I should be on the applications page
-#  And I should not see "Hannah Montana"
+# #Scenario: send a notification to a referrer with an incomplete application
+# #  When I go to the applications page
+# #  And I go to the review page for "Hannah Montana"
+# #  And I press "Notify of Application incompleteness"
+# #  Then I should be on the applications page
+# #  And I should not see "Hannah Montana"

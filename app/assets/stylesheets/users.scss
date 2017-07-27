@@ -4,15 +4,46 @@
 
 
 .panel-default {
-	width: 35%;
-	margin: 40px auto;
+	width: 80%;
+	margin: 10px auto;
 	min-width: 300px;
+	padding: 20px;
+}
+
+.panel-review {
+	margin: 0px 10px auto auto;
+	width: 255px;
+	padding: 20px;
 }
 
 .panel-form {
 	width: 50%;
 	margin: 40px auto;
 	min-width: 300px;
+}
+
+.panel-user {
+  width: 50%;
+  margin: 5px 10px 5px 10px;
+  padding: 15px;
+  max-width: 800px;
+}
+
+.select {
+  width: auto;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+.inline-block {
+  display: inline-block
 }
 
 .form-input {

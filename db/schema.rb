@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719180939) do
+ActiveRecord::Schema.define(version: 20170725060014) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 20170719180939) do
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
     t.integer  "role"
+    t.string   "phone",                  default: ""
+    t.string   "address",                default: ""
+    t.string   "skype",                  default: ""
+    t.string   "pass_reset1"
+    t.string   "pass_reset2"
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
@@ -50,6 +55,7 @@ ActiveRecord::Schema.define(version: 20170719180939) do
     t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "admin_id"
   end
 
   create_table "forms", force: :cascade do |t|
@@ -80,18 +86,18 @@ ActiveRecord::Schema.define(version: 20170719180939) do
   add_index "referrals", ["user_id"], name: "index_referrals_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",           null: false
+    t.string   "encrypted_password",     default: "",           null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,            null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "invitation_token"
@@ -107,7 +113,8 @@ ActiveRecord::Schema.define(version: 20170719180939) do
     t.string   "address",                default: ""
     t.string   "phone",                  default: ""
     t.string   "skype",                  default: ""
-    t.string   "phase",                  default: ""
+    t.string   "phase",                  default: "Phase 1"
+    t.string   "status",                 default: "Incomplete"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -16,7 +16,7 @@ Background: Referrers in the database
 Scenario: Administrator viewing the table with all referrers
   Given that I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
   And I follow "Referrers"
   Then I should see "Bryan"

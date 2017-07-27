@@ -157,3 +157,41 @@
   padding: 10px;
   text-align: center;
 }
+
+#event_list_title {
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: "lato";
+  font-weight: bold;
+}
+
+#events {
+  border-collapse: collapse;
+  margin: auto;
+  width: 80%;
+  border: hidden;
+  border-bottom-style: solid;
+  border-bottom-color: #98a6bc;
+  font-family: "lato";
+}
+
+#events tr:nth-child(even) td {
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+#events th {
+  padding: 25px;
+  text-align: center;
+}
+
+#events thead {
+  background-color: #98a6bc;
+  color: white;
+  font-size: 14pt;
+}
+
+#events td {
+  padding: 10px;
+  text-align: center;
+}

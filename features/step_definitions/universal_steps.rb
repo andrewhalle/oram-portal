@@ -9,16 +9,22 @@ Given /the following users exist/ do |users_table|
   end
 end
 
+Given(/^the following forms exist:$/) do |table|
+  # table is a Cucumber::MultilineArgument::DataTable
+  table.hashes.each do |form|
+    Form.create(form)
+  end
+end
+
 #taken from login_steps by Alice
 Given /the following clients exist/ do |clients_table|
   clients_table.hashes.each do |client|
     user = User.create(client)
     user.invitation_accepted_at = "2016-11-07 19:35:09"
     user.role = "client"
-    user.save!
     json = "{\"First Name\":\"Nhi\",\"Middle Name(s)\":\"\",\"Surname(s)\":\"Quach\",\"Date of Birth\":\"\",\"City/Town\":\"\",\"Province\":\"\",\"Country\":\"\",\"Nationality\":\"Afghanistan\",\"Do you describe yourself as an active member of the LGBTIQ Community?\":\"No\",\"What is the name of your current employer?\":\"\",\"What position do you hold there?\":\"\",\"How did you first come in contact with ORAM?\":\"\",\"Please describe how you came to the ORAM referrer program\":\"\",\"Have you worked for or been associated with any LGBTIQ groups, organizations or community\\r\\nprojects that work with the LGBTIQ community?\":\"No\",\"Which organization? Please give a brief overview of your role\":\"\",\"Have you ever been trained to vet LGBTIQ individuals?\":\"No\",\"Which training? Please provide the training organization’s name, dates of the session and a brief overview of the training program\":\"\",\"Why do you want to be a referrer for ORAM? Please answer in less than 300 words\":\"\"}"
-    form = user.forms.build({form_json: json, form_type: 3, status: "Incomplete", first_name: user.first_name, last_name: user.last_name})
-    form.save!
+    user.forms.build({form_json: json, form_type: 3, status: "Incomplete", first_name: user.first_name, last_name: user.last_name})
+    user.save
   end
 end
 
@@ -42,13 +48,37 @@ Given /the following referrers exist/ do |referrers_table|
       user = User.create(referrer)
       user.invitation_accepted_at = "2016-11-07 19:35:09"
       user.role = "referrer"
-      user.save!
       json = "{\"First Name\":\"Nhi\",\"Middle Name(s)\":\"\",\"Surname(s)\":\"Quach\",\"Date of Birth\":\"\",\"City/Town\":\"\",\"Province\":\"\",\"Country\":\"\",\"Nationality\":\"Afghanistan\",\"Do you describe yourself as an active member of the LGBTIQ Community?\":\"No\",\"What is the name of your current employer?\":\"\",\"What position do you hold there?\":\"\",\"How did you first come in contact with ORAM?\":\"\",\"Please describe how you came to the ORAM referrer program\":\"\",\"Have you worked for or been associated with any LGBTIQ groups, organizations or community\\r\\nprojects that work with the LGBTIQ community?\":\"No\",\"Which organization? Please give a brief overview of your role\":\"\",\"Have you ever been trained to vet LGBTIQ individuals?\":\"No\",\"Which training? Please provide the training organization’s name, dates of the session and a brief overview of the training program\":\"\",\"Why do you want to be a referrer for ORAM? Please answer in less than 300 words\":\"\"}"
-      form = user.forms.build({form_json: json, form_type: 1, status: "Incomplete", first_name: user.first_name, last_name: user.last_name})
-      form.save!
+      user.forms.build({form_json: json, form_type: 1, status: "Incomplete", first_name: user.first_name, last_name: user.last_name})
+      user.save
     end
 end
 
+
+Given(/^the following relations exist:$/) do |relations_table|
+  # table is a Cucumber::MultilineArgument::DataTable
+ # Write code here that turns the phrase above into concrete actions
+  relations_table.hashes.each do |relations|
+    client_first_name, client_last_name = relations["client"].split(' ')
+    client_id = User.where(first_name: client_first_name).where(last_name: client_last_name).first.id
+    admin_first_name, admin_last_name = relations["caseworker"].split(' ')
+    admin_id = Admin.where(first_name: admin_first_name).where(last_name: admin_last_name).first.id
+    Ownership.create(:user_id => client_id, :admin_id => admin_id)
+    
+  end
+end
+
+Given(/^the following referrals exist:$/) do |referrals_table|
+  referrals_table.hashes.each do |referral|
+    referrer_first_name, referrer_last_name = referral["referrer"].split(' ')
+    referrer_id = User.where(first_name: referrer_first_name).where(last_name: referrer_last_name).first.id
+    client_first_name, client_last_name = referral["referral_name"].split(' ')
+    referral = Form.create(:user_id => referrer_id, :form_type => 2, :first_name => client_first_name, :last_name => client_last_name)
+    json = "{\"First Name\":\"Nhi\",\"Middle Name(s)\":\"\",\"Surname(s)\":\"Quach\",\"Date of Birth\":\"\",\"City/Town\":\"\",\"Province\":\"\",\"Country\":\"\",\"Nationality\":\"Afghanistan\",\"Do you describe yourself as an active member of the LGBTIQ Community?\":\"No\",\"What is the name of your current employer?\":\"\",\"What position do you hold there?\":\"\",\"How did you first come in contact with ORAM?\":\"\",\"Please describe how you came to the ORAM referrer program\":\"\",\"Have you worked for or been associated with any LGBTIQ groups, organizations or community\\r\\nprojects that work with the LGBTIQ community?\":\"No\",\"Which organization? Please give a brief overview of your role\":\"\",\"Have you ever been trained to vet LGBTIQ individuals?\":\"No\",\"Which training? Please provide the training organization’s name, dates of the session and a brief overview of the training program\":\"\",\"Why do you want to be a referrer for ORAM? Please answer in less than 300 words\":\"\"}"
+    referral.form_json = json
+    referral.save
+  end
+end
 
 #originally taken from what was called client_document_steps.rb
 When /I upload the file "(.*)"/ do |file_name|
@@ -82,4 +112,16 @@ When (/I select "([^"]*)" from the status dropdown/) do |option|
     elsif option == "Rejected"
       find("option[value='Rejected']").click
     end
+end
+
+When(/^I select "([^"]*)" from the change phase dropdown$/) do |arg1|
+  select(arg1, :from => "edit_client_changed_phase", visible: false) # Write code here that turns the phrase above into concrete actions
+end
+
+When(/^I select "([^"]*)" from the caseworker dropdown$/) do |arg1|
+  select(arg1, :from => "edit_client_assign_caseworker", visible: false) # Write code here that turns the phrase above into concrete actions
+end
+
+And(/^I view "Caseworkers"$/) do
+  find('#menu1', :text => 'Caseworkers').click
 end

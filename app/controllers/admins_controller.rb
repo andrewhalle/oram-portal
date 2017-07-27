@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
 		if @curr_admin.role == "central"
 			@referrers = User.where(role: 0).all
 		elsif @curr_admin.role == "employee"
-			@referrers = Form.where(form_type: 1)
+			@referrers = User.where(role:0).where(status: "Approved").all
 			if params[:status] and params[:status] != 'Status'
 				@referrers = @referrers.where(status: params[:status])
 			end
@@ -22,12 +22,14 @@ class AdminsController < ApplicationController
 		if @curr_admin.role == "central"
 			@clients = User.where(role: 1).all
 		elsif @curr_admin.role == "employee"
-			@clients = Form.where(form_type: 3).order("created_at DESC")
+			@clients = @curr_admin.users
+			#@clients = Form.where(form_type: 3).order("created_at DESC")
 			if params[:status] and params[:status] != 'Status'
 				@clients = @clients.where(status: params[:status]).all
 			end
 			@status = params[:status]
 		end
+
 		render :show_clients
 	end
 
@@ -39,13 +41,12 @@ class AdminsController < ApplicationController
 
 	def mark_referrer_status
 		id = params[:id]
-		form_id = params[:form_id]
 		status = params[:status]
 		@referrer = User.find_by_id(id)
-		@form = Form.find_by_id(form_id)
-		@form.status = status
-		@form.save
-		flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
+		@form = @referrer.forms.where(form_type: 1).first
+		@referrer.status = status
+		@referrer.save
+		flash[:notice] = "#{@referrer.first_name} #{@referrer.last_name} has been marked as #{@referrer.status.downcase}"
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@referrer).deliver_now # sends the email
@@ -78,8 +79,45 @@ class AdminsController < ApplicationController
 		@form = Form.find(id)
 		@form.status = status
 		@form.save
-		flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
+		if status == "Approved"
+			flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}, next step is to invite as client."
+			redirect_to new_user_invitation_path
+			return
+		else
+			flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
+		end
 		redirect_to admin_referrals_path
+	end
+	
+	def change_client_phase
+		@client = User.find_by_id(params[:id])
+		prev_phase = @client.phase
+		@client.phase = params[:edit_client]["changed_phase"]
+		@client.save
+		message = "#{@client.first_name} #{@client.last_name} has been moved from #{prev_phase} to #{@client.phase}"
+		@client.events.build(:user_id => :id, :message => message)
+		@client.save
+		flash[:notice] = message
+		redirect_to client_path
+	end
+	
+	def assign_caseworker
+		@client = User.find_by_id(params[:id])
+		caseworker = params[:edit_client]["assign_caseworker"]
+		first, last = caseworker.split(' ')
+		caseworker_id = Admin.where(role: 1).where(first_name: first).where(last_name: last).first.id
+		
+		if !@client.ownerships.where(user_id: params[:id]).empty? && !@client.ownerships.where(user_id: params[:id]).where(admin_id: caseworker_id).empty?
+			#means that this ownership already exists!
+			flash[:warning] = "#{@client.first_name} #{@client.last_name} has already been assigned to caseworker #{first} #{last}!"
+		else
+			@client.ownerships.build(:user_id => params[:id], :admin_id => caseworker_id)
+			message = "#{@client.first_name} #{@client.last_name} has been assigned to caseworker #{first} #{last}"
+			@client.events.build(:user_id => params[:id], :message => message)
+			@client.save
+			flash[:notice] = message
+		end
+		redirect_to client_path
 	end
 
 	def show_all
@@ -95,9 +133,75 @@ class AdminsController < ApplicationController
 		end
 	end
 	
+	def show_my_profile
+		@curr_admin = current_admin
+		@admin = Admin.find_by_id(params[:id])
+		render :show_my_profile
+	end
+	
 	def show
 		@curr_admin = current_admin
 		@admin = Admin.find_by_id(params[:id])
+		@client_names = []
+		if !@admin.ownerships.empty?
+			@admin.ownerships.each do |ownership|
+				client_id = ownership.user_id
+				@client_names.append(User.find_by_id(client_id).full_name)
+			end
+		else
+			@client_names.append('This caseworker has no clients.')
+		end
 		render :admin_profile
 	end
+	
+	def admin_settings_edit
+		@curr_admin = current_admin
+		@admin = Admin.find_by_id(params[:id])
+		render :admin_edit_profile
+	end
+    
+    def admin_setting
+    	@curr_admin = current_admin
+    	@admin = Admin.find_by_id(params[:id])
+		render :admin_setting
+    end
+    
+    def admin_edit_save
+    	@curr_admin = current_admin
+    	Admin.update(params[:id], 
+    	{:first_name => params["admin"]["first_name"], 
+    	:last_name => params["admin"]["last_name"], 
+    	:email => params["admin"]["email"], 
+    	:phone => params["admin"]["phone"], 
+    	:address => params["admin"]["address"],
+    	:skype => params["admin"]["skype"]})
+    	redirect_to :admin_setting
+    end
+    
+	def admin_destroy
+		redirect_to destroy_user_session_path
+		@admin = Admin.find_by_id(params[:id])
+		@admin.destroy
+	end
+	
+	def admin_pass_change
+		@curr_admin = current_admin
+    	@admin = Admin.find_by_id(params[:id])
+    	render :admin_pass_change
+	end
+	
+	def admin_pass_save
+		@curr_admin = current_admin
+		if (:encrypted_password == @curr_admin.encrypted_password)
+			if (:pass_reset1 == :pass_reset2)
+		    	Admin.update(params[:id], 
+		    	{:pass_reset1 => params["admin"]["encrypted_password"]})
+		    else
+		    	#return a message that password1 isn't equal to password2
+		    end
+		 else
+		 	#return a message that the given password is not correct
+	    end
+    	redirect_to :admin_setting
+    end
 end
