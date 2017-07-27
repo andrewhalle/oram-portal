@@ -32,6 +32,7 @@ class UsersController < ApplicationController
 				@form_id = client_form.first.id
 				@form_hash = JSON.parse(client_form.first.form_json)
 			end
+			@events = Event.where(:user_id => @user.id).all.reverse
 			render :client_profile
 		end
 	end
@@ -46,14 +47,14 @@ class UsersController < ApplicationController
 		render :referrer_edit
 	end
 
-	def update_referrer_profile
+	def update_profile(form_type, redirect_path)
 		country_code = params["form_response"]["Country Of Birth"]
 		if !country_code.nil? && !country_code.empty?
 			country = ISO3166::Country[country_code]
 			params["form_response"]["Country Of Birth"] = country.name
 		end
 		@form_response = params["form_response"].to_json
-		@form_type = 1
+		@form_type = form_type
 		@user = User.find_by_id(params[:id])
 		@user_form = @user.forms.where(form_type: @form_type).first
 		if !@user_form
@@ -63,10 +64,19 @@ class UsersController < ApplicationController
 		end
 		if @user_form.save
 			flash[:notice] = "Form successfully saved"
-			redirect_to referrer_path(@user) and return
+			rd_path = eval(redirect_path)
+			redirect_to rd_path and return
 		end
 		flash[:error] = "Form failed to save"
 		redirect_to root_path
+	end
+	
+	def update_referrer_profile
+		update_profile(1, "referrer_path(@user)")
+	end
+	
+	def update_client_profile
+		update_profile(3, "client_path(@user)")
 	end
 
 	def edit_client_profile
@@ -96,29 +106,6 @@ class UsersController < ApplicationController
 		@refugee_claim = @client.refugee_claim
 		@current_form = @client.getFormHash(@client.forms.where(form_type: 3).first) || {}
 		render :client_edit
-	end
-
-	def update_client_profile
-		country_code = params["form_response"]["Country Of Birth"]
-		if !country_code.nil? && !country_code.empty?
-			country = ISO3166::Country[country_code]
-			params["form_response"]["Country Of Birth"] = country.name
-		end
-		@form_response = params["form_response"].to_json
-		@form_type = 3
-		@user = User.find_by_id(params[:id])
-		@user_form = @user.forms.where(form_type: @form_type).first
-		if !@user_form
-			@user_form = @user.forms.build({form_json: @form_response, form_type: @form_type, status: "Incomplete", first_name: @user.first_name, last_name: @user.last_name})
-		else
-			@user_form.update_attribute(:form_json, @form_response)
-		end
-		if @user_form.save
-			flash[:notice] = "Form successfully saved"
-			redirect_to client_path(@user) and return
-		end
-		flash[:error] = "Form failed to save"
-		redirect_to root_path
 	end
 
 	def referrals
