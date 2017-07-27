@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725183552) do
-
+ActiveRecord::Schema.define(version: 20170727193910) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -41,10 +40,8 @@ ActiveRecord::Schema.define(version: 20170725183552) do
     t.string   "phone",                  default: ""
     t.string   "address",                default: ""
     t.string   "skype",                  default: ""
-
     t.string   "pass_reset1"
     t.string   "pass_reset2"
-
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
@@ -77,6 +74,16 @@ ActiveRecord::Schema.define(version: 20170725183552) do
     t.string   "encrypted_form_json"
     t.string   "encrypted_form_json_iv"
   end
+
+  create_table "notes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "text"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
 
   create_table "ownerships", force: :cascade do |t|
     t.integer "admin_id"

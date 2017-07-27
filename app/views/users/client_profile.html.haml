@@ -44,6 +44,9 @@
 				%a{"data-toggle" => "tab", :href => "#menu2"} Documents
 			%li
 				%a{"data-toggle" => "tab", :href => "#menu3"} Questionnaire
+			- if @current_admin
+				%li
+					%a{"data-toggle" => "tab", :href => "#menu4"} Notes
 		.tab-content
 			#home.tab-pane.fade.in.active
 				%h3 Client Activity Feed
@@ -80,7 +83,19 @@
 									= value.join(', ')
 								- else
 									= value				
-		
+			-if @current_admin
+				= javascript_include_tag "notes_accordion"
+				#menu4.tab-pane.fade
+					%h3 Notes
+					.notes
+						%div
+							%h4 First note
+							%div
+								First note content
+						%div
+							%h4 Second note
+							%div
+								Second note content
 		
 
 

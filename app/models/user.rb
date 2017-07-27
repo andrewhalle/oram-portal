@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
     has_many :events
     has_many :ownerships
     has_many :admins, :through => :ownerships
+    has_many :notes, dependent: :destroy
     
 
 

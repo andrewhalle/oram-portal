@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notes
   root 'welcome#index'
   devise_for :admins, :controllers => { :invitations => 'admins/invitations' }
   devise_for :users, :controllers => { :invitations => 'users/invitations'}
