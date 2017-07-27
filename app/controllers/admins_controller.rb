@@ -200,11 +200,12 @@ class AdminsController < ApplicationController
 				new_pass = Admin.create(:password => pass1).encrypted_password
 		    	@curr_admin.encrypted_password = new_pass
 		    	@curr_admin.save
+		    	flash.notice = "You will now be logged out. Please log in with your new password."
 		    else
-		    	#return a message that password1 isn't equal to password2
+		    	flash[:alert] = "Your new password and confirmation password do not match. Please try again."
 		    end
 		 else
-		 	#return a message that the given password is not correct
+		 	flash[:alert] = "Your old password is incorrect. Please try again."
 	    end
     	redirect_to :admin_setting
     end
