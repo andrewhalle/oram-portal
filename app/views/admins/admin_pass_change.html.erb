@@ -7,7 +7,7 @@
   Current Password: <%= f.text_field :encrypted_password, :value => '' %><br />
   New Password : <%= f.text_field :pass_reset1, :value => '' %><br />
   Confirm New Password: <%= f.text_field :pass_reset2, :value => '' %><br />
-  <%= f.submit %>
+  <%= f.submit data: {confirm: "You will now be logged out. Please log in with your new password."}%>
 <% end %>
 	</div>
 </div>
