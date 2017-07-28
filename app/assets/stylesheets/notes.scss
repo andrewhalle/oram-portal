@@ -3,9 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .note-field {
-    margin: 10px;
+    // padding: 15px;
     height: 100px;
     width: 300px;
     resize: both;
     border: 1px solid black;
+}
+
+.notes div {
+    display:block;
+    overflow:auto;
 }

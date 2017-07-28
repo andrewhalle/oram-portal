@@ -88,16 +88,13 @@
 				#menu4.tab-pane.fade
 					%h3 Notes
 					.notes
-						%div
-							%h4 First note
-							%textarea.note-field
-							%button
-								Save
-						%div
-							%h4 Second note
-							%textarea.note-field
-							%button
-								Save
+						-@notes.each do |n|
+							%h4= n.title
+							%div
+								%br
+								%textarea.note-field= n.text
+								%button
+									Save
 		
 
 

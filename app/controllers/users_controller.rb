@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		@form_hash = {}
 		@caseworker_names = []
+		@notes = @user.notes
 		if !@user.ownerships.nil?
 			@user.ownerships.each do |ownership|
 				caseworker_id = ownership.admin_id
