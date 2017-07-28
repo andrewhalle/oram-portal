@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'admins/:id/setting/delete' => 'admins#admin_destroy', :as => 'admin_destroy'
   patch 'admins/:id/setting' => 'admins#admin_edit_save', :as => 'edit_save_admin'
   get 'admins/:id/setting/change_password' => 'admins#admin_pass_change', :as => 'admin_pass_change'
-  patch 'admins/:id/setting' => 'admins#admin_pass_save', :as => 'admin_pass_save'
+  patch 'admins/:id/setting/password' => 'admins#admin_pass_save', :as => 'admin_pass_save'
 
   get 'clients' => 'admins#show_clients', :as => 'clients'
   get 'referrals' => 'admins#show_referrals', :as => 'admin_referrals'
@@ -25,6 +25,14 @@ Rails.application.routes.draw do
   get 'referrer/:id' => 'users#show', :as => 'referrer'
   put 'referrers/:id' => 'users#update_referrer_profile', :as => 'referrer_update'
   post 'referrers/:id/update_status' => 'admins#mark_referrer_status', :as => 'mark_referrer_status'
+  
+  get 'referrers/:id/profile' => 'admins#show_my_profile', :as => 'my_profile'
+  get 'referrers/:id/setting' => 'admins#admin_setting', :as => 'settings'
+  get 'referrers/:id/setting/edit' => 'admins#admin_settings_edit', :as => 'settings_edit'
+  get 'referrers/:id/setting/delete' => 'admins#admin_destroy', :as => 'destroy'
+  patch 'referrers/:id/setting' => 'admins#admin_edit_save', :as => 'save'
+  get 'referrers/:id/setting/change_password' => 'admins#admin_pass_change', :as => 'pass_change'
+  patch 'referrers/:id/setting/password' => 'admins#admin_pass_save', :as => 'pass_save'
 
   get 'referrers/:id/refer_client' => 'users#refer_client', :as => 'refer_client'
   post 'referrers/:id/create_referral' => 'users#create_referral', :as => 'create_referral'
@@ -47,6 +55,8 @@ Rails.application.routes.draw do
   get 'clients/:id/setting/edit' => 'users#client_settings_edit', :as => 'client_settings_edit'
   get 'clients/:id/setting/delete' => 'users#client_destroy', :as => 'client_destroy'
   patch 'clients/:id/setting' => 'users#client_edit_save', :as => 'edit_save'
+  get 'clients/:id/setting/change_password' => 'users#user_pass_change', :as => 'user_pass_change'
+  patch 'clients/:id/setting/password' => 'users#user_pass_save', :as => 'user_pass_save'
   get 'referrer/:id/setting' => 'users#referrer_setting', :as => 'referrer_setting'
   get 'referrer/:id/case_status' => 'users#case_status', :as => 'case_status'
 end
