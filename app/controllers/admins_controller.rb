@@ -184,14 +184,14 @@ class AdminsController < ApplicationController
 		@admin.destroy
 	end
 	
-	def admin_pass_change
+    def admin_pass_change
 		@curr_admin = current_admin
     	@admin = Admin.find_by_id(params[:id])
     	render :admin_pass_change
-	end
+    end 
 	
 	def admin_pass_save
-		@curr_admin = current_admin
+        @curr_admin = current_admin
 		curr = params["admin"]["encrypted_password"]
 		if (@curr_admin.valid_password?(curr))
 			pass1 = params["admin"]["pass_reset1"]
