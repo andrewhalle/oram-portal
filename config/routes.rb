@@ -25,6 +25,14 @@ Rails.application.routes.draw do
   get 'referrer/:id' => 'users#show', :as => 'referrer'
   put 'referrers/:id' => 'users#update_referrer_profile', :as => 'referrer_update'
   post 'referrers/:id/update_status' => 'admins#mark_referrer_status', :as => 'mark_referrer_status'
+  
+  get 'referrers/:id/profile' => 'admins#show_my_profile', :as => 'my_profile'
+  get 'referrers/:id/setting' => 'admins#admin_setting', :as => 'settings'
+  get 'referrers/:id/setting/edit' => 'admins#admin_settings_edit', :as => 'settings_edit'
+  get 'referrers/:id/setting/delete' => 'admins#admin_destroy', :as => 'destroy'
+  patch 'referrers/:id/setting' => 'admins#admin_edit_save', :as => 'save'
+  get 'referrers/:id/setting/change_password' => 'admins#admin_pass_change', :as => 'pass_change'
+  patch 'referrers/:id/setting/password' => 'admins#admin_pass_save', :as => 'pass_save'
 
   get 'referrers/:id/refer_client' => 'users#refer_client', :as => 'refer_client'
   post 'referrers/:id/create_referral' => 'users#create_referral', :as => 'create_referral'
