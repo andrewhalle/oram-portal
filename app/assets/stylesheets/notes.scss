@@ -11,6 +11,8 @@
 }
 
 .notes div {
-    display:block;
-    overflow:auto;
+    height: 200px;
+    resize: both;
+    // overflow: visible;
+    // display: inline-block;
 }

@@ -93,8 +93,8 @@
 							%div
 								%br
 								%textarea.note-field= n.text
-								%button
+								%button{:id => "note_update" + n.id.to_s}
 									Save
-		
+								// =button_to "Save", update_path(n.id), method: :put
 
 
