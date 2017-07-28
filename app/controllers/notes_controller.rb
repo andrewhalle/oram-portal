@@ -40,17 +40,19 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1
   # PATCH/PUT /notes/1.json
   def update
-    @client = User.find_by_id(params[:id])
     @note = Note.find_by_id(params[:id])
-    respond_to do |format|
-      if @note.update(note_params)
-        format.html { redirect_to @note, notice: 'Note was successfully updated.' }
-        format.json { render :show, status: :ok, location: @note }
-      else
-        format.html { render :edit }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
-      end
-    end
+    @note.text = params["text"]
+    @note.save
+    render :nothing => true
+    # respond_to do |format|
+    #   if @note.update(note_params)
+    #     format.html { redirect_to @note, notice: 'Note was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @note }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @note.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /notes/1

@@ -92,8 +92,8 @@
 							%h4= n.title
 							%div
 								%br
-								%textarea.note-field= n.text
-								%button{:id => "note_update" + n.id.to_s}
+								%textarea{:id => "note_text_" + n.id.to_s, :class => "note-field"}= n.text
+								%button{:id => "note_update_" + n.id.to_s}
 									Save
 								// =button_to "Save", update_path(n.id), method: :put
 
