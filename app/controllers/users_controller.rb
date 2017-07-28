@@ -215,7 +215,6 @@ class UsersController < ApplicationController
 	end
 	
 	def case_status
-		#this method should call another method so the employe can update the status of the client.
 		@status = {phase_one: "Applicant vetting"}
 		
 	end 
