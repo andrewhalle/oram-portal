@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  get 'updocs/index' =>'updocs#index'
+  
+  get 'updocs/index' =>'updocs#index' 
 
   get 'updocs/new' => 'updocs#new'
-
   get 'updocs/create'=> 'updocs#create'
+  post 'updocs/create'=> 'updocs#create', :as => 'updocs'
 
   get 'updocs/destroy' => 'updocs#destroy'
 
@@ -67,4 +68,6 @@ Rails.application.routes.draw do
   patch 'clients/:id/setting/password' => 'users#user_pass_save', :as => 'user_pass_save'
   get 'referrer/:id/setting' => 'users#referrer_setting', :as => 'referrer_setting'
   get 'referrer/:id/case_status' => 'users#case_status', :as => 'case_status'
+  
+  
 end

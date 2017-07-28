@@ -1,34 +1,50 @@
-<% if !flash[:notice].blank? %>
-   <div class = "alert alert-info">
-      <%= flash[:notice] %>
-   </div>
-<% end %>
-
-<br />
-
-<%= link_to "New Upload Documents", new_updoc_path, class: "btn btn-primary" %>
-<br />
-<br />
-
-<table class = "table table-bordered table-striped">
-   <thead>.
-      <tr>
-         <th>Name</th>
-         <th>Download Link</th>
-         <th> </th>
-      </tr>
-   </thead>
+<!DOCTYPE html>
+<html>
    
-   <tbody>
-      <% @updocs.each do |updoc| %>
-         
-         <tr>
-            <td><%= updoc.name %></td>
-            <td><%= link_to "Download File", updoc.attachment_url %></td>
-            <td><%= button_to "Delete",  updoc, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{resume.name}?" %></td>
-         </tr>
-         
+   <head>
+      <title>Upload Documents</title>
+      <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+      <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+      <%= csrf_meta_tags %>
+   </head>
+   
+   <body>
+      <div class = "container" style = "padding-top:20px;">
+         <% if !flash[:notice].blank? %>
+            <div class = "alert alert-info">
+               <%= flash[:notice] %>
+            </div>
       <% end %>
-   </tbody>
+
+      <br />
+
+      <%= link_to "New Upload Documents", updocs_new_path, class: "btn btn-primary" %>
+      <br />
+      <br />
+
+      <table class = "table table-bordered table-striped">
+         <thead>.
+            <tr>
+               <th>Name</th>
+               <th>Download Link</th>
+               <th> </th>
+            </tr>
+         </thead>
    
-</table>
+         <tbody>
+            <% @updocs.each do |updoc| %>
+         
+               <tr>
+                  <td><%= updoc.name %></td>
+                  <td><%= link_to "Download File", updoc.attachment_url %></td>
+                  <td><%= button_to "Delete",  updoc, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{updoc.name}?" %></td>
+               </tr>
+         
+            <% end %>
+         </tbody>
+   
+      </table>
+      </div>
+   </body>
+
+</html>

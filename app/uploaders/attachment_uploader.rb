@@ -7,7 +7,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  #  storage :file
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
@@ -47,5 +47,10 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  
+  storage :file
+   def extension_white_list
+      %w(pdf doc htm html docx txt png jpeg)
+   end
 
 end
