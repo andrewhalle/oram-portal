@@ -5,7 +5,7 @@ function setup() {
         header: "> div > h4",
         collapsible: true,
         active: false,
-        autoHeight: false,
+        heightstyle: "content",
         autoActivate: true
     });
 }
