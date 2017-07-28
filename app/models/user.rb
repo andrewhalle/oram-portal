@@ -45,8 +45,6 @@ class User < ActiveRecord::Base
     has_many :ownerships
     has_many :admins, :through => :ownerships
     
-
-
     mount_uploader :case_document, CaseDocumentUploader
 
     def initialize(attributes = nil)
@@ -62,6 +60,11 @@ class User < ActiveRecord::Base
     
     def full_name
         first_name + " " + last_name
+    end
+    
+    def self.get_id_by_name(full_name)
+      first, last = full_name.split(' ')
+      self.where(first_name: first).where(last_name: last).first.id
     end
     
     def gender_identity_options

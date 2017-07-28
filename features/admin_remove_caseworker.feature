@@ -25,9 +25,10 @@ Background: Logging in as an Admin
     | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
 Scenario: Removing a caseworker from a client on the client profile page
-    Given Pending
-    Given I am on the profile of "Michael Jordan"
+    Given I am on the profile page of user "Michael Jordan"
     And I assign caseworker "Anna Karenina" to client "Michael Jordan"
+    And I view "Caseworkers"
+    And I should see "Anna Karenina"
     And I remove caseworker "Anna Karenina" from client "Michael Jordan"
     Then "Anna Karenina" should not be a caseworker from client "Michael Jordan"
     When I am on the caseworker tab of "Michael Jordan"

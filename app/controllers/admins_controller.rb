@@ -119,6 +119,21 @@ class AdminsController < ApplicationController
 		end
 		redirect_to client_path
 	end
+	
+	def delete_caseworker
+		@client = User.find_by_id(params[:id])
+		caseworker = params[:caseworker]
+		
+		first, last = caseworker.split(' ')
+		caseworker_id = Admin.where(role: 1).where(first_name: first).where(last_name: last).first.id	
+		if !@client.ownerships.where(admin_id: caseworker_id).empty?
+			@client.ownerships.where(admin_id: caseworker_id).destroy_all
+			message = "Admin #{current_admin.full_name} deleted caseworker #{caseworker} from client #{@client.full_name}"
+			flash[:notice] = message
+		end
+		redirect_to client_path
+	end
+
 
 	def show_all
 		@curr_admin = current_admin
