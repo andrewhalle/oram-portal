@@ -4,9 +4,9 @@
   </div>
 	<div class="panel-body">
 	 <%= form_for @user, :url => user_pass_save_path(@user.id), :method => :patch  do |f| %>
-  Current Password: <%= f.text_field :encrypted_password, :value => '' %><br />
-  New Password : <%= f.text_field :pass_reset1, :value => '' %><br />
-  Confirm New Password: <%= f.text_field :pass_reset2, :value => '' %><br />
+  Current Password: <%= f.password_field :encrypted_password, :value => '' %><br />
+  New Password : <%= f.password_field :pass_reset1, :value => '' %><br />
+  Confirm New Password: <%= f.password_field :pass_reset2, :value => '' %><br />
   <%= f.submit data: {confirm: "You will now be logged out. Please log in with your new password."}%>
 <% end %>
 	</div>

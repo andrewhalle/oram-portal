@@ -28,10 +28,10 @@ Scenario: Client trying to edit their profile
   Then I should see "Andrew Adams"
     
 Scenario: Client trying to delete their profile
-  Given PENDING
+  # Given PENDING
   Given I follow "Settings"
   When I press "Delete Profile"
-  When I confirm
+  # When I confirm
   Then I should be on the home page
 
 Scenario: Client trying to view and edit their profile
@@ -44,8 +44,10 @@ Scenario: Client trying to view and edit their profile
   #Then I should see "Edit"
   
 Scenario: Client trying to change their password
-  Given PENDING
+  # Given PENDING
   Given I follow "Settings"
-  Then I should see "Change Password"
-  When I follow "Change Password"
+  Then I should see "Change Your Profile"
+  When I press "Change Password"
+    And I press "Update User"
+  Then I should see "Change Your Profile"
   
