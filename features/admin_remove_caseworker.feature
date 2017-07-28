@@ -31,6 +31,7 @@ Scenario: Removing a caseworker from a client on the client profile page
     And I should see "Anna Karenina"
     And I remove caseworker "Anna Karenina" from client "Michael Jordan"
     Then "Anna Karenina" should not be a caseworker of client "Michael Jordan"
+    And I should see "Admin oram admin deleted caseworker Anna Karenina from client Michael Jordan"
     
 Scenario: Removing a client from a caseworker on the caseworker profile page
     Given pending

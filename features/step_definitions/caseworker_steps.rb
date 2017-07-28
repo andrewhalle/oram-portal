@@ -54,7 +54,8 @@ Given(/^I remove caseworker "([^"]*)" from client "([^"]*)"$/) do |arg1, arg2|
   } 
   client_id = User.get_id_by_name(arg2)
   #action = find("#remove_caseworker")[admin_delete_caseworker_path(:id => client_id, :caseworker => arg1)]
-  find(:xpath, "//form[@action = '#{admin_delete_caseworker_path(:id => client_id, :caseworker => arg1)}']").click
+  find(:xpath, "//form[@action = '#{admin_delete_caseworker_path(:id => client_id, :caseworker => arg1)}']//button").click
+  
 end
 
 Then(/^"([^"]*)" should not be a caseworker from client "([^"]*)"$/) do |arg1, arg2|

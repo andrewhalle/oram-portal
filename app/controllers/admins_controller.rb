@@ -51,9 +51,7 @@ class AdminsController < ApplicationController
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@referrer).deliver_now # sends the email
 		end
-		if status == "Complete"
-			
-		end
+
 		redirect_to referrers_path
 	end
 
@@ -130,6 +128,8 @@ class AdminsController < ApplicationController
 			@client.ownerships.where(admin_id: caseworker_id).destroy_all
 			message = "Admin #{current_admin.full_name} deleted caseworker #{caseworker} from client #{@client.full_name}"
 			flash[:notice] = message
+			@client.events.build(:user_id => @client.id, :admin_id => current_admin.id, :message => message)
+			@client.save
 		end
 		redirect_to client_path
 	end
