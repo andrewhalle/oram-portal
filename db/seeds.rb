@@ -9,6 +9,9 @@ central = Admin.create
 central.first_name = "central"
 central.last_name = "admin"
 central.email = "central@admin.com"
+central.address = "123 Berkeley Street, Berkeley, CA, 94709"
+central.phone = "+01-234-567-8910"
+central.skype = "skype_id"
 central.password = "password"
 central.role = 0
 central.save
@@ -17,6 +20,9 @@ employee = Admin.create
 employee.first_name = "employee"
 employee.last_name = "admin"
 employee.email = "employee@admin.com"
+employee.address = "123 Berkeley Street, Berkeley, CA, 94709"
+employee.phone = "+01-234-567-8910"
+employee.skype = "skype_id"
 employee.password = "password"
 employee.role = 1
 employee.save
@@ -25,6 +31,9 @@ referrer = User.create()
 referrer.first_name = "referrer" 
 referrer.last_name = "user"
 referrer.email = "referrer@user.com"
+referrer.address = "123 Berkeley Street, Berkeley, CA, 94709"
+referrer.phone = "+01-234-567-8910"
+referrer.skype = "skype_id"
 referrer.password = "password"
 referrer.role = 0
 referrer.save

@@ -175,23 +175,23 @@ class AdminsController < ApplicationController
 		render :admin_edit_profile
 	end
     
-    def admin_setting
-    	@curr_admin = current_admin
-    	@admin = Admin.find_by_id(params[:id])
+	def admin_setting
+		@curr_admin = current_admin
+		@admin = Admin.find_by_id(params[:id])
 		render :admin_setting
-    end
+	end
     
-    def admin_edit_save
-    	@curr_admin = current_admin
-    	Admin.update(params[:id], 
-    	{:first_name => params["admin"]["first_name"], 
-    	:last_name => params["admin"]["last_name"], 
-    	:email => params["admin"]["email"], 
-    	:phone => params["admin"]["phone"], 
-    	:address => params["admin"]["address"],
-    	:skype => params["admin"]["skype"]})
-    	redirect_to :admin_setting
-    end
+	def admin_edit_save
+		@curr_admin = current_admin
+		Admin.update(params[:id], 
+		{:first_name => params["admin"]["first_name"], 
+		:last_name => params["admin"]["last_name"], 
+		:email => params["admin"]["email"], 
+		:phone => params["admin"]["phone"], 
+		:address => params["admin"]["address"],
+		:skype => params["admin"]["skype"]})
+		redirect_to :admin_setting
+	end
     
 	def admin_destroy
 		redirect_to destroy_user_session_path
@@ -201,22 +201,31 @@ class AdminsController < ApplicationController
 	
 	def admin_pass_change
 		@curr_admin = current_admin
-    	@admin = Admin.find_by_id(params[:id])
-    	render :admin_pass_change
-	end
+		@admin = Admin.find_by_id(params[:id])
+		render :admin_pass_change
+	end 
 	
 	def admin_pass_save
 		@curr_admin = current_admin
-		if (:encrypted_password == @curr_admin.encrypted_password)
-			if (:pass_reset1 == :pass_reset2)
-		    	Admin.update(params[:id], 
-		    	{:pass_reset1 => params["admin"]["encrypted_password"]})
-		    else
-		    	#return a message that password1 isn't equal to password2
-		    end
-		 else
-		 	#return a message that the given password is not correct
-	    end
-    	redirect_to :admin_setting
-    end
+		curr = params["admin"]["encrypted_password"]
+		if (@curr_admin.valid_password?(curr))
+			pass1 = params["admin"]["pass_reset1"]
+			pass2 = params["admin"]["pass_reset2"]
+			if (pass1 == pass2)
+				if (pass1.length > 5)
+					new_pass = Admin.create(:password => pass1).encrypted_password
+					@curr_admin.encrypted_password = new_pass
+					@curr_admin.save
+				else 
+					flash[:alert] = "Your new password must be longer than 5 characters long."
+				end
+			else
+				flash[:alert] = "Your new password and confirmation password do not match. Please try again."
+			end
+		else
+			flash[:alert] = "Your old password is incorrect. Please try again."
+		end
+		redirect_to :admin_setting
+	end
+    
 end
