@@ -220,6 +220,31 @@ class UsersController < ApplicationController
 		
 	end 
 	
+	def user_pass_change
+		@curr_user = current_user
+    	@user = User.find_by_id(params[:id])
+    	render :user_pass_change
+	end
+	
+	def user_pass_save
+		@curr_user = current_user
+		curr = params["user"]["encrypted_password"]
+		if (@curr_user.valid_password?(curr))
+			pass1 = params["user"]["pass_reset1"]
+			pass2 = params["user"]["pass_reset2"]
+			if (pass1 == pass2)
+				new_pass = User.create(:password => pass1).encrypted_password
+		    	@curr_user.encrypted_password = new_pass
+		    	@curr_user.save
+		    else
+		    	flash[:alert] = "Your new password and confirmation password do not match. Please try again."
+		    end
+		 else
+		 	flash[:alert] = "Your old password is incorrect. Please try again."
+	    end
+    	redirect_to :client_setting
+    end
+	
 
 	private
 		def require_login

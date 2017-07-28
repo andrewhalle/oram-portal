@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   get 'clients/:id/setting/edit' => 'users#client_settings_edit', :as => 'client_settings_edit'
   get 'clients/:id/setting/delete' => 'users#client_destroy', :as => 'client_destroy'
   patch 'clients/:id/setting' => 'users#client_edit_save', :as => 'edit_save'
+  get 'clients/:id/setting/change_password' => 'users#user_pass_change', :as => 'user_pass_change'
+  patch 'clients/:id/setting/password' => 'users#user_pass_save', :as => 'user_pass_save'
   get 'referrer/:id/setting' => 'users#referrer_setting', :as => 'referrer_setting'
   get 'referrer/:id/case_status' => 'users#case_status', :as => 'case_status'
 end
