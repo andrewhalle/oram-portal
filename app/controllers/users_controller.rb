@@ -238,7 +238,7 @@ class UsersController < ApplicationController
 					@curr_admin.encrypted_password = new_pass
 					@curr_admin.save
 				else 
-					flash[:alert] = "Your new password must be longer than 5 characters long."
+					flash[:alert] = "Your new password must be longer than 5 characters."
 				end
 			else
 				flash[:alert] = "Your new password and confirmation password do not match. Please try again."
