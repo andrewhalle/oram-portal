@@ -30,13 +30,11 @@ Scenario: Removing a caseworker from a client on the client profile page
     And I view "Caseworkers"
     And I should see "Anna Karenina"
     And I remove caseworker "Anna Karenina" from client "Michael Jordan"
-    Then "Anna Karenina" should not be a caseworker from client "Michael Jordan"
-    When I am on the caseworker tab of "Michael Jordan"
-    Then I should not see "Anna Karenina"
+    Then "Anna Karenina" should not be a caseworker of client "Michael Jordan"
     
 Scenario: Removing a client from a caseworker on the caseworker profile page
-    Given Pending
-    Given I am on the profile of "Andrew Wood"
+    Given pending
+    Given I am on the profile page of admin "Andrew Wood"
     And I assign caseworker "Andrew Wood" to client "Michael Jordan"
     And I remove client "Michael Jordan" from caseworker "Andrew Wood"
     Then "Andrew Wood" should not be a caseworker of client "Michael Jordan"

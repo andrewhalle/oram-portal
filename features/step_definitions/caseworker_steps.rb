@@ -66,5 +66,10 @@ Given(/^I remove client "([^"]*)" from caseworker "([^"]*)"$/) do |arg1, arg2|
 end
 
 Then(/^"([^"]*)" should not be a caseworker of client "([^"]*)"$/) do |arg1, arg2|
-  pending # Write code here that turns the phrase above into concrete actions
+  steps %Q{
+    Given I follow "Clients"
+    And I view the profile of "#{arg2}"
+    And I view "Caseworkers"
+    Then I should not see "arg1"
+  } # Write code here that turns the phrase above into concrete actions
 end
