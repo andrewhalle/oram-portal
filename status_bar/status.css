@@ -24,12 +24,33 @@ html, body {
 	text-align: center;
 }
 
-#status_bar {
-	background-color: blue;
-	width: 15%;
-	height: 50%;
-	border-radius: 20px;
+#design_bar {
+	background-color: black;
+	width: 90%;
+	height: 45%;
+	border-radius: 10px;
 	margin-left: 5%;
 	top: 15%;
+	position: relative;
+}
+
+#design_bar_interior {
+	background-color: white;
+	width: 96%;
+	height: 80%;
+	border-radius: 8px;
+	margin-left: 2%;
+	top: 10%;
+	position: relative;
+}
+
+#status_bar {
+	background-color: blue;
+	width: 16.66%;
+	height: 85%;
+	border-radius: 6px;
+	margin-left: 1%;
+	margin-right: 1%;
+	top: 7%;
 	position: relative;
 }
