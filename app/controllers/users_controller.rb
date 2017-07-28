@@ -5,6 +5,20 @@ class UsersController < ApplicationController
 		@curr_admin = current_admin
 		@user = User.find(params[:id])
 		@form_hash = {}
+		@caseworker_names = []
+		if !@user.ownerships.nil?
+			@user.ownerships.each do |ownership|
+				caseworker_id = ownership.admin_id
+				@caseworker_names.append(Admin.find_by_id(caseworker_id).full_name)
+			end
+		else
+			@caseworker_names.append('This user has no caseworkers.')
+		end
+		if !@user.events.last.nil?
+			@last_event_message = @user.events.last.message
+		else
+			@last_event_message = 'This user has had no events before!'
+		end
 		if @user.role == "referrer"
 			if !@user.forms.empty? && !@user.forms.where(form_type: 1).empty?
 				referrer_forms = @user.forms.where(form_type: 1)
@@ -18,6 +32,7 @@ class UsersController < ApplicationController
 				@form_id = client_form.first.id
 				@form_hash = JSON.parse(client_form.first.form_json)
 			end
+			@events = Event.where(:user_id => @user.id).all.reverse
 			render :client_profile
 		end
 	end
@@ -32,14 +47,14 @@ class UsersController < ApplicationController
 		render :referrer_edit
 	end
 
-	def update_referrer_profile
+	def update_profile(form_type, redirect_path)
 		country_code = params["form_response"]["Country Of Birth"]
 		if !country_code.nil? && !country_code.empty?
 			country = ISO3166::Country[country_code]
 			params["form_response"]["Country Of Birth"] = country.name
 		end
 		@form_response = params["form_response"].to_json
-		@form_type = 1
+		@form_type = form_type
 		@user = User.find_by_id(params[:id])
 		@user_form = @user.forms.where(form_type: @form_type).first
 		if !@user_form
@@ -49,10 +64,19 @@ class UsersController < ApplicationController
 		end
 		if @user_form.save
 			flash[:notice] = "Form successfully saved"
-			redirect_to referrer_path(@user) and return
+			rd_path = eval(redirect_path)
+			redirect_to rd_path and return
 		end
 		flash[:error] = "Form failed to save"
 		redirect_to root_path
+	end
+	
+	def update_referrer_profile
+		update_profile(1, "referrer_path(@user)")
+	end
+	
+	def update_client_profile
+		update_profile(3, "client_path(@user)")
 	end
 
 	def edit_client_profile
@@ -82,29 +106,6 @@ class UsersController < ApplicationController
 		@refugee_claim = @client.refugee_claim
 		@current_form = @client.getFormHash(@client.forms.where(form_type: 3).first) || {}
 		render :client_edit
-	end
-
-	def update_client_profile
-		country_code = params["form_response"]["Country Of Birth"]
-		if !country_code.nil? && !country_code.empty?
-			country = ISO3166::Country[country_code]
-			params["form_response"]["Country Of Birth"] = country.name
-		end
-		@form_response = params["form_response"].to_json
-		@form_type = 3
-		@user = User.find_by_id(params[:id])
-		@user_form = @user.forms.where(form_type: @form_type).first
-		if !@user_form
-			@user_form = @user.forms.build({form_json: @form_response, form_type: @form_type, status: "Incomplete", first_name: @user.first_name, last_name: @user.last_name})
-		else
-			@user_form.update_attribute(:form_json, @form_response)
-		end
-		if @user_form.save
-			flash[:notice] = "Form successfully saved"
-			redirect_to client_path(@user) and return
-		end
-		flash[:error] = "Form failed to save"
-		redirect_to root_path
 	end
 
 	def referrals
@@ -173,21 +174,21 @@ class UsersController < ApplicationController
 		render :client_edit_profile
     end
     
-    def client_setting
-    	@client = current_user
+	def client_setting
+		@client = current_user
 		render :client_setting
-    end
+	end
     
-    def client_edit_save
-    	User.update(params[:id], 
-    	{:first_name => params["user"]["first_name"], 
-    	:last_name => params["user"]["last_name"], 
-    	:email => params["user"]["email"], 
-    	:phone => params["user"]["phone"], 
-    	:address => params["user"]["address"],
-    	:skype => params["user"]["skype"]})
-    	redirect_to :client_setting
-    end
+	def client_edit_save
+		User.update(params[:id], 
+		{:first_name => params["user"]["first_name"], 
+		:last_name => params["user"]["last_name"], 
+		:email => params["user"]["email"], 
+		:phone => params["user"]["phone"], 
+		:address => params["user"]["address"],
+		:skype => params["user"]["skype"]})
+		redirect_to :client_setting
+	end
 
 	def upload_document
 		@client = User.find_by_id(params[:id])
@@ -214,10 +215,38 @@ class UsersController < ApplicationController
 	end
 	
 	def case_status
-		#this method should call another method so the employe can update the status of the client.
 		@status = {phase_one: "Applicant vetting"}
 		
 	end 
+	
+	def user_pass_change
+		@curr_user = current_user
+		@user = User.find_by_id(params[:id])
+		render :user_pass_change
+	end
+	
+	def user_pass_save
+		@curr_user = current_user
+		curr = params["user"]["encrypted_password"]
+		if (@curr_user.valid_password?(curr))
+			pass1 = params["user"]["pass_reset1"]
+			pass2 = params["user"]["pass_reset2"]
+			if (pass1 == pass2)
+				if (pass1.length > 5)
+					new_pass = Admin.create(:password => pass1).encrypted_password
+					@curr_admin.encrypted_password = new_pass
+					@curr_admin.save
+				else 
+					flash[:alert] = "Your new password must be longer than 5 characters."
+				end
+			else
+				flash[:alert] = "Your new password and confirmation password do not match. Please try again."
+			end
+		else
+			flash[:alert] = "Your old password is incorrect. Please try again."
+		end
+		redirect_to :client_setting
+	end
 	
 
 	private

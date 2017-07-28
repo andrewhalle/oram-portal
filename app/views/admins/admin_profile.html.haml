@@ -2,3 +2,11 @@
 	.panel-heading
 		%h3= @admin.first_name + " " + @admin.last_name
 		%h5= @admin.email
+		%h5= @admin.phone
+		%h5= @admin.address
+		%h5= @admin.skype
+		.clients
+			%p<
+				%b= 'Clients: '
+				- @client_names.each do |client|
+					= client + ', '

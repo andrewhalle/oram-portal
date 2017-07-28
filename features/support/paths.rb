@@ -28,8 +28,9 @@ module NavigationHelpers
     when /^the clients list page$/
       client_path
     
-    when /^the user profile page$/
-      '/' #change later
+    when /^the profile page of user "(.*)\s(.*)"$/
+      user_id = User.where(first_name: $1).where(last_name: $2).first.id
+      '/clients/' + user_id.to_s
 
     when /^the invite lawyers page$/
       '/' #change later

@@ -4,7 +4,7 @@
     %tr
       %th First Name
       %th Last Name
-      -if @curr_admin.role == 'employee'
+      -if @curr_admin == 'central'
         %th= select_tag "status",
             options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),
             id: 'select_button',
@@ -16,6 +16,6 @@
       %tr
         %td.first_name= referrer.first_name
         %td.last_name= referrer.last_name
-        -if @curr_admin.role == 'employee'
+        -if @curr_admin.role == 'central'
           %td.status= referrer.status
         %td.more_info= link_to "View Profile", referrer_path(referrer.id)

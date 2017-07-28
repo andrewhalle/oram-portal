@@ -22,26 +22,80 @@ Background: Logging in as an Admin
     
     And I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
-    | oram        | admin     | admin321@gmail.com  | oramadmin  | employee |
+    | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
-Scenario: Adding a client to a caseworkers
-  Given pending
+Scenario: Assigning a caseworker to a client
   Given I follow "Clients"
   And I view the profile of "Bryan Adams"
-  And I select "Anna Karenina" from "Employees"
-  And I press "Assign"
-  Then I should be on the user profile page
-  And "Anna Karenina" should be a Caseworker of "Bryan Adams"
+  And I view "Caseworkers"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  Then I should be on the profile page of user "Bryan Adams"
+  And I view "Caseworkers"
+  And I should see "Anna Karenina"
+  And I should see "Bryan Adams has been assigned to caseworker Anna Karenina"
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
-  And "Bryan Adams" should be a Client of "Anna Karenina"
+  And I should see "Clients: Bryan Adams"
+
+Scenario: Assigning multiple clients to a caseworker
+  Given I follow "Clients"
+  And I view the profile of "Bryan Adams"
+  And I view "Caseworkers"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I follow "Clients"
+  And I view the profile of "George Clooney"
+  And I should see "User George Clooney created an account."
+  And I view "Caseworkers"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker" 
+  And I should see "George Clooney has been assigned to caseworker Anna Karenina"
+  And I should see "Anna Karenina"
+  Given I follow "Admins"
+  And I view the profile of "Anna Karenina"
+  And I should see "Clients: Bryan Adams,George Clooney"
   
+Scenario: Assigning multiple caseworkers to a client
+  Given I follow "Clients"
+  And I view the profile of "Bryan Adams"
+  And I view "Caseworkers"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I select "Sam Iam" from the caseworker dropdown
+  And I press "Assign Caseworker" 
+  And I should see "Bryan Adams has been assigned to caseworker Sam Iam"
+  And I should see "Anna Karenina"
+  Given I follow "Admins"
+  And I view the profile of "Anna Karenina"
+  And I should see "Clients: Bryan Adams"
+
+Scenario: Assigning the same caseworker to a client twice shouldn't duplicate
+  Given I follow "Clients"
+  And I view the profile of "Bryan Adams"
+  And I view "Caseworkers"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I view "Caseworkers"
+  And I select "Sam Iam" from the caseworker dropdown
+  And I press "Assign Caseworker"
+  And I view "Caseworkers"
+  And I select "Anna Karenina" from the caseworker dropdown
+  And I press "Assign Caseworker" 
+  And I should see "Bryan Adams has been assigned to caseworker Sam Iam"
+  And I should see "Anna Karenina"
+  And I should not see "Anna Karenina,Sam Iam,Anna Karenina"
+  Given I follow "Admins"
+  And I view the profile of "Anna Karenina"
+  And I should see "Clients: Bryan Adams"
+  And I should not see "Clients: Bryan Adams,Bryan Adams"
+
 Scenario: Removing a client from a caseworker
   Given pending
   Given I follow "Clients"
     And "Sam Iam" is a Caseworker of "George Clooney"
     And "Andrew Wood" is a Caseworker of "George Clooney"
-  Then I view the profile "George Clooney"
+  Then I view the profile of "George Clooney"
   And I remove "Sam Iam" as a Caseworker from "George Clooney"
   Then I should not see "Sam Iam"
   And "Andrew Wood" should be a Caseworker of "George Clooney"
