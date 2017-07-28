@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'updocs/index' =>'updocs#index'
+
+  get 'updocs/new' => 'updocs#new'
+
+  get 'updocs/create'=> 'updocs#create'
+
+  get 'updocs/destroy' => 'updocs#destroy'
+
   root 'welcome#index'
   devise_for :admins, :controllers => { :invitations => 'admins/invitations' }
   devise_for :users, :controllers => { :invitations => 'users/invitations'}
