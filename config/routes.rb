@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   post 'clients/:id/update_phase' => 'admins#change_client_phase', :as => 'admin_change_client_phase'
   post 'clients/:id/assign_caseworker' => 'admins#assign_caseworker', :as => 'admin_assign_caseworker'
   put  'notes/:id' => 'notes#update', :as => 'note_update'
+  post '/notes' => 'notes#create', :as => 'note_create'
   
   
   get 'referrals/:id' => 'forms#show', :as => 'referral'

@@ -24,17 +24,24 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.json
   def create
-    @note = Note.new(note_params)
+    note = Note.create
+    note.title = params[:title]
+    note.save
+    client = User.find_by_id(params[:user_id])
+    client.notes << note
+    msg = {:id => note.id.to_s}
+    render :json => msg
+    # @note = Note.new(note_params)
 
-    respond_to do |format|
-      if @note.save
-        format.html { redirect_to @note, notice: 'Note was successfully created.' }
-        format.json { render :show, status: :created, location: @note }
-      else
-        format.html { render :new }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @note.save
+    #     format.html { redirect_to @note, notice: 'Note was successfully created.' }
+    #     format.json { render :show, status: :created, location: @note }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @note.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /notes/1

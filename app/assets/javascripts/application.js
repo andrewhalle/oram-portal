@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require_tree .
+//= require_directory .
 //= require referrer_form.js
 //= require toastr
 
