@@ -3,7 +3,11 @@
 	<% if @user and @user.role == "client" %>
 		<div id="case_tracking_status">
 			<p id="status_text">You're currently in phase 1.</p>
-			<div id="status_bar"></div>
+			<div id="design_bar">
+				<div id="design_bar_interior">
+					<div id="status_bar"></div>
+				</div>
+			</div>
 		</div>
 		<script>
 			setTimeout(function() { animateStatus(<%= @user.phase[-1] %>); }, 200);

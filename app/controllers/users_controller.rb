@@ -174,21 +174,21 @@ class UsersController < ApplicationController
 		render :client_edit_profile
     end
     
-    def client_setting
-    	@client = current_user
+	def client_setting
+		@client = current_user
 		render :client_setting
-    end
+	end
     
-    def client_edit_save
-    	User.update(params[:id], 
-    	{:first_name => params["user"]["first_name"], 
-    	:last_name => params["user"]["last_name"], 
-    	:email => params["user"]["email"], 
-    	:phone => params["user"]["phone"], 
-    	:address => params["user"]["address"],
-    	:skype => params["user"]["skype"]})
-    	redirect_to :client_setting
-    end
+	def client_edit_save
+		User.update(params[:id], 
+		{:first_name => params["user"]["first_name"], 
+		:last_name => params["user"]["last_name"], 
+		:email => params["user"]["email"], 
+		:phone => params["user"]["phone"], 
+		:address => params["user"]["address"],
+		:skype => params["user"]["skype"]})
+		redirect_to :client_setting
+	end
 
 	def upload_document
 		@client = User.find_by_id(params[:id])
@@ -215,15 +215,14 @@ class UsersController < ApplicationController
 	end
 	
 	def case_status
-		#this method should call another method so the employe can update the status of the client.
 		@status = {phase_one: "Applicant vetting"}
 		
 	end 
 	
 	def user_pass_change
 		@curr_user = current_user
-    	@user = User.find_by_id(params[:id])
-    	render :user_pass_change
+		@user = User.find_by_id(params[:id])
+		render :user_pass_change
 	end
 	
 	def user_pass_save
@@ -235,19 +234,19 @@ class UsersController < ApplicationController
 			if (pass1 == pass2)
 				if (pass1.length > 5)
 					new_pass = Admin.create(:password => pass1).encrypted_password
-			    	@curr_admin.encrypted_password = new_pass
-			    	@curr_admin.save
-			    else 
-			    	flash[:alert] = "Your new password must be longer than 5 characters long."
-			    end
-		    else
-		    	flash[:alert] = "Your new password and confirmation password do not match. Please try again."
-		    end
-		 else
-		 	flash[:alert] = "Your old password is incorrect. Please try again."
-	    end
-    	redirect_to :client_setting
-    end
+					@curr_admin.encrypted_password = new_pass
+					@curr_admin.save
+				else 
+					flash[:alert] = "Your new password must be longer than 5 characters."
+				end
+			else
+				flash[:alert] = "Your new password and confirmation password do not match. Please try again."
+			end
+		else
+			flash[:alert] = "Your old password is incorrect. Please try again."
+		end
+		redirect_to :client_setting
+	end
 	
 
 	private

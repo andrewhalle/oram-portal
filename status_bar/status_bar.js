@@ -1,5 +1,5 @@
 function animateStatus(phase) {
-	var newWidth = Math.round((phase / 6) * 90).toString() + "%";
+	var newWidth = Math.round((phase / 6) * 97.5).toString() + "%";
 	$("#status_bar").animate({
 		width: newWidth
 	}, 200, function() {});

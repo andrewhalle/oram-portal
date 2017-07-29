@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20170728192559) do
 
   create_table "admins", force: :cascade do |t|
@@ -49,6 +50,11 @@ ActiveRecord::Schema.define(version: 20170728192559) do
   add_index "admins", ["invitations_count"], name: "index_admins_on_invitations_count"
   add_index "admins", ["invited_by_id"], name: "index_admins_on_invited_by_id"
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+
+  create_table "documents", force: :cascade do |t|
+    t.string "user_id"
+    t.string "case_document"
+  end
 
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
