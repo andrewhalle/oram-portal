@@ -18,6 +18,9 @@ function setup() {
            method: "put",
            data: {
                text: $("#note_text_" + note_id).val()
+           },
+           success: function() {
+               alert("Saved note!");
            }
         });
     });
@@ -66,6 +69,9 @@ function setup() {
                        method: "put",
                        data: {
                            text: $("#note_text_" + note_id).val()
+                       },
+                       success: function() {
+                           alert("Saved note!");
                        }
                     });
                 });
