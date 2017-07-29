@@ -53,6 +53,15 @@ class User < ActiveRecord::Base
       # Do whatever you want in here.
     end
     
+    def destroy(attributes = nil)
+      super
+      if current_admin
+        events.build(:user_id => id, :admin_id => current_admin.id, :created_at => Time.now, :updated_at => Time.now, :message => "Admin #{current_admin.full_name} deleted account of user #{first_name} #{last_name}.")
+      elsif current_user
+        events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} deleted their own account.")
+      end
+    end
+    
     #Adding stuff for tracker 
     def self.Application_phases
       return {
