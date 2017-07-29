@@ -1,13 +1,4 @@
 Rails.application.routes.draw do
-  
-  get 'updocs/index' =>'updocs#index' 
-
-  get 'updocs/new' => 'updocs#new'
-  get 'updocs/create'=> 'updocs#create'
-  post 'updocs/create'=> 'updocs#create', :as => 'updocs'
-
-  get 'updocs/destroy' => 'updocs#destroy'
-
   root 'welcome#index'
   devise_for :admins, :controllers => { :invitations => 'admins/invitations' }
   devise_for :users, :controllers => { :invitations => 'users/invitations'}
@@ -68,6 +59,21 @@ Rails.application.routes.draw do
   patch 'clients/:id/setting/password' => 'users#user_pass_save', :as => 'user_pass_save'
   get 'referrer/:id/setting' => 'users#referrer_setting', :as => 'referrer_setting'
   get 'referrer/:id/case_status' => 'users#case_status', :as => 'case_status'
+  
+  
+  
+  get 'updocs/' =>'updocs#index', :as => 'updocs'
+  post 'updocs/' =>'updocs#create'
+  get 'updocs/new' =>'updocs#new', :as => 'new_updocs'
+  delete 'updocs/:id' =>'updocs#destroy', :as => 'updoc'
+  get 'updocs/' =>'updocs#index', :as => 'updocs'
+  # get '/' => 'updoc#index', :as => 'root'
+  get 'updocs/index' =>'updocs#index', :as => 'updocs_index'
+  get 'updocs/new' =>'updocs#new', :as => 'updocs_new'
+  get 'updocs/create' =>'updocs#create', :as => 'updocs_create'
+  get 'updocs/destroy' =>'updocs#destroy', :as => 'updocs_destroy'
+  
+  
   
   
 end
