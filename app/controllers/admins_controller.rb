@@ -44,9 +44,13 @@ class AdminsController < ApplicationController
 		status = params[:status]
 		@referrer = User.find_by_id(id)
 		@form = @referrer.forms.where(form_type: 1).first
+		@form.status = status
+		@form.save
 		@referrer.status = status
 		@referrer.save
-		flash[:notice] = "#{@referrer.first_name} #{@referrer.last_name} has been marked as #{@referrer.status.downcase}"
+		message = "#{@referrer.first_name} #{@referrer.last_name} has been marked as #{@referrer.status.downcase} by admin #{current_admin.full_name}"
+		flash[:notice] = message
+		@referrer.events.build(:user_id => @referrer.id, :admin_id => current_admin.id, :message => message)
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@referrer).deliver_now # sends the email
@@ -62,8 +66,12 @@ class AdminsController < ApplicationController
 		@client = User.find_by_id(id)
 		@form = Form.find_by_id(form_id)
 		@form.status = status
+		@client.status = status
 		@form.save
-		flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
+		@client.save
+		message = "Questionnaire of client #{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase} by admin #{current_admin.full_name}"
+		flash[:notice] = message
+		@client.events.build(:user_id => @client.id, :admin_id => current_admin.id, :message => message)
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@client).deliver_now # sends the email
@@ -77,12 +85,14 @@ class AdminsController < ApplicationController
 		@form = Form.find(id)
 		@form.status = status
 		@form.save
+		message = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase} by admin #{current_admin.full_name}"
+		Admin.find_by_id(current_admin.id).events.build(:admin_id => current_admin.id, :message => message)
 		if status == "Approved"
 			flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}, next step is to invite as client."
 			redirect_to new_user_invitation_path
 			return
 		else
-			flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}"
+			flash[:notice] = message
 		end
 		redirect_to admin_referrals_path
 	end
