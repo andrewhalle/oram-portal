@@ -56,16 +56,16 @@ class User < ActiveRecord::Base
     #Adding stuff for tracker 
     def self.Application_phases
       return {
-        "Phase 1": "Applicant Vetting", 
-        "Phase 2": "Client Engagement or Client Rejected", 
-        "Phase 3": "ORAM Preparing Client Case", 
-        "Phase 4": "Case Submitted", 
-        "Phase 5": "UNHCR Interview", 
-        "Phase 6": "Recognized Refugee",
-        "Phase 7": "Case Rejected by UNHCR",
-        "Phase 8": "Client Approved for Resettlement",
-        "Phase 9": "Client Resettled",
-        "Phase 10": "Case Closed"
+        "Phase 1" => "Applicant Vetting", 
+        "Phase 2" => "Client Engagement or Client Rejected", 
+        "Phase 3" => "ORAM Preparing Client Case", 
+        "Phase 4" => "Case Submitted", 
+        "Phase 5" => "UNHCR Interview", 
+        "Phase 6" => "Recognized Refugee",
+        "Phase 7" => "Case Rejected by UNHCR",
+        "Phase 8" => "Client Approved for Resettlement",
+        "Phase 9" => "Client Resettled",
+        "Phase 10" => "Case Closed"
       }
     end 
     
