@@ -46,8 +46,6 @@ class User < ActiveRecord::Base
     has_many :admins, :through => :ownerships
     has_many :notes, dependent: :destroy
     
-
-
     mount_uploader :case_document, CaseDocumentUploader
 
     def initialize(attributes = nil)
@@ -58,11 +56,35 @@ class User < ActiveRecord::Base
     
     #Adding stuff for tracker 
     def self.Application_phases
-      return ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6"]
+      return {
+        "Phase 1" => "Applicant Vetting", 
+        "Phase 2" => "Client Engagement or Client Rejected", 
+        "Phase 3" => "ORAM Preparing Client Case", 
+        "Phase 4" => "Case Submitted", 
+        "Phase 5" => "UNHCR Interview", 
+        "Phase 6" => "Recognized Refugee",
+        "Phase 7" => "Case Rejected by UNHCR",
+        "Phase 8" => "Client Approved for Resettlement",
+        "Phase 9" => "Client Resettled",
+        "Phase 10" => "Case Closed"
+      }
     end 
+    
+    def self.Application_phases_array
+      array = [] 
+      self.Application_phases.each {|key, value|
+        array.append("#{key}: #{value}")
+      }
+      array
+    end
     
     def full_name
         first_name + " " + last_name
+    end
+    
+    def self.get_id_by_name(full_name)
+      first, last = full_name.split(' ')
+      self.where(first_name: first).where(last_name: last).first.id
     end
     
     def gender_identity_options

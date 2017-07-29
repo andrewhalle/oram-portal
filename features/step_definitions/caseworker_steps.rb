@@ -35,3 +35,42 @@ end
 Then(/^I remove "([^"]*)" as a Caseworker from "([^"]*)"$/) do |arg1, arg2|
   pending # Write code here that turns the phrase above into concrete actions
 end
+
+Given(/^I assign caseworker "([^"]*)" to client "([^"]*)"$/) do |arg1, arg2|
+  steps %Q{
+    Given I follow "Clients"
+    And I view the profile of "#{arg2}"
+    And I view "Caseworkers"
+    And I select "#{arg1}" from the caseworker dropdown
+    And I press "Assign Caseworker"
+  } # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^I remove caseworker "([^"]*)" from client "([^"]*)"$/) do |arg1, arg2|
+  steps %Q{
+    Given I follow "Clients"
+    And I view the profile of "#{arg2}"
+    And I view "Caseworkers"
+  } 
+  client_id = User.get_id_by_name(arg2)
+  #action = find("#remove_caseworker")[admin_delete_caseworker_path(:id => client_id, :caseworker => arg1)]
+  find(:xpath, "//form[@action = '#{admin_delete_caseworker_path(:id => client_id, :caseworker => arg1)}']//button").click
+  
+end
+
+Then(/^"([^"]*)" should not be a caseworker from client "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^I remove client "([^"]*)" from caseworker "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^"([^"]*)" should not be a caseworker of client "([^"]*)"$/) do |arg1, arg2|
+  steps %Q{
+    Given I follow "Clients"
+    And I view the profile of "#{arg2}"
+    And I view "Caseworkers"
+    Then I should not see "arg1"
+  } # Write code here that turns the phrase above into concrete actions
+end
