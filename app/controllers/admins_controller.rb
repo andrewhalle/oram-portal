@@ -48,7 +48,7 @@ class AdminsController < ApplicationController
 		@form.save
 		@referrer.status = status
 		@referrer.save
-		message = "#{@referrer.first_name} #{@referrer.last_name} has been marked as #{@referrer.status.downcase} by admin #{current_admin.full_name}"
+		message = "Referrer #{@referrer.full_name} has been marked as #{@referrer.status.downcase} by admin #{current_admin.full_name}"
 		flash[:notice] = message
 		@referrer.events.build(:user_id => @referrer.id, :admin_id => current_admin.id, :message => message)
 		if status == "Incomplete"
@@ -69,7 +69,7 @@ class AdminsController < ApplicationController
 		@client.status = status
 		@form.save
 		@client.save
-		message = "Questionnaire of client #{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase} by admin #{current_admin.full_name}"
+		message = "Questionnaire of client #{@client.full_name} has been marked as #{@client.status.downcase} by admin #{current_admin.full_name}"
 		flash[:notice] = message
 		@client.events.build(:user_id => @client.id, :admin_id => current_admin.id, :message => message)
 		if status == "Incomplete"
@@ -85,7 +85,7 @@ class AdminsController < ApplicationController
 		@form = Form.find(id)
 		@form.status = status
 		@form.save
-		message = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase} by admin #{current_admin.full_name}"
+		message = "Referral #{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase} by admin #{current_admin.full_name}"
 		Admin.find_by_id(current_admin.id).events.build(:admin_id => current_admin.id, :message => message)
 		if status == "Approved"
 			flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}, next step is to invite as client."
