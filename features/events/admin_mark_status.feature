@@ -1,8 +1,8 @@
-Feature: Central Admin removing clients from caseworkers
+Feature: Central Admin marking status of different forms generates an event
   As a central admin
-  In order to remove clients from caseworkers
-  I want to see an option to remove caseworkers from clients on the clients page
-  I want to see an option to remove clients from caseworkers on the caseworker page
+  In order to mark the forms of referrals, referrers, and client questionnaires
+  I want to mark forms
+  I want to see an event that tracks form status 
   
 Background: Logging in as an Admin
   
@@ -24,22 +24,6 @@ Background: Logging in as an Admin
     | first_name  | last_name | email               | password   | role     |
     | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
 
-Scenario: Removing a caseworker from a client on the client profile page
-    Given Pending
-    Given I am on the profile of "Michael Jordan"
-    And I assign caseworker "Anna Karenina" to client "Michael Jordan"
-    And I remove caseworker "Anna Karenina" from client "Michael Jordan"
-    Then "Anna Karenina" should not be a caseworker from client "Michael Jordan"
-    When I am on the caseworker tab of "Michael Jordan"
-    Then I should not see "Anna Karenina"
-    
-Scenario: Removing a client from a caseworker on the caseworker profile page
-    Given Pending
-    Given I am on the profile of "Andrew Wood"
-    And I assign caseworker "Andrew Wood" to client "Michael Jordan"
-    And I remove client "Michael Jordan" from caseworker "Andrew Wood"
-    Then "Andrew Wood" should not be a caseworker of client "Michael Jordan"
-    When I am on the caseworker tab of "Michael Jordan"
-    Then I should not see "Anna Karenina"
-    When I am on the status feed tab of "Michael Jordan"
-    Then I should see "oram admin removed client Michael Jordan from Caseworker Andrew Wood"
+Scenario: Admin changes status of a client questionnaire.
+    Given pending
+    Given I approve client "George Clooney"
