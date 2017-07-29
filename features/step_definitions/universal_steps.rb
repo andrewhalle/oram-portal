@@ -125,3 +125,11 @@ end
 And(/^I view "Caseworkers"$/) do
   find('#menu1', :text => 'Caseworkers').click
 end
+
+And(/^I view the caseworker tab of "([^"]*)"$/) do |arg1|
+  steps %Q{
+    Given I follow "Clients"
+    And I view the profile of "#{arg1}"
+    And I view "Caseworkers"
+  }
+end

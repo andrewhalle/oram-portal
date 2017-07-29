@@ -34,7 +34,7 @@
 						.phase-change-select
 							= form_for :edit_client, :url => admin_change_client_phase_path(:action => 'post') do |f|
 								.row.form-group
-									= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase), id: 'changed_phase', class: 'form-control inline-block select'
+									= f.select :changed_phase, options_for_select(User.Application_phases_array, @user.phase), id: 'changed_phase', class: 'form-control inline-block select'
 									= f.submit 'Change Phase', class: 'btn btn-sm btn-default inline-block'
 
 	.panel-body
@@ -58,10 +58,12 @@
 					- @caseworker_names.each do |caseworker|
 						.container-fluid
 							.row
-								.panel.panel-info.panel-user.col-centered
+								.panel.panel-info.panel-user.col-centered.inline-block
 									%h6.text-center= caseworker
-								.glyphicon.glyphicon-remove
-									
+								.remove-button.inline-block.select.btn.btn-sm.btn-default
+									= form_for :remove_client, :url => admin_delete_caseworker_path(:action => 'post', :caseworker => caseworker),  :html => {:id => "remove_caseworker"} do |f|
+										= button_tag( :class => ".glyphicon.glyphicon-remove") do
+											.glyphicon.glyphicon-remove
 						
 				.assign-caseworker-select.container-fluid
 					= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|

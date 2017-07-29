@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725183552) do
+ActiveRecord::Schema.define(version: 20170728131020) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20170725183552) do
 
   create_table "documents", force: :cascade do |t|
     t.string "user_id"
-    t.string "case_document"
+    t.string "document"
   end
 
   create_table "events", force: :cascade do |t|

@@ -49,6 +49,7 @@ class Admin < ActiveRecord::Base
     caseworkers
   end
   
+
   def get_user_ids
     user_ids = self.users.map do |u|
       u.id
