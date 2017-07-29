@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   post 'clients/:id/assign_caseworker' => 'admins#assign_caseworker', :as => 'admin_assign_caseworker'
   put  'notes/:id' => 'notes#update', :as => 'note_update'
   post '/notes' => 'notes#create', :as => 'note_create'
+  delete '/notes/:id' => 'notes#destroy', :as => 'note_destroy'
   
   post 'clients/:id/delete_caseworker' => 'admins#delete_caseworker', :as => 'admin_delete_caseworker'
   

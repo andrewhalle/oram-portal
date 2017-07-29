@@ -97,10 +97,14 @@
 						Add note
 					.notes
 						-@notes.each do |n|
-							%h4= n.title
-							%div
+							%h4{:id => "note_title_" + n.id.to_s}
+								= n.title
+							%div{:id => "note_collapse_" + n.id.to_s}
+								%br
+								= link_to "Delete note", "", {:id => "delete_note_" + n.id.to_s}
 								%br
 								%textarea{:id => "note_text_" + n.id.to_s, :class => "note-field"}= n.text
+								%br
 								%button{:id => "note_update_" + n.id.to_s}
 									Save
 								// =button_to "Save", update_path(n.id), method: :put
