@@ -11,7 +11,7 @@ class UpdocsController < ApplicationController
       @updoc = Updoc.new(updoc_params)
       
       if @updoc.save
-         redirect_to updocs_path, notice: "The uploaded #{@updoc.name} file has been uploaded."
+         redirect_to updocs_path, notice: "The #{@updoc.name} file has been uploaded."
       else
          render "new"
       end
@@ -21,12 +21,12 @@ class UpdocsController < ApplicationController
    def destroy
       @updoc = Updoc.find(params[:id])
       @updoc.destroy
-      redirect_to updocs_path, notice:  "The updoc #{@updoc.name} file has been deleted."
+      redirect_to updocs_path, notice:  "The #{@updoc.name} has been deleted."
    end
    
    private
       def updoc_params
-      params.require(:updoc).permit(:name, :attachment)
-   end
+         params.require(:updoc).permit(:name, :attachment)
+      end
    
 end

@@ -66,7 +66,6 @@ Rails.application.routes.draw do
   post 'updocs/' =>'updocs#create'
   get 'updocs/new' =>'updocs#new', :as => 'new_updocs'
   delete 'updocs/:id' =>'updocs#destroy', :as => 'updoc'
-  get 'updocs/' =>'updocs#index', :as => 'updocs'
   # get '/' => 'updoc#index', :as => 'root'
   get 'updocs/index' =>'updocs#index', :as => 'updocs_index'
   get 'updocs/new' =>'updocs#new', :as => 'updocs_new'
