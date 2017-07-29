@@ -40,6 +40,16 @@ class Admin < ActiveRecord::Base
     # Do whatever you want in here.
   end
   
+  def destroy(attributes = nil)
+    super
+    if current_admin
+      events.build(:admin_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "Admin #{current_admin.full_name} deleted account of Admin #{first_name} #{last_name}.")
+    elsif current_user
+      events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "PERMISSIONS ERROR: User #{current_user.full_name} deleted account of Admin #{first_name} #{last_name}.")
+    end
+  end
+  
+  
   def self.Caseworkers
     caseworkers_db = self.where(role: 1).all
     caseworkers = []
