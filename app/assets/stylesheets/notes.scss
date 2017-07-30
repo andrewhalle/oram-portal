@@ -1,0 +1,18 @@
+// Place all the styles related to the Notes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.note-field {
+    // padding: 15px;
+    height: 100px;
+    width: 300px;
+    resize: both;
+    border: 1px solid black;
+}
+
+.notes div {
+    height: 200px;
+    resize: both;
+    // overflow: visible;
+    // display: inline-block;
+}

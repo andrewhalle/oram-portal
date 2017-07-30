@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 20170728131020) do
     t.string   "encrypted_form_json_iv"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "text"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
+
   create_table "ownerships", force: :cascade do |t|
     t.integer "admin_id"
     t.integer "user_id"
