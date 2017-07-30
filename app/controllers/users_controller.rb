@@ -47,8 +47,16 @@ class UsersController < ApplicationController
 		render :referrer_edit
 	end
 
+	def get_country(country_code)
+		if !country_code.nil? && !country_code.empty?
+			country = ISO3166::Country[country_code]
+			return country.name
+		end	
+	end
+	
 	def update_profile(form_type, redirect_path)
 		country_code = params["form_response"]["Country Of Birth"]
+		params["form_response"]["Country Of Birth"] = get_country(country_code)
 		if !country_code.nil? && !country_code.empty?
 			country = ISO3166::Country[country_code]
 			params["form_response"]["Country Of Birth"] = country.name
@@ -145,10 +153,7 @@ class UsersController < ApplicationController
 
 	def create_referral
 		country_code = params["form_response"]["Country Of Birth"]
-		if !country_code.nil? && !country_code.empty?
-			country = ISO3166::Country[country_code]
-			params["form_response"]["Country Of Birth"] = country.name
-		end
+		params["form_response"]["Country Of Birth"] = get_country(country_code)
 		client_first_name = params["form_response"]["First Name"]
 		client_last_name = params["form_response"]["Surname(s)"]
 		@form_response = params["form_response"].to_json
