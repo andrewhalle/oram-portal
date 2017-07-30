@@ -7,7 +7,7 @@ Feature: update the status of a pending application
 
 Background: Logging in as an admin
 
-  Given that I am logged in as the following admin:
+  Given I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
     | oram        | admin     | admin321@gmail.com  | oramadmin  | central  |
 
