@@ -42,10 +42,11 @@ class Admin < ActiveRecord::Base
   
   def destroy(attributes = nil)
     super
+    events.build(:created_at => Time.now, :updated_at => Time.now)
     if current_admin
-      events.build(:admin_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "Admin #{current_admin.full_name} deleted account of Admin #{first_name} #{last_name}.")
+      events.last(:admin_id => id, :message => "Admin #{current_admin.full_name} deleted account of Admin #{first_name} #{last_name}.")
     elsif current_user
-      events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "PERMISSIONS ERROR: User #{current_user.full_name} deleted account of Admin #{first_name} #{last_name}.")
+      events.last(:user_id => id, :message => "PERMISSIONS ERROR: User #{current_user.full_name} deleted account of Admin #{first_name} #{last_name}.")
     end
   end
   

@@ -31,14 +31,14 @@ end
 #taken from what was originally oram_admin_steps.rb
 Given /the following admins exist/ do |admins_table|
   admins_table.hashes.each do |admin|
-    a = Admin.create
-    puts admin
-    a.first_name = admin["first_name"]
-    a.last_name = admin["last_name"]
-    a.email = admin["email"]
-    a.password = admin["password"]
-    a.role = admin["role"]
-    a.save
+    a = Admin.create(admin)
+    # puts admin
+    # a.first_name = admin["first_name"]
+    # a.last_name = admin["last_name"]
+    # a.email = admin["email"]
+    # a.password = admin["password"]
+    # a.role = admin["role"]
+    # a.save
   end
 end
 

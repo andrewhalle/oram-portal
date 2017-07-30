@@ -13,3 +13,7 @@ end
 When(/^I view the first profile$/) do
   first(:link, "View Profile").click
 end
+
+Then(/^I should see the alert "([^"]*)"$/) do |arg1|
+  expect(page).to have_content("#{arg1}")
+end

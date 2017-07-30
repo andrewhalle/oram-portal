@@ -29,5 +29,5 @@ Scenario: central admin can view all admins
 Scenario: employee admin can't view all admins
     Given I am logged in with credentials "employee@admin.com" and "password"
     When I request the admins page
-    Then I should see "You must be central admin to do that!"
+    Then I should see "You must be a central admin to do that!"
     

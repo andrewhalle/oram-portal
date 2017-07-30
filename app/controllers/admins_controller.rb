@@ -147,12 +147,12 @@ class AdminsController < ApplicationController
 
 	def show_all
 		@curr_admin = current_admin
-		if @curr_admin == nil
-			flash[:notice] = "You must be admin to do that!"
+		if @curr_admin.nil? || current_admin.role == 'employee'
+			flash[:notice] = "You must be a central admin to do that!"
 			redirect_to root_path and return
-		elsif @curr_admin.role == 'employee'
-			flash[:warning] = "You must be central admin to do that!"
-			redirect_to root_path and return
+		# elsif @curr_admin.role == 'employee'
+		# 	flash[:warning] = "You must be central admin to do that!"
+		# 	redirect_to root_path and return
 		else
 			@admins = Admin.all
 		end

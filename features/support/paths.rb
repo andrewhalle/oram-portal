@@ -25,6 +25,9 @@ module NavigationHelpers
     when /^the admin user profile page$/
       '/' #change later
 
+    when /^the admins list page$/
+      '/admins'
+    
     when /^the clients list page$/
       client_path
     
