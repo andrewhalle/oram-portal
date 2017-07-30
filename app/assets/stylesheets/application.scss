@@ -11,6 +11,10 @@
  * file per style scope.
  *
  */
+ 
+ /*
+ *= require jquery-ui
+ */
 
  @import 'bootstrap-sprockets';
  @import 'bootstrap';
@@ -24,6 +28,7 @@
  @import 'toastr';
  @import 'forms.scss';
  @import 'status.scss';
+ @import 'notes.scss';
 
 html, body {
 	height: 100%;
