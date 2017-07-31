@@ -113,7 +113,26 @@ function hidePersonalRelationshipLevel() {
 	hideItem('.yes-personal-relationship', '.friendship-level');
 }
 
-
+function hideAll() {
+	hideKimlikNumber();
+	hideUNHCRNumber();
+	hideOpenAboutSexualOrientationOrGender();
+	hideClientDangersSelect();
+	hideVerbalAbuseClientDangersSelect();
+	hidePhysicalAbuseClientDangersSelect();
+	hideOtherAbuseOverview();
+	hideSexualViolenceClientDangersSelect();
+	hideMentalIllnessOptions();
+	hideArrestedOptions();
+	hidePersecutionOptions();
+	hideMedicalConcernOptions();
+	hideDocumentaryEvidenceOptions();
+	hideDocumentaryOtherExplanation();
+	togglePersonalRelationshipToClient();
+	hideWhichOrganizationOptions();
+	hidePersonalRelationshipLevel();
+	hideProfessionalRelationshipOptions();
+}
 
 
 
@@ -140,22 +159,5 @@ $(document).ready(function() {
 
 
 	displayCannotProvideAssistance();
-	hideKimlikNumber();
-	hideUNHCRNumber();
-	hideOpenAboutSexualOrientationOrGender();
-	hideClientDangersSelect();
-	hideVerbalAbuseClientDangersSelect();
-	hidePhysicalAbuseClientDangersSelect();
-	hideOtherAbuseOverview();
-	hideSexualViolenceClientDangersSelect();
-	hideMentalIllnessOptions();
-	hideArrestedOptions();
-	hidePersecutionOptions();
-	hideMedicalConcernOptions();
-	hideDocumentaryEvidenceOptions();
-	hideDocumentaryOtherExplanation();
-	togglePersonalRelationshipToClient();
-	hideWhichOrganizationOptions();
-	hidePersonalRelationshipLevel();
-	hideProfessionalRelationshipOptions();
+	hideAll();
 });
