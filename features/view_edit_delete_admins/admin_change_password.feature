@@ -21,9 +21,6 @@ Scenario: Admin changes their password and logs in with new password
 
 Scenario: Admin changes their password and logs in with old password
   Given I change my password from "oram123" to "newpassword"
-  When I fill in "admin_email" with "donald@trump.com"
-  And I fill in "admin_password" with "oram123"
-  And I press "Log in"
+  When I login as admin with email "donald@trump.com" and password "oram123"
   Then I should be on the admin login page
-  And I fill in "admin_email" with "donald@trump.com"
-  And I fill in "admin_password" with "newpassword"
+  When I login as admin with email "donald@trump.com" and password "newpassword"
