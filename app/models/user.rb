@@ -33,6 +33,7 @@
 class User < ActiveRecord::Base
   	# Include default devise modules. Others available are:
   	# :confirmable, :lockable, :timeoutable and :omniauthable
+
   	devise :invitable, :database_authenticatable, :recoverable,
      :rememberable, :trackable, :validatable
 
@@ -55,11 +56,7 @@ class User < ActiveRecord::Base
     end
     
     before_destroy do
-      if current_admin
-        events.build(:user_id => id, :admin_id => current_admin.id, :created_at => Time.now, :updated_at => Time.now, :message => "Admin #{current_admin.full_name} deleted account of user #{first_name} #{last_name}.")
-      elsif current_user
-        events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} deleted their own account.")
-      end
+      events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} account deleted.")
       true
     end
     

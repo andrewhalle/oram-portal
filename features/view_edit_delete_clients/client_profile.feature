@@ -28,10 +28,9 @@ Scenario: Client trying to edit their profile
   Then I should see "Andrew Adams"
     
 Scenario: Client trying to delete their profile
-  Given Pending
   Given I follow "Settings"
   When I press "Delete Profile"
-  # When I confirm
+  Then I should see "Sign in"
   Then I should be on the home page
 
 Scenario: Client trying to view and edit their profile

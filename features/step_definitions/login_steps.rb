@@ -67,3 +67,12 @@ Given(/I change my password from "([^"]*)" to "([^"]*)"$/) do |arg1, arg2|
     Then I should be on the admin login page
   }
 end
+
+When(/^I login as admin with email "([^"]*)" and password "([^"]*)"$/) do |arg1, arg2|
+  steps %Q{
+    When I go to the admin login page
+    When I fill in "admin_email" with "donald@trump.com"
+    And I fill in "admin_password" with "oram123"
+    And I press "Log in"
+  }
+end
