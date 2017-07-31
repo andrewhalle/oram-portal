@@ -34,7 +34,7 @@
 						.phase-change-select
 							= form_for :edit_client, :url => admin_change_client_phase_path(:action => 'post') do |f|
 								.row.form-group
-									= f.select :changed_phase, options_for_select(User.Application_phases, @user.phase), id: 'changed_phase', class: 'form-control inline-block select'
+									= f.select :changed_phase, options_for_select(User.Application_phases_array, @user.phase), id: 'changed_phase', class: 'form-control inline-block select'
 									= f.submit 'Change Phase', class: 'btn btn-sm btn-default inline-block'
 
 	.panel-body
@@ -47,6 +47,9 @@
 				%a{"data-toggle" => "tab", :href => "#menu2"} Documents
 			%li
 				%a{"data-toggle" => "tab", :href => "#menu3"} Questionnaire
+			- if @current_admin
+				%li
+					%a{"data-toggle" => "tab", :href => "#menu4"} Notes
 		.tab-content
 			#home.tab-pane.fade.in.active
 				%h3 Client Activity Feed
@@ -58,10 +61,12 @@
 					- @caseworker_names.each do |caseworker|
 						.container-fluid
 							.row
-								.panel.panel-info.panel-user.col-centered
+								.panel.panel-info.panel-user.col-centered.inline-block
 									%h6.text-center= caseworker
-								.glyphicon.glyphicon-remove
-									
+								.remove-button.inline-block.select.btn.btn-sm.btn-default
+									= form_for :remove_client, :url => admin_delete_caseworker_path(:action => 'post', :caseworker => caseworker),  :html => {:id => "remove_caseworker"} do |f|
+										= button_tag( :class => ".glyphicon.glyphicon-remove") do
+											.glyphicon.glyphicon-remove
 						
 				.assign-caseworker-select.container-fluid
 					= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|
@@ -83,7 +88,25 @@
 									= value.join(', ')
 								- else
 									= value				
-		
-		
+			-if @current_admin
+				= javascript_include_tag "load_separately/notes_accordion"
+				#menu4.tab-pane.fade
+					%h3 Notes
+					%input{:type => "text", :placeholder => "Title for new note", :id => "add_note_title"}
+					%button{:id => "add_note"}
+						Add note
+					.notes
+						-@notes.each do |n|
+							%h4{:id => "note_title_" + n.id.to_s}
+								= n.title
+							%div{:id => "note_collapse_" + n.id.to_s}
+								%br
+								= link_to "Delete note", "", {:id => "delete_note_" + n.id.to_s}
+								%br
+								%textarea{:id => "note_text_" + n.id.to_s, :class => "note-field"}= n.text
+								%br
+								%button{:id => "note_update_" + n.id.to_s}
+									Save
+								// =button_to "Save", update_path(n.id), method: :put
 
 

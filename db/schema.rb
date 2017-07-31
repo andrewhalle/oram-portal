@@ -50,6 +50,11 @@ ActiveRecord::Schema.define(version: 20170728192559) do
   add_index "admins", ["invited_by_id"], name: "index_admins_on_invited_by_id"
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
+  create_table "documents", force: :cascade do |t|
+    t.string "user_id"
+    t.string "document"
+  end
+
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "message"
@@ -69,6 +74,16 @@ ActiveRecord::Schema.define(version: 20170728192559) do
     t.string   "encrypted_form_json"
     t.string   "encrypted_form_json_iv"
   end
+
+  create_table "notes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "text"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
 
   create_table "ownerships", force: :cascade do |t|
     t.integer "admin_id"

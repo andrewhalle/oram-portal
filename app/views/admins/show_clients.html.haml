@@ -21,7 +21,7 @@
       %tr
         %td.first_name= client.first_name
         %td.last_name= client.last_name
-        %td.status= client.forms.where(form_type: 3).first.status
+        %td.status= client.status
         %td.phase= client.phase
         %td.more_info= link_to "View Profile", client_path(client.id)
         %br

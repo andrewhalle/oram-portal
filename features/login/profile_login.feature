@@ -23,7 +23,7 @@ Scenario: Valid User Logging In
   When I press "Log in"
   #Then I should be on the home page - redirecting to questionnaire now if it doesn't exist
   #And I should see "Signed in successfully."
-  Then I should see "Please fill out your questionnaire first."
+  Then I should see "Latest"
 
 Scenario: User login info does not exist
  Given I am on the login page
