@@ -40,17 +40,6 @@ class Admin < ActiveRecord::Base
     # Do whatever you want in here.
   end
   
-  def destroy(attributes = nil)
-    super
-    events.build(:created_at => Time.now, :updated_at => Time.now)
-    if current_admin
-      events.last.admin_id = id
-      events.last.message = "Admin #{current_admin.full_name} deleted account of Admin #{first_name} #{last_name}."
-    end
-
-    events.save
-  end
-  
   
   def self.Caseworkers
     caseworkers_db = self.where(role: 1).all
