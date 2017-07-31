@@ -46,9 +46,6 @@ class Admin < ActiveRecord::Base
     if current_admin
       events.last.admin_id = id
       events.last.message = "Admin #{current_admin.full_name} deleted account of Admin #{first_name} #{last_name}."
-    elsif current_user
-      events.last.user_id = id
-      events.last.message = "PERMISSIONS ERROR: User #{current_user.full_name} deleted account of Admin #{first_name} #{last_name}."
     end
 
     events.save
