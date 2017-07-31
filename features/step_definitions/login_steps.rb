@@ -55,3 +55,15 @@ end
 Then /I should not have admin access/ do
     pending
 end
+
+Given(/I change my password from "([^"]*)" to "([^"]*)"$/) do |arg1, arg2|
+  steps %Q{ 
+    Given I follow "Settings"
+    And I press "Change Password"
+    And I fill in "admin_encrypted_password" with "#{arg1}"
+    And I fill in "admin_pass_reset1" with "#{arg2}"
+    And I fill in "admin_pass_reset2" with "#{arg2}"
+    And I press "Update Admin"
+    Then I should be on the admin login page
+  }
+end
