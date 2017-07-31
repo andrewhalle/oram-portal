@@ -20,5 +20,5 @@ Scenario: central admin deletes profile of employee
   Given I follow "Admins"
   And I view the profile of "Hannah Montana"
   And I press "Delete Profile"
-  And I follow "Admins"
-  Then I should not see "Montana"
+  Then I should be on the admins list page
+  And I should not see "Montana"
