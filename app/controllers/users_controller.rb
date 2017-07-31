@@ -12,13 +12,13 @@ class UsersController < ApplicationController
 				caseworker_id = ownership.admin_id
 				@caseworker_names.append(Admin.find_by_id(caseworker_id).full_name)
 			end
-		else
-			@caseworker_names.append('This user has no caseworkers.')
+		# else
+		# 	@caseworker_names.append('This user has no caseworkers.')
 		end
 		if !@user.events.last.nil?
 			@last_event_message = @user.events.last.message
-		else
-			@last_event_message = 'This user has had no events before!'
+		# else
+		# 	@last_event_message = 'This user has had no events before!'
 		end
 		if @user.role == "referrer"
 			if !@user.forms.empty? && !@user.forms.where(form_type: 1).empty?

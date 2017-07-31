@@ -71,4 +71,9 @@ Scenario: Assigning the same caseworker to a client twice shouldn't duplicate
   And I should see "Clients: Bryan Adams"
   And I should not see "Clients: Bryan Adams,Bryan Adams"
 
+Scenario: A caseworker without clients should show as having no clients
+  Given I follow "Admins"
+  And I view the profile of "Sean Kingston"
+  Then I should see "This caseworker has no clients"
+
   
