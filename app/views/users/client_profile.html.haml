@@ -77,6 +77,20 @@
 								= f.submit 'Assign Caseworker', class: 'btn btn-sm btn-default'
 			#menu2.tab-pane.fade
 				%h3 All Documents
+				%table.table.table-bordered.table-striped
+					%thead
+					\.
+					%tr
+						%th Name
+						%th Download Link
+						%th
+					%tbody
+						- @updocs.each do |updoc|
+							%tr
+								%td= updoc.name
+								%td= link_to "Download File", updoc.attachment_url
+								%td= button_to "Delete",  updoc, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{updoc.name}?"
+
 			#menu3.tab-pane.fade
 				.panel-body
 					- @form_hash.each do |key, value|

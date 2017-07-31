@@ -33,7 +33,7 @@
 class User < ActiveRecord::Base
   	# Include default devise modules. Others available are:
   	# :confirmable, :lockable, :timeoutable and :omniauthable
-
+  	
   	devise :invitable, :database_authenticatable, :recoverable,
      :rememberable, :trackable, :validatable
 
@@ -46,17 +46,24 @@ class User < ActiveRecord::Base
     has_many :ownerships
     has_many :admins, :through => :ownerships
     has_many :notes, dependent: :destroy
+    has_many :updocs
     
     mount_uploader :case_document, CaseDocumentUploader
 
     def initialize(attributes = nil)
       super
       events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} created an account.")
-      # Do whatever you want in here.
     end
     
     before_destroy do
-      events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} account deleted.")
+      # if admin_logged_in?
+      #   @curr_admin = current_admin
+      #   events.build(:user_id => id, :admin_id => @curr_admin.id, :created_at => Time.now, :updated_at => Time.now, :message => "Admin #{@curr_admin.full_name} deleted account of user #{first_name} #{last_name}.")
+      # elsif user_logged_in?
+      #   @curr_user = current_user
+      #   events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} deleted their own account.")
+      # end
+      events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} deleted their own account.")
       true
     end
     

@@ -9,7 +9,8 @@ class UpdocsController < ApplicationController
    
    def create
       @updoc = Updoc.new(updoc_params)
-      
+      @updoc.user_id = current_user.id
+
       if @updoc.save
          redirect_to updocs_path, notice: "The #{@updoc.name} file has been uploaded."
       else

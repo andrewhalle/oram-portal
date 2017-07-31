@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 		@form_hash = {}
 		@caseworker_names = []
 		@notes = @user.notes.reverse
+		@updocs = Updoc.where(user_id: @user.id).all
 		if !@user.ownerships.nil?
 			@user.ownerships.each do |ownership|
 				caseworker_id = ownership.admin_id
