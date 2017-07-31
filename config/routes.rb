@@ -64,4 +64,20 @@ Rails.application.routes.draw do
   patch 'clients/:id/setting/password' => 'users#user_pass_save', :as => 'user_pass_save'
   get 'referrer/:id/setting' => 'users#referrer_setting', :as => 'referrer_setting'
   get 'referrer/:id/case_status' => 'users#case_status', :as => 'case_status'
+  
+  
+  
+  get 'updocs/' =>'updocs#index', :as => 'updocs'
+  post 'updocs/' =>'updocs#create'
+  get 'updocs/new' =>'updocs#new', :as => 'new_updocs'
+  delete 'updocs/:id' =>'updocs#destroy', :as => 'updoc'
+  # get '/' => 'updoc#index', :as => 'root'
+  get 'updocs/index' =>'updocs#index', :as => 'updocs_index'
+  get 'updocs/new' =>'updocs#new', :as => 'updocs_new'
+  get 'updocs/create' =>'updocs#create', :as => 'updocs_create'
+  get 'updocs/destroy' =>'updocs#destroy', :as => 'updocs_destroy'
+  
+  
+  
+  
 end
