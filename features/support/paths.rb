@@ -46,6 +46,11 @@ module NavigationHelpers
     when /^the admin settings page of admin "(.*)\s(.*)"$/
       admin_id = Admin.where(first_name: $1).where(last_name: $2).first.id
       admin_setting_path(:id => admin_id)  
+    
+    when /^the change password page of admin "(.*)\s(.*)"$/
+      admin_id = Admin.where(first_name: $1).where(last_name: $2).first.id
+      admin_pass_change_path(:id => admin_id)  
+      
       
     when /^the invite lawyers page$/
       '/' #change later
