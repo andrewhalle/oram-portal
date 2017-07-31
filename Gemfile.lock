@@ -82,8 +82,6 @@ GEM
     carrierwave-dropbox (1.2.1)
       carrierwave (~> 0.9)
       dropbox-sdk (~> 1.6)
-    childprocess (0.7.1)
-      ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     churn (0.0.35)
       chronic (>= 0.2.3)
@@ -365,10 +363,6 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (2.53.4)
-      childprocess (~> 0.5)
-      rubyzip (~> 1.0)
-      websocket (~> 1.0)
     sexp_processor (4.9.0)
     simplecov (0.13.0)
       docile (~> 1.1.0)
@@ -420,7 +414,6 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    websocket (1.2.4)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -468,7 +461,6 @@ DEPENDENCIES
   rspec-rails (= 3.4.2)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
-  selenium-webdriver (~> 2.53)
   simplecov
   spring
   sqlite3
@@ -482,4 +474,4 @@ RUBY VERSION
    ruby 2.2.4p230
 
 BUNDLED WITH
-   1.15.1
+   1.15.3
