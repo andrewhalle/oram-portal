@@ -133,3 +133,7 @@ And(/^I view the caseworker tab of "([^"]*)"$/) do |arg1|
     And I view "Caseworkers"
   }
 end
+
+When(/^I change my "([^"]*)" to "([^"]*)"$/) do |arg1, arg2|
+  page.fill_in "admin_#{arg1.downcase}", :with => arg2 # Write code here that turns the phrase above into concrete actions
+end

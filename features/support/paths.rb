@@ -39,7 +39,14 @@ module NavigationHelpers
       admin_id = Admin.where(first_name: $1).where(last_name: $2).first.id
       '/admins/' + admin_id.to_s
         
-
+    when /^the admin settings edit page of admin "(.*)\s(.*)"$/
+      admin_id = Admin.where(first_name: $1).where(last_name: $2).first.id
+      admin_settings_edit_path(:id => admin_id)
+    
+    when /^the admin settings page of admin "(.*)\s(.*)"$/
+      admin_id = Admin.where(first_name: $1).where(last_name: $2).first.id
+      admin_setting_path(:id => admin_id)  
+      
     when /^the invite lawyers page$/
       '/' #change later
 

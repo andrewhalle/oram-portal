@@ -50,6 +50,11 @@ class Admin < ActiveRecord::Base
     caseworkers
   end
   
+  # def get_by_full_name(full_name)
+  #   first, last = full_name.split(' ')
+  #   Admin.where(first_name: first).where(last_name: last).first
+  # end
+  
 
   def get_user_ids
     user_ids = self.users.map do |u|
