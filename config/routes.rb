@@ -67,15 +67,15 @@ Rails.application.routes.draw do
   
   
   
-  get 'updocs/' =>'updocs#index', :as => 'updocs'
-  post 'updocs/' =>'updocs#create'
-  get 'updocs/new' =>'updocs#new', :as => 'new_updocs'
-  delete 'updocs/:id' =>'updocs#destroy', :as => 'updoc'
+  get 'clients/:id/updocs/' =>'updocs#index', :as => 'updocs'
+  post 'clients/:id/updocs/' =>'updocs#create'
+  get 'clients/:id/updocs/new' =>'updocs#new', :as => 'new_updocs'
+  delete 'clients/:id/updocs/:id' =>'updocs#destroy', :as => 'updoc'
   # get '/' => 'updoc#index', :as => 'root'
-  get 'updocs/index' =>'updocs#index', :as => 'updocs_index'
-  get 'updocs/new' =>'updocs#new', :as => 'updocs_new'
-  get 'updocs/create' =>'updocs#create', :as => 'updocs_create'
-  get 'updocs/destroy' =>'updocs#destroy', :as => 'updocs_destroy'
+  get 'clients/:id/updocs/index' =>'updocs#index', :as => 'updocs_index'
+  get 'clients/:id/updocs/new' =>'updocs#new', :as => 'updocs_new'
+  get 'clients/:id/updocs/create' =>'updocs#create', :as => 'updocs_create'
+  get 'clients/:id/updocs/destroy' =>'updocs#destroy', :as => 'updocs_destroy'
   
   
   
