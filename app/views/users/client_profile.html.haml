@@ -77,6 +77,8 @@
 								= f.submit 'Assign Caseworker', class: 'btn btn-sm btn-default'
 			#menu2.tab-pane.fade
 				%h3 All Documents
+				= render "partials/updocs.html.erb"
+
 			#menu3.tab-pane.fade
 				.panel-body
 					- @form_hash.each do |key, value|

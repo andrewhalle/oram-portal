@@ -21,6 +21,25 @@ Scenario: Admin changes their password and logs in with new password
 
 Scenario: Admin changes their password and logs in with old password
   Given I change my password from "oram123" to "newpassword"
+  Then I should be on the admin login page
   When I login as admin with email "donald@trump.com" and password "oram123"
   Then I should be on the admin login page
   When I login as admin with email "donald@trump.com" and password "newpassword"
+
+Scenario: Admin tries to change password with password under 5 characters
+  Given I change my password from "oram123" to "cat"
+  Then I should be on the admin settings page of admin "Donald Trump"
+
+Scenario: Admin tries to change password with passwords that don't match
+  Given I follow "Settings"
+  And I press "Change Password"
+  Then I should be on the change password page of admin "Donald Trump"
+  And I fill in "admin_encrypted_password" with "oram123"
+  And I fill in "admin_pass_reset1" with "newpassword"
+  And I fill in "admin_pass_reset2" with "badpassword"
+  And I press "Update Admin"
+  Then I should be on the admin settings page of admin "Donald Trump"
+
+Scenario: Admin tries to change password with incorrect old password
+  Given I change my password from "incorrectpassword" to "cat"
+  Then I should be on the admin settings page of admin "Donald Trump"

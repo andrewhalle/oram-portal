@@ -15,9 +15,7 @@ class WelcomeController < ApplicationController
       if @curr_admin.role == "central"
         @events = Event.all.reverse
       elsif @curr_admin.role == "employee"
-        user_ids = @curr_admin.users.map do |u|
-          u.id
-        end
+        user_ids = @curr_admin.get_user_ids
         @events = Event.where(:user_id => user_ids).reverse
       end
     end
