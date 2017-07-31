@@ -23,5 +23,7 @@
 /config/application.yml
 /config/secrets.yml
 #Ingore .swp files
-/.*~
+*~
+*.swp
+*.swo
 

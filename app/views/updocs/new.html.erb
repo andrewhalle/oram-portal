@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+   
+   <head>
+      <title>Upload Documents</title>
+      <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+      <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+      <%= csrf_meta_tags %>
+   </head>
+   
+   <body>
+      <div class = "container" style = "padding-top:20px;">
+         <% if !@updoc.errors.empty? %>
+            <div class = "alert alert-error">
+      
+               <ul>
+                  <% @updoc.errors.full_messages.each do |msg| %>
+                     <li><%= msg %></li>
+                  <% end %>
+               </ul>
+      
+            </div>
+         <% end %>
+
+         <div class = "well">
+            <%= form_for @updoc, html: {multipart: true} do |f| %>
+               <%= f.label :name %>
+               <%= f.text_field :name %>
+               <%= f.label :attachment %>
+               <%= f.file_field :attachment %>
+               <%= f.submit "Save", class: "btn btn-primary" %>
+            <% end %>
+         </div>
+      </div>
+   </body>
+
+</html>

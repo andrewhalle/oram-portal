@@ -23,6 +23,8 @@
 /config/application.yml
 /config/secrets.yml
 #Ingore .swp files
-/.swp
+*~
+*.swp
+*.swo
 .gitignore
 
