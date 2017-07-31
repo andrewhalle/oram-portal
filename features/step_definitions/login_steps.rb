@@ -18,6 +18,8 @@ Given /I am logged in as the following client/ do |clients_table|
 
   clients_table.hashes.each do |client|
     @client = User.create(client)
+    @client.role = client["role"]
+    @client.save
   end
 
   visit new_user_session_path

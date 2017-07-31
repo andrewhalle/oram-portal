@@ -40,6 +40,7 @@ class Admin < ActiveRecord::Base
     # Do whatever you want in here.
   end
   
+  
   def self.Caseworkers
     caseworkers_db = self.where(role: 1).all
     caseworkers = []
@@ -48,6 +49,11 @@ class Admin < ActiveRecord::Base
     end
     caseworkers
   end
+  
+  # def get_by_full_name(full_name)
+  #   first, last = full_name.split(' ')
+  #   Admin.where(first_name: first).where(last_name: last).first
+  # end
   
 
   def get_user_ids

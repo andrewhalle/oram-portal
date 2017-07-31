@@ -28,7 +28,7 @@ Scenario: Client trying to edit their profile
   Then I should see "Andrew Adams"
     
 Scenario: Client trying to delete their profile
-  # Given PENDING
+  Given Pending
   Given I follow "Settings"
   When I press "Delete Profile"
   # When I confirm

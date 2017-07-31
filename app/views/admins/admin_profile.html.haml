@@ -5,6 +5,9 @@
 		%h5= @admin.phone
 		%h5= @admin.address
 		%h5= @admin.skype
+		= if current_admin.role == 'central'
+			%h2.header-link.content-link
+			- button_to "Delete Profile", admin_destroy_path(@admin.id), :method => :get, data: {confirm: "Are you sure you want to delete this profile? This action cannot be undone."},  class: "hvr-underline-from-left"
 		.clients
 			%p<
 				%b= 'Clients: '

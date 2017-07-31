@@ -147,12 +147,12 @@ class AdminsController < ApplicationController
 
 	def show_all
 		@curr_admin = current_admin
-		if @curr_admin == nil
-			flash[:notice] = "You must be admin to do that!"
+		if @curr_admin != nil && @curr_admin.role == 'employee'
+			flash[:error] = "You must be a central admin to do that!"
 			redirect_to root_path and return
-		elsif @curr_admin.role == 'employee'
-			flash[:warning] = "You must be central admin to do that!"
-			redirect_to root_path and return
+		# elsif @curr_admin.role == 'employee'
+		# 	flash[:warning] = "You must be central admin to do that!"
+		# 	redirect_to root_path and return
 		else
 			@admins = Admin.all
 		end
@@ -204,9 +204,16 @@ class AdminsController < ApplicationController
 	end
     
 	def admin_destroy
-		redirect_to destroy_user_session_path
 		@admin = Admin.find_by_id(params[:id])
 		@admin.destroy
+		if @admin.id == current_admin.id
+			message = "Admin #{current_admin.full_name} deleted their own account."
+			redirect_to destroy_user_session_path
+		else
+			message = "Admin #{current_admin.full_name} deleted account of Admin #{@admin.full_name}."
+			redirect_to admins_path
+		end
+		@admin.events.build(:admin_id => @admin.id, :message => message)
 	end
 	
 	def admin_pass_change
