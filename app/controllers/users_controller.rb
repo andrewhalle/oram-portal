@@ -5,12 +5,12 @@ class UsersController < ApplicationController
 		@curr_admin = current_admin
 		@user = User.find(params[:id])
 		@caseworker_names = []
+		@form_hash = {}
 		@notes = @user.notes.reverse
 		@updocs = Updoc.where(user_id: @user.id).all
 		if !@user.ownerships.nil?
 			@user.ownerships.each do |ownership|
-				caseworker_id = ownership.admin_id
-				@caseworker_names.append(Admin.find_by_id(caseworker_id).full_name)
+				@caseworker_names.append(Admin.find_by_id(ownership.admin_id).full_name)
 			end
 		end
 		if !@user.events.last.nil?
