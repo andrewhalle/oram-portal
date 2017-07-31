@@ -1,5 +1,5 @@
 class UpdocsController < ApplicationController
-  def index
+   def index
       @updocs = Updoc.all
    end
    
