@@ -1,4 +1,8 @@
- Scenario: Viewing Farsi Client Forms
+Feature: Farsi speaking client checking their questionnaire
+  As a client who prefers Farsi as a language
+  I should have an Farsi questionnaire
+  
+Scenario: Viewing Farsi Client Forms
     Given I follow "Profile"
     Then I should see "Questionnaire status"
     
