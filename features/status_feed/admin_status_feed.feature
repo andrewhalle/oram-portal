@@ -17,13 +17,14 @@ Background: Logging is an an Admin to check statuses
     | Joe         | Bob        	| joe@bob.com           | oram123         | client			  | 'test'                 | 
 
 Scenario: Checking if CASF (Central Admin Status Feed) exists 
+  Given Pending
   Given I am on the home page 
   Then I should see "Latest"
     And I should see "Joe Bob"
     And I should see "User Joe Bob created an account"
       
 Scenario: Checking if CASF (Client Approval Status Feed) exists 
-  Given PENDING
+  Given Pending
   Given I am on the home page 
   Then I shoulds ee "Client Approval Status Feed"
     And I should see "Bryan Adams"
