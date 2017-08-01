@@ -14,10 +14,12 @@ Background: Logging is an an Referrer to check calendars
     | Bryan       | Adams     	| bryan@adams.com       | oram123         | client	         | Person   |
 
   Given the following admins exist:
+    Given pending
     | first_name	| last_name	| email             	| password	| invitation_accepted_at | role        |
     | Central	    | Admin       | central@admin.com   | password	| 'test'               | central     |
 
   Given the following events exist:
+    Given pending
     | title | do-by date | assigned by | 
     | complete questionnaire | 1/1/2025 | Central Admin |
 
