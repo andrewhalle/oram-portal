@@ -2,16 +2,18 @@ Feature: English speaking client checking their questionnaire
   As a client who prefers English as a language
   I should have an English questionnaire
   
-Scenario: Viewing English Client Forms
-    Given I follow "Profile"
-    Then I should see "Questionnaire status"
     
-Background: Client in the database
+Background: client in the database
   Given pending
   Given I am logged in as the following client:
     | first_name  | last_name   | email                 | password     	  | role		   	  | farsi | arabic  | english |
     | Bryan       | Adams     	| bryan@adams.com       | oram123         | client			  | okay  | okay    | good    |
 
+Scenario: Viewing English Client Forms
+    Given pending
+    Given I follow "Profile"
+    Then I should see "Questionnaire status"
+    
 Scenario: Viewing Case Document
   Given I follow "Documents"
   Then I should see "Case Document"

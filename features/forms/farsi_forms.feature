@@ -2,9 +2,6 @@ Feature: Farsi speaking client checking their questionnaire
   As a client who prefers Farsi as a language
   I should have an Farsi questionnaire
   
-Scenario: Viewing Farsi Client Forms
-    Given I follow "Profile"
-    Then I should see "Questionnaire status"
     
 Background: Client in the database
   Given pending
@@ -12,6 +9,11 @@ Background: Client in the database
     | first_name  | last_name   | email                 | password     	  | role		   	  | farsi | arabic  | english |
     | Bryan       | Adams     	| bryan@adams.com       | oram123         | client			  | good  | okay    | okay    |
 
+Scenario: Viewing Farsi Client Forms
+    Given pending
+    Given I follow "Profile"
+    Then I should see "Questionnaire status"
+    
 Scenario: Viewing Case Document
   Given I follow "Documents"
   Then I should see "Case Document"

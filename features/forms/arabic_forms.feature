@@ -2,15 +2,16 @@ Feature: Arabic speaking client checking their questionnaire
   As a client who prefers Arabic as a language
   I should have an Arabic questionnaire
 
- Scenario: Viewing Arabic Client Forms
-    Given I follow "Profile"
-    Then I should see "Questionnaire status"
-    
-Background: Client in the database
+Background: client in the database
   Given pending
   Given I am logged in as the following client:
     | first_name  | last_name   | email                 | password     	  | role		   	  | farsi | arabic  | english |
     | Bryan       | Adams     	| bryan@adams.com       | oram123         | client			  | okay  | good    | okay    |
+
+Scenario: Viewing Arabic Client Forms
+    Given pending
+    Given I follow "Profile"
+    Then I should see "Questionnaire status"
 
 Scenario: Viewing Case Document
   Given I follow "Documents"
