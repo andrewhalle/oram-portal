@@ -4,18 +4,18 @@ Feature: Central Admin changing and addting to Client's calendars
   and edit existing events that are on them.
 
 Background: Logging is an an Admin to check calendars
+  Given pending
   Given that I am logged in as the following admin:
-    Given pending
     | first_name	| last_name	| email             	| password	| invitation_accepted_at | role        |
     | Central	    | Admin       | central@admin.com   | password	| 'test'                 | central     |
 
+  Given pending
   Given the following clients exist:
-    Given pending
     | first_name  | last_name   | email                 | password     	  | role			 | 
     | Bryan       | Adams     	| bryan@adams.com       | oram123         | client	         | 
 
+  Given pending
   Given the following events exist:
-    Given pending
     | title | do-by date | assigned by | 
     | complete questionnaire | 1/1/2025 | Central Admin |
 

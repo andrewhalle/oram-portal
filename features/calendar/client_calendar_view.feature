@@ -4,18 +4,18 @@ Feature: Client view of their own event calendar
   view the details of events through the calendar.
 
 Background: Logging is an an client to check my calendar
+  Given pending
   Given that I am logged in as the following client:
-    Given pending
     | first_name	| last_name	| email             	| password	| invitation_accepted_at | role        |
     | ORAM	    | Client       | client@user.com   | password	| 'test'                 | client     |
 
+  Given pending
   Given the following admins exist:
-    Given pending
     | first_name	| last_name	| email             	| password	| invitation_accepted_at | role        |
     | Central	    | Admin       | central@admin.com   | password	| 'test'               | central     |
 
+  Given pending
   Given the following events exist:
-    Given pending
     | title | do-by date | assigned by | 
     | complete questionnaire | 1/1/2025 | Central Admin |
 

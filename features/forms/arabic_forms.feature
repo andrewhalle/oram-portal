@@ -3,8 +3,8 @@
     Then I should see "Questionnaire status"
     
 Background: Client in the database
+  Given pending
   Given I am logged in as the following client:
-    Given pending
     | first_name  | last_name   | email                 | password     	  | role		   	  | farsi | arabic  | english |
     | Bryan       | Adams     	| bryan@adams.com       | oram123         | client			  | okay  | good    | okay    |
 
