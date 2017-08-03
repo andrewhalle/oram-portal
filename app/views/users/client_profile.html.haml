@@ -63,18 +63,19 @@
 							.row
 								.panel.panel-info.panel-user.col-centered.inline-block
 									%h6.text-center= caseworker
-								.remove-button.inline-block.select.btn.btn-sm.btn-default
-									= form_for :remove_client, :url => admin_delete_caseworker_path(:action => 'post', :caseworker => caseworker),  :html => {:id => "remove_caseworker"} do |f|
-										= button_tag( :class => ".glyphicon.glyphicon-remove") do
-											.glyphicon.glyphicon-remove
-						
-				.assign-caseworker-select.container-fluid
-					= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|
-						.row.form-group.panel-default
-							.col-md-9
-								= f.select :assign_caseworker, options_for_select(Admin.Caseworkers), id: 'assign_caseworker', class: 'form-control'
-							.col-md-3
-								= f.submit 'Assign Caseworker', class: 'btn btn-sm btn-default'
+								- if current_admin
+									.remove-button.inline-block.select.btn.btn-sm.btn-default
+										= form_for :remove_client, :url => admin_delete_caseworker_path(:action => 'post', :caseworker => caseworker),  :html => {:id => "remove_caseworker"} do |f|
+											= button_tag( :class => ".glyphicon.glyphicon-remove") do
+												.glyphicon.glyphicon-remove
+				- if current_admin		
+					.assign-caseworker-select.container-fluid
+						= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|
+							.row.form-group.panel-default
+								.col-md-9
+									= f.select :assign_caseworker, options_for_select(Admin.Caseworkers), id: 'assign_caseworker', class: 'form-control'
+								.col-md-3
+									= f.submit 'Assign Caseworker', class: 'btn btn-sm btn-default'
 			#menu2.tab-pane.fade
 				%h3 All Documents
 				= render "partials/updocs.html.erb"
