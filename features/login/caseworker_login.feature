@@ -1,15 +1,15 @@
 @javascript
 Feature: Caseworker Login Portal
-  As a user with Caseworker access to the ORAM portal
-  In order to view all case documents
-  I should be able to login under my user profile
+  As a Caseworker, while accessing the ORAM portal
+  To order to view all case documents
+  I should be able to login as a employee with my login
 
-Background: Case Worker in the database
+Background: Logging in as a CaseWorker
   Given the following admins exist:
-    | first_name  | last_name       | email                     | password        | role    |
-    | oram        | Case Worker     | caseworker321@gmail.com  | caseworker  | employee |s
+    | first_name  | last_name       | email                     | password        | role     |
+    | Case        |  Worker         | case@worker.com           | password      | employee |
 
-Scenario: Accessing the login page
+Scenario: Logging in
   Given I am on the home page
   When I follow "Admin Sign In"
   Then I should be on the admin login page
@@ -26,11 +26,20 @@ Scenario: Case Worker login info does not exist
 Scenario: Valid Case Worker logging in
   Given I am on the admin login page
   Then I should see "Admin Log in"
-  When I fill in "admin_email" with "caseworker321@gmail.com"
-  When I fill in "admin_password" with "caseworker"
+  When I fill in "admin_email" with "case@worker.com"
+  When I fill in "admin_password" with "password"
   And I press "Log in"
   Then I should not see "Invalid Email or password."
   And I should be on the home page
+
+Scenario: inValid Case Worker logging in
+  Given Pending
+  Given I am on the admin login page
+  Then I should see "Admin Log in"
+  When I fill in "admin_email" with "case@worker.com"
+  When I fill in "admin_password" with "password"
+  And I press "Log in"
+  Then I should see "Invalid Email or password."
 
 # Scenario: Case Worker should be able to view all case documents
 #  Given I am on the Case Worker user profile page
