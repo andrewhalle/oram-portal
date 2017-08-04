@@ -54,8 +54,6 @@ class AdminsController < ApplicationController
 
 
 	def mark_client_status
-		id = params[:id]
-		form_id = params[:form_id]
 		status = params[:status]
 		@client = User.find_by_id(params[:id])
 		message = "Questionnaire of client #{@client.full_name} has been marked as #{status.downcase} by admin #{current_admin.full_name}"
@@ -65,9 +63,8 @@ class AdminsController < ApplicationController
 	end
 
 	def mark_form_status
-		id = params[:id]
 		status = params[:status]
-		@form = Form.find(id)
+		@form = Form.find(params[:id])
 		@form.status = status
 		@form.save
 		message = "Referral #{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase} by admin #{current_admin.full_name}"
