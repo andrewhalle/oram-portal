@@ -7,7 +7,7 @@ Feature: Admin should be able to correctly change their password
 Background:
   Given I am logged in as the following admin: 
     | first_name  | last_name   | email                 | password     	  | role					| 
-    | Donald		  | Trump		  | donald@trump.com		| oram123	  | central          |  
+    | Donald		  | Trump		    | donald@trump.com		  | oram123	        | central       |  
 
 Scenario: Admin changes their password and logs in with new password
   Given I follow "Settings"
@@ -41,5 +41,5 @@ Scenario: Admin tries to change password with passwords that don't match
   Then I should be on the admin settings page of admin "Donald Trump"
 
 Scenario: Admin tries to change password with incorrect old password
-  Given I change my password from "incorrectpassword" to "cat"
+  Given I change my password from "incorrectpassword" to "password"
   Then I should be on the admin settings page of admin "Donald Trump"

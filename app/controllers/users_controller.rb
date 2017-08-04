@@ -235,9 +235,9 @@ class UsersController < ApplicationController
 			pass2 = params["user"]["pass_reset2"]
 			if (pass1 == pass2)
 				if (pass1.length > 5)
-					new_pass = Admin.create(:password => pass1).encrypted_password
-					@curr_admin.encrypted_password = new_pass
-					@curr_admin.save
+					new_pass = User.create(:password => pass1).encrypted_password
+					@curr_user.encrypted_password = new_pass
+					@curr_user.save
 				else 
 					flash[:alert] = "Your new password must be longer than 5 characters."
 				end
