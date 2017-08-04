@@ -18,20 +18,16 @@ class UsersController < ApplicationController
 			@last_event_message = @user.events.last.message
 		end
 		if @user.role == "referrer"
-			if !@user.forms.empty? && !@user.forms.where(form_type: 1).empty?
-				referrer_forms = @user.forms.where(form_type: 1)
-				@form_id = referrer_forms.first.id
-				@form_hash = JSON.parse(referrer_forms.first.form_json)
-			end
-
+			type = 1
 			render :referrer_profile
 		elsif @user.role == "client"
-			if !@user.forms.empty? && !@user.forms.where(form_type: 3).empty?
-				client_form = @user.forms.where(form_type: 3)
-				@form_id = client_form.first.id
-				@form_hash = JSON.parse(client_form.first.form_json)
-			end
+			type = 2
 			render :client_profile
+		end
+		if !@user.forms.empty? && !@user.forms.where(form_type: type).empty?
+			user_forms = @user.forms.where(form_type: type)
+			@form_id = user_forms.first.id
+			@form_hash = JSON.parse(user_forms.first.form_json)
 		end
 	end
 
