@@ -1,5 +1,6 @@
 class AdminsController < ApplicationController
 
+	include AdminsHelper
 	before_filter :authenticate_admin!
 
 	def show_referrers
@@ -40,48 +41,26 @@ class AdminsController < ApplicationController
 	end
 
 	def mark_referrer_status
-		id = params[:id]
 		status = params[:status]
-		@referrer = User.find_by_id(id)
-		@form = @referrer.forms.where(form_type: 1).first
-		if !@form.nil?
-			@form.status = status
-			@form.save
-		end
-		@referrer.status = status
-		@referrer.save
-		message = "Referrer #{@referrer.full_name} has been marked as #{@referrer.status.downcase} by admin #{current_admin.full_name}"
-		flash[:notice] = message
-		e = @referrer.events.build(:user_id => @referrer.id, :admin_id => current_admin.id, :message => message)
-		e.save
-		if status == "Incomplete"
-			# send notification to them via email
-			NotifierMailer.incomplete_referrer_profile(@referrer).deliver_now # sends the email
-		end
+		@referrer = User.find_by_id(params[:id])
 
+		message = "Referrer #{@referrer.full_name} has been marked as #{status.downcase} by admin #{current_admin.full_name}"
+		#form_type for referrers is number 1
+		mark_status(@referrer, message, status, 1)
+		flash[:notice] = message
 		redirect_to referrers_path
 	end
+	
+
 
 	def mark_client_status
 		id = params[:id]
 		form_id = params[:form_id]
 		status = params[:status]
-		@client = User.find_by_id(id)
-		@form = Form.find_by_id(form_id)
-		if !@form.nil?
-			@form.status = status
-			@form.save
-		end
-		@client.status = status
-		@client.save
-		message = "Questionnaire of client #{@client.full_name} has been marked as #{@client.status.downcase} by admin #{current_admin.full_name}"
+		@client = User.find_by_id(params[:id])
+		message = "Questionnaire of client #{@client.full_name} has been marked as #{status.downcase} by admin #{current_admin.full_name}"
+		mark_status(@client, message, status, 3)
 		flash[:notice] = message
-		e = @client.events.build(:user_id => @client.id, :admin_id => current_admin.id, :message => message)
-		e.save
-		if status == "Incomplete"
-			# send notification to them via email
-			NotifierMailer.incomplete_referrer_profile(@client).deliver_now # sends the email
-		end
 		redirect_to clients_path
 	end
 
@@ -89,11 +68,10 @@ class AdminsController < ApplicationController
 		id = params[:id]
 		status = params[:status]
 		@form = Form.find(id)
-		if !@form.nil?
-			@form.status = status
-			@form.save
-		end
+		@form.status = status
+		@form.save
 		message = "Referral #{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase} by admin #{current_admin.full_name}"
+
 		e = Admin.find_by_id(current_admin.id).events.build(:admin_id => current_admin.id, :message => message)
 		e.save
 		if status == "Approved"
