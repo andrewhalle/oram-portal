@@ -1,13 +1,8 @@
 .container-fluid.panel.panel-default
 	.panel-body.container-fluid
 		.row
-			= render 'partials/profile.html.haml'
-			%hr
-			%h5= @user.phase
-			%h5= "Questionnaire status: " + @user.status
-			%p<
-				%h5 Last Activity: 
-				 = @last_event_message
+			= render 'partials/client_summary.html.haml'
+
 			.col-md-4
 				
 	.panel-body
