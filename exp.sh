@@ -1,0 +1,2 @@
+#!/bin/bash
+export form_key=iDEDgbGZr0nVHshYs8jK0TnJpWo2fOSyhZlQdmtCHJv2eXXFVlZlGiAGbA2h5CKdM4DTfyBbh8BuFhCn
