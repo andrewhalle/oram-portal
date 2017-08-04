@@ -46,6 +46,8 @@
 				%a{"data-toggle" => "tab", :href => "#menu3"} Questionnaire
 			%li
 				%a{"data-toggle" => "tab", :href => "#menu4"} Notes
+			%li
+				%a{"data-toggle" => "tab", :href => "#menu5"} Calendar
 		.tab-content
 			#home.tab-pane.fade.in.active
 				%h3 Client Activity Feed
@@ -104,5 +106,7 @@
 							%button{:id => "note_update_" + n.id.to_s}
 								Save
 								// =button_to "Save", update_path(n.id), method: :put
+			#menu5.tab-pane.fade
+				%h3 Calendar
 
 
