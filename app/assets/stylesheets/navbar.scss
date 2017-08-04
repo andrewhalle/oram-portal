@@ -15,12 +15,16 @@
 	color: #FFF !important;
 }
 
+.navbarlogo {
+    background: none;
+}
+
 .navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li.active {
-	background: none;
+	background: #2e4f85;
 	outline: 0;
-	color: #000;
+	color: #FFF;
 }
 
 .navbar-custom .navbar-brand {
@@ -73,4 +77,25 @@
 .navbar-color .navbar-toggle .icon-bar,
 .custom-collapse .navbar-toggle .icon-bar {
 	background: #222;
+}
+
+.oram-logo {
+  float: left;
+  max-width: 50px;
+}
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .content-links {
+      height: 75px;
+    }
+    .content-link {
+      font-size: 32px;
+    }
+    .navbar-nav > li > a {
+      line-height: normal;
+    }
+
 }

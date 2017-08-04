@@ -1,31 +1,4 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid navbar">
-    <%= link_to root_path  do%>
-      <img class="oram-logo" src="http://oramrefugee.org/wp-content/uploads/2016/03/Oram-Full-logoWhit-150x150.png"/>
-    <% end %>
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <% if admin_signed_in? %>
-          <li class="header-link"><%= link_to 'Sign out', destroy_admin_session_path, method: :delete %></li>
-        <% else %>
-          <li class="header-link"><%= link_to 'Admin Sign In', new_admin_session_path %></li>
-          <li class="header-link"><%= link_to 'Sign in', new_user_session_path %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-custom navbar-static-top" role="navigation">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -39,6 +12,17 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav navbar-right">
+          <% if admin_signed_in? %>
+            <li class="header-link content-link"><%= link_to 'Sign out', destroy_admin_session_path, method: :delete, class: "hvr-underline-from-left" %></li>
+          <% else %>
+            <li class="header-link content-link"><%= link_to 'Admin Sign In', new_admin_session_path, class: "hvr-underline-from-left" %></li>
+            <li class="header-link content-link"><%= link_to 'Sign in', new_user_session_path, class: "hvr-underline-from-left" %></li>
+          <% end %>
+        </ul>
+			  <%= link_to root_path  do%>
+          <img class="oram-logo" src="http://oramrefugee.org/wp-content/uploads/2016/03/Oram-Full-logoWhit-150x150.png"/>
+        <% end %>
 				<ul class="nav navbar-nav navbar-right">
 					<%  if current_admin.role == 'central' %>
             <li class="header-link content-link"><%= link_to "ORAM Website", "http://oramrefugee.org", class: "hvr-underline-from-left"%> </li>
