@@ -1,4 +1,4 @@
-- if current_admin.role == "central"
+- if admin_signed_in? && current_admin.role == "central"
 	.container-fluid.panel-default
 		.panel.panel-danger
 			.panel-heading
