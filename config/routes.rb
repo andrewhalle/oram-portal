@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   get 'clients/:id/updocs/create' =>'updocs#create', :as => 'updocs_create'
   get 'clients/:id/updocs/destroy' =>'updocs#destroy', :as => 'updocs_destroy'
   
+  get '/pending' => 'admins#show_pending', :as => 'pending'
   
   
   

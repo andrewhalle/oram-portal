@@ -1,0 +1,28 @@
+%h1#client_list_title Pending
+%table#clients.table-hover
+  %thead
+    %tr
+      %th First Name
+      %th Last Name
+      // -if @curr_admin.role == "employee"
+      %th= select_tag "status",
+            options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),
+            id: 'select_button',
+            class: 'filter',
+            :onchange => "filter_by_status(this.value)"
+      %th= select_tag "phase",
+        options_for_select(["All", "Pending", "Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Rejected"], @phase),
+        id: 'select_button',
+        class: 'filter',
+        :onchange => "filter_by_phase(this.value)"
+      %th
+  %tbody
+    - @pending.each do |p|
+      %tr
+        %td.first_name= p.first_name
+        %td.last_name= p.last_name
+        %td.status= p.status
+        %td.phase= p.phase
+        %td.more_info= link_to "View Profile", client_path(p.id)
+        %br
+

@@ -254,4 +254,8 @@ class AdminsController < ApplicationController
 		redirect_to :admin_setting
 	end
     
+    def show_pending
+    	@pending = User.where(:first_name => nil)
+    	render :show_pending
+    end
 end
