@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   get 'clients/:id/callback', to: 'google_calendar#callback', as: 'callback'
   get 'clients/:id/calendars', to: 'google_calendar#calendars', as: 'calendars'
   get 'clients/:id/events/:calendar_id', to: 'google_calendar#events', as: 'events', calendar_id: /[^\/]+/
-  post 'clients/:id/events/:calendar_id', to: 'example#new_event', as: 'new_event', calendar_id: /[^\/]+/
+  post 'clients/:id/events/:calendar_id', to: 'google_calendar#new_event', as: 'new_event', calendar_id: /[^\/]+/
   
   
   
