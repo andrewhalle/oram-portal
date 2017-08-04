@@ -1,5 +1,4 @@
-<%# app/views/layouts/_header.erb %>
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default">
   <div class="container-fluid navbar">
     <%= link_to root_path  do%>
       <img class="oram-logo" src="http://oramrefugee.org/wp-content/uploads/2016/03/Oram-Full-logoWhit-150x150.png"/>
@@ -26,27 +25,41 @@
   </div>
 </nav>
 
-<div class="content-links">
-  <ul class="nav navbar-nav">
-    <%  if current_admin.role == 'central' %>
-      <li class="header-link content-link"><%= link_to "ORAM Website", "http://oramrefugee.org", class: "hvr-underline-from-left"%> </li>
-      <li class="header-link content-link"><%= link_to "Profile", show_my_profile_path(current_admin), class: "hvr-underline-from-left"%> </li>
-      <li class="header-link content-link"><%= link_to "Admins", admins_path, :value => "display_admins_button", :method => :get, class: "hvr-underline-from-left" %> </li>
-      <li class="header-link content-link"><%= link_to "Referrers", referrers_path, :value => "display_referrers_button", :method => :get, class: "hvr-underline-from-left" %> </li>
-      <li class="header-link content-link"><%= link_to "Clients", clients_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
-      <li class="header-link content-link"><%= link_to "Referrals", admin_referrals_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
-      <li class="header-link content-link"><%= link_to 'Invite User', new_user_invitation_path, class: "hvr-underline-from-left", :method => :get %> </li>
-      <li class="header-link content-link"><%= link_to 'Invite Admin', new_admin_invitation_path, class: "hvr-underline-from-left", :method => :get %> </li>
-      <li class="header-link content-link"><%= link_to "Settings", admin_setting_path(current_admin.id), class: "hvr-underline-from-left"%> </li>
-    <% elsif current_admin.role == 'employee' %>
-      <li class="header-link content-link"><%= link_to "ORAM Website", "http://oramrefugee.org", class: "hvr-underline-from-left"%> </li>
-      <li class="header-link content-link"><%= link_to "Profile", show_my_profile_path(current_admin), class: "hvr-underline-from-left"%> </li>
-      <li class="header-link content-link"><%= link_to "Referrers", referrers_path, :value => "display_referrers_button", :method => :get, class: "hvr-underline-from-left" %> </li>
-      <li class="header-link content-link"><%= link_to "Clients", clients_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
-      <li class="header-link content-link"><%= link_to "Referrals", admin_referrals_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
-      <li class="header-link content-link"><%= link_to 'Invite User', new_user_invitation_path, class: "hvr-underline-from-left", :method => :get %> </li>
-      <li class="header-link content-link"><%= link_to "Settings", admin_setting_path(current_admin.id), class: "hvr-underline-from-left"%> </li>
-    <% end %>
-  </ul>
-</div>
-<hr>
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<%  if current_admin.role == 'central' %>
+            <li class="header-link content-link"><%= link_to "ORAM Website", "http://oramrefugee.org", class: "hvr-underline-from-left"%> </li>
+            <li class="header-link content-link"><%= link_to "Profile", show_my_profile_path(current_admin), class: "hvr-underline-from-left"%> </li>
+            <li class="header-link content-link"><%= link_to "Admins", admins_path, :value => "display_admins_button", :method => :get, class: "hvr-underline-from-left" %> </li>
+            <li class="header-link content-link"><%= link_to "Referrers", referrers_path, :value => "display_referrers_button", :method => :get, class: "hvr-underline-from-left" %> </li>
+            <li class="header-link content-link"><%= link_to "Clients", clients_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
+            <li class="header-link content-link"><%= link_to "Referrals", admin_referrals_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
+            <li class="header-link content-link"><%= link_to 'Invite User', new_user_invitation_path, class: "hvr-underline-from-left", :method => :get %> </li>
+            <li class="header-link content-link"><%= link_to 'Invite Admin', new_admin_invitation_path, class: "hvr-underline-from-left", :method => :get %> </li>
+            <li class="header-link content-link"><%= link_to "Settings", admin_setting_path(current_admin.id), class: "hvr-underline-from-left"%> </li>
+          <% elsif current_admin.role == 'employee' %>
+            <li class="header-link content-link"><%= link_to "ORAM Website", "http://oramrefugee.org", class: "hvr-underline-from-left"%> </li>
+            <li class="header-link content-link"><%= link_to "Profile", show_my_profile_path(current_admin), class: "hvr-underline-from-left"%> </li>
+            <li class="header-link content-link"><%= link_to "Referrers", referrers_path, :value => "display_referrers_button", :method => :get, class: "hvr-underline-from-left" %> </li>
+            <li class="header-link content-link"><%= link_to "Clients", clients_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
+            <li class="header-link content-link"><%= link_to "Referrals", admin_referrals_path, :value => "display_clients_button", :method => :get, class: "hvr-underline-from-left" %> </li>
+            <li class="header-link content-link"><%= link_to 'Invite User', new_user_invitation_path, class: "hvr-underline-from-left", :method => :get %> </li>
+            <li class="header-link content-link"><%= link_to "Settings", admin_setting_path(current_admin.id), class: "hvr-underline-from-left"%> </li>
+          <% end %>
+				</ul>
+			</div>
+		</div>
+	</nav>
