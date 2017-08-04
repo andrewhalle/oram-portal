@@ -1,53 +1,76 @@
+.navbar {
+	-webkit-transition: all 0.125s ease-in-out 0s;
+	   -moz-transition: all 0.125s ease-in-out 0s;
+		-ms-transition: all 0.125s ease-in-out 0s;
+		 -o-transition: all 0.125s ease-in-out 0s;
+			transition: all 0.125s ease-in-out 0s;
+}
 
 .navbar {
-  background-color: #274472;
-  margin: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border: 0;
+	background: #274472;
+	border-radius: 0;
+	border: 0;
+	padding: 20px 0;
+	text-transform: uppercase;
+	color: #FFF !important;
 }
 
-.oram-logo {
-  float: left;
-  max-width: 80px;
+.navbar-custom .nav li a:hover,
+.navbar-custom .nav li a:focus,
+.navbar-custom .nav li.active {
+	background: none;
+	outline: 0;
+	color: #000;
 }
 
-.navbar-default .navbar-nav > li > a {
-  color: white;
-  
+.navbar-custom .navbar-brand {
+	font: 700 18px/1.2 'Montserrat', serif, sans-serif;
+	color: #FFF;
 }
 
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: #63b2f5;
+.navbar-custom .navbar-nav > li.active {
+	border-bottom: 3px solid #FFF;
 }
 
-.content-links {
-	height: 50px;
-	width: 100%;
-	background-color: #E1E1E1;
+.navbar-custom .navbar-toggle .icon-bar {
+	background: #FFF;
 }
 
-.content-link {
-	display: inline-block;
+.navbar-custom .navbar-nav > li > a,
+.navbar-custom .navbar-nav .dropdown-menu > li > a {
+	color: #FFF;
+	font-size: 12px;
 }
 
-.nav > li {
-	display: inline-block;
-	float: none;
+.navbar-color,
+.custom-collapse {
+	background: #FFF;
+	box-shadow: 0 0 4px rgba(0, 0, 0, .2);
+	padding: 0;
 }
 
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2) {
-    .content-links {
-      height: 75px;
-    }
-    .content-link {
-      font-size: 32px;
-    }
-    .navbar-nav > li > a {
-      line-height: normal;
-    }
+.navbar-color .navbar-brand,
+.custom-collapse .navbar-brand,
+.navbar-color .navbar-nav > li > a,
+.navbar-color .navbar-nav .dropdown-menu > li > a,
+.custom-collapse .navbar-nav > li > a,
+.custom-collapse .navbar-nav .dropdown-menu > li > a {
+	color: #222;
+}
 
+.navbar-color .navbar-nav > li.active {
+	border-bottom: 3px solid #222;
+}
+
+.custom-collapse .navbar-nav {
+	text-align: left;
+}
+
+.custom-collapse .navbar-nav > li.active {
+	border: 0;
+}
+
+.navbar-color .navbar-toggle .icon-bar,
+.custom-collapse .navbar-toggle .icon-bar {
+	background: #222;
 }
