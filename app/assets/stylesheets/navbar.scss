@@ -2,18 +2,20 @@
 .navbar {
   background-color: #274472;
   margin: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border: 0;
+  font-family: 'Hind';
 }
 
 .oram-logo {
   float: left;
-  max-width: 80px;
+  max-width: 40px;
 }
 
 .navbar-default .navbar-nav > li > a {
   color: white;
+  font-family: 'Hind';
   
 }
 
@@ -24,7 +26,8 @@
 .content-links {
 	height: 50px;
 	width: 100%;
-	background-color: #E1E1E1;
+	background-color: 'white';
+	font-family: 'Hind';
 }
 
 .content-link {

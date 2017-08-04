@@ -91,3 +91,14 @@ questionnaire.first_name = "Test"
 questionnaire.last_name = "Questionnaire"
 questionnaire.form_json = JSON.generate({"First Name": "Test", "Last Name": "Questionnaire"})
 questionnaire.save()
+
+client2 = User.create()
+client2.first_name = "Samuel" 
+client2.last_name = "Adams"
+client2.email = "samuel@adams.com"
+client2.address = "123 Berkeley Street, Berkeley, CA, 94709"
+client2.phone = "+01-234-567-8910"
+client2.skype = "skype_id"
+client2.password = "password"
+client2.role = 1
+client2.save
