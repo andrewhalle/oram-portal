@@ -1,0 +1,12 @@
+.col-md-8
+	%h1= @user.full_name
+	%p= @user.email
+	%p= @user.phone
+	%p= @user.address
+	%p= @user.skype
+	%hr
+	%h5= @user.phase
+	%h5= "Questionnaire status: " + @user.status
+	%p<
+		%h5 Last Activity: 
+		= @last_event_message

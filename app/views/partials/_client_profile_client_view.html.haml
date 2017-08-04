@@ -1,25 +1,9 @@
 .container-fluid.panel.panel-default
 	.panel-body.container-fluid
 		.row
-			.col-md-8
-				%h1= @user.full_name
-				%p= @user.email
-				%p= @user.phone
-				%p= @user.address
-				%p= @user.skype
-				- if current_user && current_user.role == "client" && @user.id == current_user.id
-					= link_to 'Edit', client_edit_path(@user.id), :method => :get
-				%hr
-				%h5= @user.phase
-				%h5= "Questionnaire status: " + @user.status
-				%p<
-					%h5 Last Client Activity: 
-					= @last_event_message
-
-
+			= render 'partials/profile.html.haml'
 			.col-md-4
 				
-
 	.panel-body
 		%ul.nav.nav-tabs
 			%li.active
@@ -51,13 +35,4 @@
 				= render "partials/updocs.html.erb"
 
 			#menu3.tab-pane.fade
-				.panel-body
-					- @form_hash.each do |key, value|
-						.form-info
-							%div.form-question
-								= key + ":"
-							%div.form-response
-								- if value.instance_of?(Array)
-									= value.join(', ')
-								- else
-									= value				
+				= render "partials/form.html.haml"			

@@ -1,19 +1,7 @@
 .container-fluid.panel.panel-default
 	.panel-body.container-fluid
 		.row
-			.col-md-8
-				%h1= @user.full_name
-				%p= @user.email
-				%p= @user.phone
-				%p= @user.address
-				%p= @user.skype
-				%hr
-				%h5= @user.phase
-				%h5= "Questionnaire status: " + @user.status
-				%p<
-					%h5 Last Client Activity: 
-					= @last_event_message
-
+			= render 'partials/profile.html.haml'
 
 			.col-md-4
 				.panel.panel-review.panel-info
@@ -74,16 +62,7 @@
 				= render "partials/updocs.html.erb"
 
 			#menu3.tab-pane.fade
-				.panel-body
-					- @form_hash.each do |key, value|
-						.form-info
-							%div.form-question
-								= key + ":"
-							%div.form-response
-								- if value.instance_of?(Array)
-									= value.join(', ')
-								- else
-									= value				
+				= render 'partials/form.html.haml'			
 			= javascript_include_tag "load_separately/notes_accordion"
 			#menu4.tab-pane.fade
 				%h3 Notes
@@ -104,14 +83,6 @@
 								Save
 								// =button_to "Save", update_path(n.id), method: :put
 								
-- if current_admin.role == "central"
-	.container-fluid.panel-default
-		.panel.panel-danger
-			.panel-heading
-				%h5 Delete User Account
-			.panel-body
-				%h6 Are you sure you want to delete this account? This action cannot be undone.
-				= button_to "Delete User", client_destroy_path(:id => @user.id), :method => :get, data: {confirm: "Are you sure you want to delete your profile? This action cannot be undone."},  class: "hvr-underline-from-left btn btn-lg btn-default"
-
+= render 'partials/delete_user.html.haml'
 
 
