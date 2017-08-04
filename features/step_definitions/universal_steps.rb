@@ -128,8 +128,7 @@ end
 
 And(/^I view the caseworker tab of "([^"]*)"$/) do |arg1|
   steps %Q{
-    Given I follow "Clients"
-    And I view the profile of "#{arg1}"
+    Given I am on the profile page of user "#{arg1}"
     And I view "Caseworkers"
   }
 end
