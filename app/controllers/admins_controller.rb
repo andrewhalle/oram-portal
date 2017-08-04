@@ -253,5 +253,6 @@ class AdminsController < ApplicationController
 		end
 		redirect_to :admin_setting
 	end
-    
+	
+
 end
