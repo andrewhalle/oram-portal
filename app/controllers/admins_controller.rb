@@ -6,11 +6,11 @@ class AdminsController < ApplicationController
 		@curr_admin = current_admin
 		#@referrers = User.where(role: User.roles[:referrer]).where.not(invitation_accepted_at: nil)
 		if @curr_admin.role == "central"
-			@referrers = User.where(role: 0).all
+			@referrers = User.where(role: 0).where.not(:first_name => nil).all
 		elsif @curr_admin.role == "employee"
 			@referrers = User.where(role:0).where(status: "Approved").all
 			if params[:status] and params[:status] != 'Status'
-				@referrers = @referrers.where(status: params[:status])
+				@referrers = @referrers.where(status: params[:status]).where.not(:first_name => nil)
 			end
 			@status = params[:status]
 		end
@@ -20,12 +20,12 @@ class AdminsController < ApplicationController
 	def show_clients
 		@curr_admin = current_admin
 		if @curr_admin.role == "central"
-			@clients = User.where(role: 1).all
+			@clients = User.where(role: 1).where.not(:first_name => nil).all
 		elsif @curr_admin.role == "employee"
 			@clients = @curr_admin.users
 			#@clients = Form.where(form_type: 3).order("created_at DESC")
 			if params[:status] and params[:status] != 'Status'
-				@clients = @clients.where(status: params[:status]).all
+				@clients = @clients.where(status: params[:status]).where.not(:first_name => nil).all
 			end
 			@status = params[:status]
 		end
