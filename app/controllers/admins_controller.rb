@@ -41,23 +41,18 @@ class AdminsController < ApplicationController
 	end
 
 	def mark_referrer_status
-		status = params[:status]
 		@referrer = User.find_by_id(params[:id])
-		message = "Referrer #{@referrer.full_name} has been marked as #{status.downcase} by admin #{current_admin.full_name}"
 		#form_type for referrers is number 1
-		mark_status(@referrer, message, status, 1)
+		mark_status(@referrer, params[:status], 1)
 		flash[:notice] = message
 		redirect_to referrers_path
 	end
-	
-
 
 	def mark_client_status
-		status = params[:status]
 		@client = User.find_by_id(params[:id])
-		message = "Questionnaire of client #{@client.full_name} has been marked as #{status.downcase} by admin #{current_admin.full_name}"
-		mark_status(@client, message, status, 3)
-		flash[:notice] = message
+		#form_type for client questionnaires is number 3
+		mark_status(@client, params[:status], 3)
+		
 		redirect_to clients_path
 	end
 

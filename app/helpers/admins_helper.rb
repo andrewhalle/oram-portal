@@ -1,6 +1,7 @@
 module AdminsHelper
     
-	def mark_status(user, message, status, type)
+	def mark_status(user, status, type)
+		message = "Form of user #{@client.full_name} has been marked as #{status.downcase} by admin #{current_admin.full_name}"
 		if !user.forms.empty?
 			form = user.forms.where(form_type: type).first
 			if !form.nil?
@@ -17,5 +18,6 @@ module AdminsHelper
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(user).deliver_now # sends the email
 		end
+		flash[:notice] = message
 	end
 end
