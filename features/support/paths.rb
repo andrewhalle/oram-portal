@@ -29,7 +29,7 @@ module NavigationHelpers
       '/admins'
     
     when /^the clients list page$/
-      client_path
+      clients_path
     
     when /^the profile page of user "(.*)\s(.*)"$/
       user_id = User.where(first_name: $1).where(last_name: $2).first.id

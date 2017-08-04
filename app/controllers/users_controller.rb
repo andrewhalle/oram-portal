@@ -211,7 +211,11 @@ class UsersController < ApplicationController
 	end 
 	
 	def client_destroy
-		redirect_to destroy_user_session_path
+		if user_signed_in?
+			redirect_to destroy_user_session_path
+		elsif admin_signed_in?
+			redirect_to clients_path
+		end
 		@client = User.find_by_id(params[:id])
 		@client.destroy
 	end
