@@ -24,3 +24,8 @@ When /I fill out the referrer profile form/ do
   find(:css, "#form_response_Have_you_ever_used_any_LGBTI-specific_social_media_platforms__[value='Scruff']").set(true)
   fill_in "form_response_Why_do_you_want_to_be_a_referrer_for_ORAM__Please_answer_in_less_than_300_words", :with => "I want to help save refugees."
 end
+
+When(/^I view "Form"$/) do
+  find('#menu2', :text => 'Referrer Form').click
+end
+  

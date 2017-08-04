@@ -1,0 +1,10 @@
+.panel-body
+	- @form_hash.each do |key, value|
+		.form-info
+			%div.form-question
+				= key + ":"
+			%div.form-response
+				- if value.instance_of?(Array)
+					= value.join(', ')
+				- else
+					= value	

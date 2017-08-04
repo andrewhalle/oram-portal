@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 		@form_hash = {}
 		@notes = @user.notes.reverse
 		@updocs = Updoc.where(user_id: @user.id).all
+		@events = Event.where(:user_id => @user.id).all.reverse
 		if !@user.ownerships.nil?
 			@user.ownerships.each do |ownership|
 				@caseworker_names.append(Admin.find_by_id(ownership.admin_id).full_name)
@@ -17,20 +18,16 @@ class UsersController < ApplicationController
 			@last_event_message = @user.events.last.message
 		end
 		if @user.role == "referrer"
-			if !@user.forms.empty? && !@user.forms.where(form_type: 1).empty?
-				referrer_forms = @user.forms.where(form_type: 1)
-				@form_id = referrer_forms.first.id
-				@form_hash = JSON.parse(referrer_forms.first.form_json)
-			end
+			type = 1
 			render :referrer_profile
 		elsif @user.role == "client"
-			if !@user.forms.empty? && !@user.forms.where(form_type: 3).empty?
-				client_form = @user.forms.where(form_type: 3)
-				@form_id = client_form.first.id
-				@form_hash = JSON.parse(client_form.first.form_json)
-			end
-			@events = Event.where(:user_id => @user.id).all.reverse
+			type = 2
 			render :client_profile
+		end
+		if !@user.forms.empty? && !@user.forms.where(form_type: type).empty?
+			user_forms = @user.forms.where(form_type: type)
+			@form_id = user_forms.first.id
+			@form_hash = JSON.parse(user_forms.first.form_json)
 		end
 	end
 
@@ -211,7 +208,11 @@ class UsersController < ApplicationController
 	end 
 	
 	def client_destroy
-		redirect_to destroy_user_session_path
+		if user_signed_in?
+			redirect_to destroy_user_session_path
+		elsif admin_signed_in?
+			redirect_to clients_path
+		end
 		@client = User.find_by_id(params[:id])
 		@client.destroy
 	end
