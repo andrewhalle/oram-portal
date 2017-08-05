@@ -82,5 +82,6 @@ Rails.application.routes.draw do
   get 'clients/:id/callback', to: 'calendars#callback', as: 'calendar_callback'
   get 'clients/:id/calendars', to: 'calendars#calendars', as: 'calendars'
   post 'clients/:id/calendars', to: 'calendars#set_calendar', as: 'set_calendar'
+  delete 'clients/:id', to: 'calendars#delete', as: 'calendar_delete'
   
 end

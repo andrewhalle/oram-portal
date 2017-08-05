@@ -1,11 +1,17 @@
 class CalendarsController < ApplicationController
   
   def set_calendar
-    calendar_id = params[:calendar_id]
     user = User.find_by_id(params[:id])
-    user.calendar_id = calendar_id
+    user.calendar_id = params[:calendar_id]
     user.save
     @new_url = user.calendar_id
+    redirect_to client_path
+  end
+  
+  def delete
+    user = User.find_by_id(params[:id])
+    user.calendar_id = ""
+    user.save
     redirect_to client_path
   end
   

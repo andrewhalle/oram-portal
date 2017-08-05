@@ -5,6 +5,11 @@
 			%br
 			.form-profile-button
 				= button_to 'Add Calendar', calendar_redirect_path, {:method => 'get', :class => 'btn btn-sm btn-success'}
+			.form-profile-button
+				= button_to 'Delete Calendar', calendar_delete_path, {:method => 'delete', :class => 'btn btn-sm btn-danger'}
 			%br
 
-%iframe{:frameborder => "0", :height => "600", :scrolling => "no", :src => @calendar_url, :style => "border-width:0", :width => "800"}
+- if @calendar_url != ""
+	%iframe{:frameborder => "0", :height => "600", :scrolling => "no", :src => @calendar_url, :style => "border-width:0", :width => "800"}
+- else
+	%h4 User doesn't have a calendar yet!

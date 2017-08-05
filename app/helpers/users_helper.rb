@@ -9,6 +9,10 @@ module UsersHelper
     end
     
     def get_calendar_url(calendar_id)
-        "https://calendar.google.com/calendar/embed?src=#{calendar_id}&ctz=America/Los_Angeles"
+        if calendar_id == ""
+            return ""
+        else
+            return "https://calendar.google.com/calendar/embed?src=#{calendar_id}&ctz=America/Los_Angeles"
+        end
     end
 end
