@@ -10,7 +10,7 @@ Background:
     | Donald		  | Trump		    | donald@trump.com		  | oram123	        | central       |  
 
 Scenario: Admin changes their password and logs in with new password
-  Given I follow "Settings"
+  Given I follow "Profile"
   And I press "Change Password"
   Then I should be on the change password page of admin "Donald Trump"
   And I fill in "admin_encrypted_password" with "oram123"
