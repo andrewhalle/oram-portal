@@ -53,8 +53,8 @@ Rails.application.routes.draw do
   get 'referrals/:id' => 'forms#show', :as => 'referral'
   post 'referrals/:id/update_status' => 'admins#mark_form_status', :as => 'mark_form_status'
 
-  get 'clients/:id/documents' => 'users#client_documents', :as => 'documents'
-  post 'clients/:id/documents' => 'users#upload_document', :as => 'upload'
+  # get 'clients/:id/documents' => 'users#client_documents', :as => 'documents'
+  # post 'clients/:id/documents' => 'users#upload_document', :as => 'upload'
   
   get 'clients/:id/setting' => 'users#client_setting', :as => 'client_setting'
   get 'clients/:id/setting/edit' => 'users#client_settings_edit', :as => 'client_settings_edit'

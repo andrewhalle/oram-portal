@@ -189,13 +189,13 @@ class UsersController < ApplicationController
 		redirect_to :client_setting
 	end
 
-	def upload_document
-		@client = User.find_by_id(params[:id])
-		user_setting = params[:user_setting]
-		@client.update_attribute(:user_setting, user_setting)
-		@client.save!
-		redirect_to setting_path(@client)
-	end
+	# def upload_document
+	# 	@client = User.find_by_id(params[:id])
+	# 	user_setting = params[:user_setting]
+	# 	@client.update_attribute(:user_setting, user_setting)
+	# 	@client.save!
+	# 	redirect_to setting_path(@client)
+	# end
 	
 	def referrer_setting
 		render :client_setting
