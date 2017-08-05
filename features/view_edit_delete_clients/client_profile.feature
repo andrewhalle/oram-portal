@@ -30,7 +30,7 @@ Scenario: Client trying to edit their profile
 Scenario: Client trying to delete their profile
   Given I follow "Settings"
   When I press "Delete Profile"
-  Then I should see "Sign in"
+  Then I should see "SIGN IN"
   Then I should be on the home page
 
 Scenario: Client trying to view and edit their profile
