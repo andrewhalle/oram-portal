@@ -39,7 +39,17 @@ class Admin < ActiveRecord::Base
     events.build(:admin_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} created an account.")
     # Do whatever you want in here.
   end
-  
+  before_destroy do
+    # if admin_logged_in?
+    #   @curr_admin = current_admin
+    #   events.build(:user_id => id, :admin_id => @curr_admin.id, :created_at => Time.now, :updated_at => Time.now, :message => "Admin #{@curr_admin.full_name} deleted account of user #{first_name} #{last_name}.")
+    # elsif user_logged_in?
+    #   @curr_user = current_user
+    #   events.build(:user_id => id, :created_at => Time.now, :updated_at => Time.now, :message => "User #{first_name} #{last_name} deleted their own account.")
+    # end
+    Event.create(:created_at => Time.now, :updated_at => Time.now, :message => "Admin #{first_name} #{last_name} deleted their own account.")
+    true
+  end
   
   def self.Caseworkers
     caseworkers_db = self.where(role: 1).all
