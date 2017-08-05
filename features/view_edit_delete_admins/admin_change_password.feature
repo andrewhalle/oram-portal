@@ -11,6 +11,7 @@ Background:
   And I am on the admin settings page of admin "Donald Trump"
 
 Scenario: Admin changes their password and logs in with new password
+  Given I am on the admin settings page of admin "Donald Trump"
   Given I press "Change Password"
   Then I should be on the change password page of admin "Donald Trump"
   And I fill in "admin_encrypted_password" with "oram123"
@@ -20,6 +21,7 @@ Scenario: Admin changes their password and logs in with new password
   Then I should be on the admin login page
 
 Scenario: Admin changes their password and logs in with old password
+  Given I am on the admin settings page of admin "Donald Trump"
   Given I change my password from "oram123" to "newpassword" as admin
   Then I should be on the admin login page
   When I login as admin with email "donald@trump.com" and password "oram123"
