@@ -1,19 +1,7 @@
 .container-fluid.panel.panel-default
 	.panel-body.container-fluid
 		.row
-			.col-md-8
-				%h1= @user.full_name if @user.first_name != nil
-				%p= @user.email
-				%p= @user.phone
-				%p= @user.address
-				%p= @user.skype
-				%hr
-				%h5= @user.phase
-				%h5= "Questionnaire status: " + @user.status
-				%p<
-					%h5 Last Client Activity: 
-					= @last_event_message
-
+			= render 'partials/client_summary.html.haml'
 
 			.col-md-4
 				.panel.panel-review.panel-info
@@ -33,7 +21,6 @@
 							.row.form-group
 								= f.select :changed_phase, options_for_select(User.Application_phases_array, @user.phase), id: 'changed_phase', class: 'form-control inline-block select'
 								= f.submit 'Change Phase', class: 'btn btn-sm btn-default inline-block'
-
 	.panel-body
 		%ul.nav.nav-tabs
 			%li.active
@@ -46,6 +33,8 @@
 				%a{"data-toggle" => "tab", :href => "#menu3"} Questionnaire
 			%li
 				%a{"data-toggle" => "tab", :href => "#menu4"} Notes
+			%li
+				%a{"data-toggle" => "tab", :href => "#menu5"} Calendar
 		.tab-content
 			#home.tab-pane.fade.in.active
 				%h3 Client Activity Feed
@@ -75,16 +64,8 @@
 				= render "partials/updocs.html.erb"
 
 			#menu3.tab-pane.fade
-				.panel-body
-					- @form_hash.each do |key, value|
-						.form-info
-							%div.form-question
-								= key + ":"
-							%div.form-response
-								- if value.instance_of?(Array)
-									= value.join(', ')
-								- else
-									= value				
+				= render 'partials/form.html.haml'
+				
 			= javascript_include_tag "load_separately/notes_accordion"
 			#menu4.tab-pane.fade
 				%h3 Notes
@@ -104,5 +85,9 @@
 							%button{:id => "note_update_" + n.id.to_s}
 								Save
 								// =button_to "Save", update_path(n.id), method: :put
+			#menu5.tab-pane.fade
+				%h3 Calendar
+				%iframe{:frameborder => "0", :height => "600", :scrolling => "no", :src => "https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23FFFFFF&src=berkeley.edu_tflpa4dsjvc90j522l4uv6gsro%40group.calendar.google.com&color=%230F4B38&src=berkeley.edu_7v0ggetrcfr4abgb45lrl7638s%40group.calendar.google.com&color=%23AB8B00&src=89lpiabauc2t7ruq12jeq26l40%40group.calendar.google.com&color=%23B1440E&src=berkeley.edu_273ga0ug3r9rht0rcve433hgc4%40group.calendar.google.com&color=%238C500B&src=berkeley.edu_rn405368b4hu8jb2etgsr64e2g%40group.calendar.google.com&color=%23711616&ctz=America%2FLos_Angeles", :style => "border-width:0", :width => "800"}
+= render 'partials/delete_user.html.haml'
 
 
