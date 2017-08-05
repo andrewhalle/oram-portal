@@ -4,7 +4,7 @@ module UsersHelper
 			user_forms = user.forms.where(form_type: type)
 			@form_id = user_forms.first.id
 			form_hash = JSON.parse(user_forms.first.form_json)
-		end
+        end
 		form_hash
-	end
+    end
 end
