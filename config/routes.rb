@@ -77,11 +77,18 @@ Rails.application.routes.draw do
   get 'clients/:id/updocs/create' =>'updocs#create', :as => 'updocs_create'
   get 'clients/:id/updocs/destroy' =>'updocs#destroy', :as => 'updocs_destroy'
   
+  get '/pending' => 'admins#show_pending', :as => 'pending'
+
   #For connecting to the Google Calendar API
   get 'clients/:id/redirect', to: 'calendars#redirect', as: 'calendar_redirect'
   get 'clients/:id/callback', to: 'calendars#callback', as: 'calendar_callback'
   get 'clients/:id/calendars', to: 'calendars#calendars', as: 'calendars'
   post 'clients/:id/calendars', to: 'calendars#set_calendar', as: 'set_calendar'
   delete 'clients/:id', to: 'calendars#delete', as: 'calendar_delete'
+
+
+  
+  
+>>>>>>> 6dc23df4f984da460b2696f347d4b461255441a6
   
 end
