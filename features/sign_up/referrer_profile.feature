@@ -14,11 +14,14 @@ Background: Referrer in the database
 Scenario: Submitting the form successfully
   Given I fill out the referrer profile form
   And I press "Submit"
+  Then I should be on the profile page of referrer "Bryan Adams"
+  And I view "Referrer Form"
   Then I should see "First Name:"
 
 Scenario: Checking that conditional areas were filled out correctly and show up after being submitted
   Given I fill out the referrer profile form
   And I press "Submit"
+  And I view "Referrer Form"
   Then I should see "I was the founder of the organization."
 
 # Scenario: Checking that you cannot submit an empty form

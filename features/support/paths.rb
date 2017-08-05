@@ -29,11 +29,15 @@ module NavigationHelpers
       '/admins'
     
     when /^the clients list page$/
-      client_path
+      clients_path
     
     when /^the profile page of user "(.*)\s(.*)"$/
       user_id = User.where(first_name: $1).where(last_name: $2).first.id
       '/clients/' + user_id.to_s
+ 
+    when /^the profile page of referrer "(.*)\s(.*)"$/
+      user_id = User.where(first_name: $1).where(last_name: $2).first.id
+      '/referrer/' + user_id.to_s    
     
     when /^the profile page of admin "(.*)\s(.*)"$/
       admin_id = Admin.where(first_name: $1).where(last_name: $2).first.id
