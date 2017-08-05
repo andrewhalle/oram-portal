@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+	
+	include UsersHelper
+	
 	before_action :require_login
 
 	def show
@@ -8,6 +11,7 @@ class UsersController < ApplicationController
 		@form_hash = {}
 		@notes = @user.notes.reverse
 		@updocs = Updoc.where(user_id: @user.id).all
+		@events = Event.where(:user_id => @user.id).all.reverse
 		if !@user.ownerships.nil?
 			@user.ownerships.each do |ownership|
 				@caseworker_names.append(Admin.find_by_id(ownership.admin_id).full_name)
@@ -17,19 +21,12 @@ class UsersController < ApplicationController
 			@last_event_message = @user.events.last.message
 		end
 		if @user.role == "referrer"
-			if !@user.forms.empty? && !@user.forms.where(form_type: 1).empty?
-				referrer_forms = @user.forms.where(form_type: 1)
-				@form_id = referrer_forms.first.id
-				@form_hash = JSON.parse(referrer_forms.first.form_json)
-			end
+			type = 1
+			@form_hash = get_form(@user, type)
 			render :referrer_profile
 		elsif @user.role == "client"
-			if !@user.forms.empty? && !@user.forms.where(form_type: 3).empty?
-				client_form = @user.forms.where(form_type: 3)
-				@form_id = client_form.first.id
-				@form_hash = JSON.parse(client_form.first.form_json)
-			end
-			@events = Event.where(:user_id => @user.id).all.reverse
+			type = 3
+			@form_hash = get_form(@user, type)
 			render :client_profile
 		end
 	end
@@ -196,13 +193,13 @@ class UsersController < ApplicationController
 		redirect_to :client_setting
 	end
 
-	def upload_document
-		@client = User.find_by_id(params[:id])
-		user_setting = params[:user_setting]
-		@client.update_attribute(:user_setting, user_setting)
-		@client.save!
-		redirect_to setting_path(@client)
-	end
+	# def upload_document
+	# 	@client = User.find_by_id(params[:id])
+	# 	user_setting = params[:user_setting]
+	# 	@client.update_attribute(:user_setting, user_setting)
+	# 	@client.save!
+	# 	redirect_to setting_path(@client)
+	# end
 	
 	def referrer_setting
 		render :client_setting
@@ -215,7 +212,11 @@ class UsersController < ApplicationController
 	end 
 	
 	def client_destroy
-		redirect_to destroy_user_session_path
+		if user_signed_in?
+			redirect_to destroy_user_session_path
+		elsif admin_signed_in?
+			redirect_to clients_path
+		end
 		@client = User.find_by_id(params[:id])
 		@client.destroy
 	end
