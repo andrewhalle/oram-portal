@@ -1,47 +1,5 @@
-#referrer_list_title {
-  margin-bottom: 30px;
-  text-align: center;
-  font-family: "lato";
-  font-weight: bold;
-}
-
-#referrers {
-  border-collapse: collapse;
-  margin: auto;
-  width: 80%;
-  border: hidden;
-  border-bottom-style: solid;
-  border-bottom-color: #98a6bc;
-  font-family: "lato";
-}
-
-#referrers tr:nth-child(even) td {
-  text-align: center;
-  background-color: #f5f5f5;
-}
-
-#referrers th {
-  padding: 25px;
-  text-align: center;
-}
-
-#referrers thead {
-  background-color: #98a6bc;
-  color: white;
-  font-size: 14pt;
-}
-
-#referrers td {
-  padding: 10px;
-  text-align: center;
-}
-
 #select_button {
   background-color: #98a6bc;
-}
-
-.referrer-info {
-
 }
 
 #client_list_title {

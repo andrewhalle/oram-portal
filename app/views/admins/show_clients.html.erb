@@ -1,0 +1,41 @@
+<div id="events">
+  <h1>Clients</h1>
+  
+  <!-- Responsive table starts here -->
+  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+  <div class="table-responsive-vertical shadow-z-1">
+  <!-- Table starts here --> 
+  <table id="table" class="table table-striped table-mc-light-blue">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phase</th>
+          <th>Profile</th>
+        </tr>
+      </thead>
+      <tbody>
+      	<% @clients.each do |client| %>
+			<tr>
+				<td><%= if !client.nil?  then client.first_name end %></td>
+				<td><%= if !client.nil?  then client.last_name end%></td>
+				<td><%= if @curr_admin.role == 'central'  then client.status end%></td>
+				<td><%= link_to "View Profile", client_path(client.id) %></td>
+			</tr>
+		<% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--%th= select_tag "status",-->
+<!--    options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),-->
+<!--    id: 'select_button',-->
+<!--    class: 'filter',-->
+<!--    :onchange => "filter_by_status(this.value)"-->
+<!--%th= select_tag "phase",-->
+<!--options_for_select(["All", "Pending", "Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Rejected"], @phase),-->
+<!--id: 'select_button',-->
+<!--class: 'filter',-->
+<!--:onchange => "filter_by_phase(this.value)"-->
+

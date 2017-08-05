@@ -1,59 +1,38 @@
-<% if @user != nil or @curr_admin != nil %>
-<!----------------------------------------------------------------------------------------------->
-		<div id="events">
-		  <h1>Referrers</h1>
-		  
-		  <!-- Responsive table starts here -->
-		  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
-		  <div class="table-responsive-vertical shadow-z-1">
-		  <!-- Table starts here --> 
-		  <table id="table" class="table table-striped table-mc-light-blue">
-		      <thead>
-		        <tr>
-		          <th>First Name</th>
-		          <th>Last Name</th>
-		          <th><%=  if @curr_admin == 'central'  then 
-		          	select_tag "status",
-		            options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),
-		            id: 'select_button',
-		            class: 'filter',
-		            :onchange => "filter_by_status(this.value)"
-		          end%>Status</th>
-		          <th>Profile</th>
-		        </tr>
-		      </thead>
-		      <tbody>
-		      	<% @referrers.each do |referrer| %>
-					<tr>
-						<td><%= if !referrer.nil?  then referrer.first_name end %></td>
-						<td><%= if !referrer.nil?  then referrer.last_name end%></td>
-						<td><%= if @curr_admin.role == 'central'  then referrer.status end%></td>
-						<td><%= link_to "View Profile", referrer_path(referrer.id) %></td>
-					</tr>
-				<% end %>
-		      </tbody>
-		    </table>
-		  </div>
-		</div>
-<!----------------------------------------------------------------------------------------------->
-<% else %>
-	<div class="landing-content">
-		<div class="landing-links">
-	
-		 </div>
-		<div class="about-oram">
-			<div class="landing-title">About</div>
-	
-			<div class="about-text">
-				ORAM’s mission is to enable the international community to protect exceptionally vulnerable refugees and asylum seekers. To this end, we are dedicated to delivering innovative tools, cutting-edge research and empirically-based assessment programs for refugee professionals around the world.
-				We work closely with governments of refugee-receiving and transit countries, the United Nations, international NGOs, community and faith-based organizations, and academic institutions. Drawing upon our leadership, know-how and trailblazing work on sexual and gender minority refugees, we assist the panoply of exceptionally vulnerable refugees facing extreme persecution and in desperate need of help.
-				Through our capacity-building programs, we have trained thousands of professionals on refugee protection and claims adjudication. Our tools are utilized by thousands of refugee professionals and agencies worldwide. We are trusted by governments, international agencies and communities to develop and deliver rare expertise in our constantly evolving field. By training refugee professionals and making our tools accessible to them, we reach hundreds of thousands who seek refuge and asylum.
-		  </div>
-		 </div>
-	
-	</div>
-<% end %>
-
+<div id="events">
+  <h1>Referrers</h1>
+  
+  <!-- Responsive table starts here -->
+  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+  <div class="table-responsive-vertical shadow-z-1">
+  <!-- Table starts here --> 
+  <table id="table" class="table table-striped table-mc-light-blue">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th><%=  if @curr_admin == 'central'  then 
+          	select_tag "status",
+            options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),
+            id: 'select_button',
+            class: 'filter',
+            :onchange => "filter_by_status(this.value)"
+          end%>Status</th>
+          <th>Profile</th>
+        </tr>
+      </thead>
+      <tbody>
+      	<% @referrers.each do |referrer| %>
+			<tr>
+				<td><%= if !referrer.nil?  then referrer.first_name end %></td>
+				<td><%= if !referrer.nil?  then referrer.last_name end%></td>
+				<td><%= if @curr_admin.role == 'central'  then referrer.status end%></td>
+				<td><%= link_to "View Profile", referrer_path(referrer.id) %></td>
+			</tr>
+		<% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <!---if @curr_admin == 'central'-->
 <!--        %th= select_tag "status",-->
