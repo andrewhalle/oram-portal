@@ -52,15 +52,18 @@ class UsersController < ApplicationController
 	end
 	
 	def update_profile(form_type, redirect_path)
+		@user = User.find_by_id(params[:id])
 		country_code = params["form_response"]["Country Of Birth"]
 		params["form_response"]["Country Of Birth"] = get_country(country_code)
 		if !country_code.nil? && !country_code.empty?
 			country = ISO3166::Country[country_code]
 			params["form_response"]["Country Of Birth"] = country.name
+			@user.country = country.name
 		end
+		@user.languages = params["form_response"]["Languages Spoken"]
+		@user.save
 		@form_response = params["form_response"].to_json
 		@form_type = form_type
-		@user = User.find_by_id(params[:id])
 		@user_form = @user.forms.where(form_type: @form_type).first
 		if !@user_form
 			@user_form = @user.forms.build({form_json: @form_response, form_type: @form_type, status: "Incomplete", first_name: @user.first_name, last_name: @user.last_name})

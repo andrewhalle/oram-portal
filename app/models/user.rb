@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
     has_many :admins, :through => :ownerships
     has_many :notes, dependent: :destroy
     has_many :updocs
+    serialize :languages
     
     mount_uploader :case_document, CaseDocumentUploader
 
