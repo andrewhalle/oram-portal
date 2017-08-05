@@ -168,17 +168,17 @@ class UsersController < ApplicationController
 		render :client_documents
 	end
 	
-    def client_settings_edit
+    def user_settings_edit
 		@user = current_user
-		render :client_edit_profile
+		render :user_edit_profile
     end
     
-	def client_setting
+	def user_setting
 		@client = current_user
-		render :client_setting
+		render :user_setting
 	end
     
-	def client_edit_save
+	def user_edit_save
 		User.update(params[:id], 
 		{:first_name => params["user"]["first_name"], 
 		:last_name => params["user"]["last_name"], 
@@ -186,7 +186,7 @@ class UsersController < ApplicationController
 		:phone => params["user"]["phone"], 
 		:address => params["user"]["address"],
 		:skype => params["user"]["skype"]})
-		redirect_to :client_setting
+		redirect_to :user_setting
 	end
 
 	# def upload_document
@@ -197,29 +197,32 @@ class UsersController < ApplicationController
 	# 	redirect_to setting_path(@client)
 	# end
 	
-	def referrer_setting
-		render :client_setting
-	end 
+	# def referrer_setting
+	# 	render :client_setting
+	# end 
 	
-	def referrer_destroy
-		redirect_to destroy_user_session_path
+	# def referrer_destroy
+	# 	redirect_to destroy_user_session_path
+	# 	@client = User.find_by_id(params[:id])
+	# 	@client.destroy
+	# end 
+	
+	def user_destroy
 		@client = User.find_by_id(params[:id])
-		@client.destroy
-	end 
-	
-	def client_destroy
 		if user_signed_in?
 			redirect_to destroy_user_session_path
 		elsif admin_signed_in?
-			redirect_to clients_path
+			if @client.role == "client"
+				redirect_to clients_path
+			elsif @client.role == "referrer"
+				redirect_to referrers_path
+			end
 		end
-		@client = User.find_by_id(params[:id])
 		@client.destroy
 	end
 	
 	def case_status
 		@status = {phase_one: "Applicant vetting"}
-		
 	end 
 	
 	def user_pass_change
@@ -248,7 +251,7 @@ class UsersController < ApplicationController
 		else
 			flash[:alert] = "Your old password is incorrect. Please try again."
 		end
-		redirect_to :client_setting
+		redirect_to :user_setting
 	end
 	
 

@@ -32,7 +32,7 @@ RSpec.describe UsersController, type: :controller do
   end
   
   it "should delete users" do
-    get :client_destroy, {:id => 1}
+    get :user_destroy, {:id => 1}
     expect(response).to redirect_to(:root)
   end
 end

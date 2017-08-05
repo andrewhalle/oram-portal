@@ -56,13 +56,13 @@ Rails.application.routes.draw do
   # get 'clients/:id/documents' => 'users#client_documents', :as => 'documents'
   # post 'clients/:id/documents' => 'users#upload_document', :as => 'upload'
   
-  get 'clients/:id/setting' => 'users#client_setting', :as => 'client_setting'
-  get 'clients/:id/setting/edit' => 'users#client_settings_edit', :as => 'client_settings_edit'
-  get 'clients/:id/setting/delete' => 'users#client_destroy', :as => 'client_destroy'
-  patch 'clients/:id/setting' => 'users#client_edit_save', :as => 'edit_save'
-  get 'clients/:id/setting/change_password' => 'users#user_pass_change', :as => 'user_pass_change'
-  patch 'clients/:id/setting/password' => 'users#user_pass_save', :as => 'user_pass_save'
-  get 'referrer/:id/setting' => 'users#referrer_setting', :as => 'referrer_setting'
+  get 'users/:id/setting' => 'users#user_setting', :as => 'user_setting'
+  get 'users/:id/setting/edit' => 'users#user_settings_edit', :as => 'user_settings_edit'
+  get 'users/:id/setting/delete' => 'users#user_destroy', :as => 'user_destroy'
+  patch 'users/:id/setting' => 'users#user_edit_save', :as => 'edit_save'
+  get 'users/:id/setting/change_password' => 'users#user_pass_change', :as => 'user_pass_change'
+  patch 'users/:id/setting/password' => 'users#user_pass_save', :as => 'user_pass_save'
+  # get 'referrer/:id/setting' => 'users#user_setting', :as => 'referrer_setting'
   get 'referrer/:id/case_status' => 'users#case_status', :as => 'case_status'
   
   
