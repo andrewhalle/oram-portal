@@ -30,13 +30,13 @@
             <li class="header-link content-link"><%= link_to "Referrals", referrals_path(current_user.id), class: "hvr-underline-from-left"%> </li>
             <li class="header-link content-link"><%= link_to "Refer Client", refer_client_path(current_user.id), class: "hvr-underline-from-left"%> </li>
             <li class="header-link content-link"><%= link_to "Case Status", case_status_path(current_user.id), class: "hvr-underline-from-left"%> </li>
-            <li class="header-link content-link"><%= link_to "Settings", client_setting_path(current_user.id), class: "hvr-underline-from-left"%> </li>
+            <li class="header-link content-link"><%= link_to "Settings", user_setting_path(current_user.id), class: "hvr-underline-from-left"%> </li>
           <% end %>
           <% if current_user && current_user.role == "client" %>
             <li class="header-link content-link"><%= link_to "Home", root_path, class: "hvr-underline-from-left"%> </li>
             <li class="header-link content-link"><%= link_to "Profile", client_path(current_user.id), class: "hvr-underline-from-left"%> </li>
             <li class="header-link content-link"><%= link_to "Documents", updocs_index_path(current_user.id), class: "hvr-underline-from-left", :method => :get %> </li>
-            <li class="header-link content-link"><%= link_to "Settings", client_setting_path(current_user.id), class: "hvr-underline-from-left"%> </li>
+            <li class="header-link content-link"><%= link_to "Settings", user_setting_path(current_user.id), class: "hvr-underline-from-left"%> </li>
           <% end %>
 				</ul>
 			</div>
