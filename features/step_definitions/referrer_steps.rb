@@ -25,7 +25,7 @@ When /I fill out the referrer profile form/ do
   fill_in "form_response_Why_do_you_want_to_be_a_referrer_for_ORAM__Please_answer_in_less_than_300_words", :with => "I want to help save refugees."
 end
 
-When(/^I view "Form"$/) do
-  find('#menu2', :text => 'Referrer Form').click
+When(/^I view "Referrer Form"$/) do
+  find('#form', :text => "Referrer Form").click
 end
   

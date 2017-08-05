@@ -26,20 +26,19 @@
 							= button_to 'Reject', mark_referrer_status_path(:status => "Rejected", :form_id => @form_id), {:method => 'post', :class => 'btn btn-md btn-danger'}
 						.form-profile-button
 							= button_to 'Incomplete', mark_referrer_status_path(:status => "Incomplete", :form_id => @form_id), {:method => 'post', :class => 'btn btn-md btn-warning'}
-
 	.panel-body
 		%ul.nav.nav-tabs
 			%li.active
 				%a{"data-toggle" => "tab", :href => "#home"} Status Feed
 			%li
-				%a{"data-toggle" => "tab", :href => "#menu2"} Referrer Form
+				%a{"data-toggle" => "tab", :href => "#form"} Referrer Form
 		.tab-content
 			#home.tab-pane.fade.in.active
 				%h3 Referrer Activity Feed
 				%p Shows a feed of latest events related to the referrer.
 				= render "partials/status_feed.html.erb"
-
-			#menu2.tab-pane.fade
+			#form.tab-pane.fade
+				%h3.text-center Referrer Form
 				.panel-body
 					- @form_hash.each do |key, value|
 						.form-info
