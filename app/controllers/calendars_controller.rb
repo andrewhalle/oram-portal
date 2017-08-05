@@ -32,8 +32,7 @@ class CalendarsController < ApplicationController
     events = service.list_events("#{@calendar_list.items[0].id}")
 
     @my_calendar = @calendar_list.items[6]
-    foregroundColor = @my_calendar.foreground_color
-    backgroundColor = @my_calendar.background_color
+
     @all_events = events.items
     # nice = cast_google_events(events, foregroundColor, backgroundColor)
     calendar_id = @my_calendar.id
