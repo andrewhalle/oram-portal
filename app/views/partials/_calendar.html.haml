@@ -1,0 +1,10 @@
+.container-fluid
+	.row
+		.col-md-4
+			%b Add a Calendar
+			%br
+			.form-profile-button
+				= button_to 'Add Calendar', calendar_redirect_path, {:method => 'get', :class => 'btn btn-sm btn-success'}
+			%br
+
+%iframe{:frameborder => "0", :height => "600", :scrolling => "no", :src => @calendar_url, :style => "border-width:0", :width => "800"}

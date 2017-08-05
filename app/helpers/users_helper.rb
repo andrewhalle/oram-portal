@@ -7,4 +7,8 @@ module UsersHelper
         end
 		form_hash
     end
+    
+    def get_calendar_url(calendar_id)
+        "https://calendar.google.com/calendar/embed?src=#{calendar_id}&ctz=America/Los_Angeles"
+    end
 end
