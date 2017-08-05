@@ -158,43 +158,6 @@
   text-align: center;
 }
 
-// #event_list_title {
-//   margin-bottom: 30px;
-//   text-align: center;
-//   font-family: "lato";
-//   font-weight: bold;
-// }
-
-// #events {
-//   border-collapse: collapse;
-//   margin: auto;
-//   width: 80%;
-//   border: hidden;
-//   border-bottom-style: solid;
-//   border-bottom-color: #98a6bc;
-//   font-family: "lato";
-// }
-
-// #events tr:nth-child(even) td {
-//   text-align: center;
-//   background-color: #f5f5f5;
-// }
-
-// #events th {
-//   padding: 25px;
-//   text-align: center;
-// }
-
-// #events thead {
-//   background-color: #98a6bc;
-//   color: white;
-//   font-size: 14pt;
-// }
-
-// #events td {
-//   padding: 10px;
-//   text-align: center;
-// }
  
 ///////////////////////////BELOW IS CSS FOR TABELS/////////////////////////////////
 
@@ -232,12 +195,14 @@ body {
 #events {
   margin: 20px auto;
   max-width: 960px;
+  padding: 00px 0px 40px 0px;
 }
 
 // Material Design typography
 // https://codepen.io/zavoloklom/pen/IkaFL
 #events h1 {
-  font-size: 2.4rem;
+  padding: 40px 0px 0px 0px;
+  font-size: 4.4rem;
   line-height: 3.2rem;
   letter-spacing: 0;
   font-weight: 300;
@@ -248,6 +213,7 @@ body {
 }
 #events h2 {
   font-size: 1.5rem;
+  padding: 0px 0px 20px 0px;
   line-height: 2.8rem;
   letter-spacing: 0.01rem;
   font-weight: 400;
@@ -312,7 +278,7 @@ body {
       > th,
       > td {
         text-align: left;
-        padding: 20px;
+        padding: 10px 10px 10px 25px;
         vertical-align: top;
         border-top: 0;
       }
@@ -407,7 +373,7 @@ body {
   > tbody > tr:hover {
     > td,
     > th {
-      background-color: #82CAFA;
+      background-color: none;
     }
   }
 }
@@ -516,7 +482,7 @@ body {
 }
 .table-hover.table-mc-light-blue > tbody > tr:hover > td,
 .table-hover.table-mc-light-blue > tbody > tr:hover > th {
-    background-color: #b3e5fc;
+    background-color: white;
 }
 @media screen and (max-width: 767px) {
     .table-responsive-vertical .table-striped.table-mc-light-blue > tbody > tr > td,
