@@ -86,9 +86,4 @@ Rails.application.routes.draw do
   post 'clients/:id/calendars', to: 'calendars#set_calendar', as: 'set_calendar'
   delete 'clients/:id', to: 'calendars#delete', as: 'calendar_delete'
 
-
-  
-  
->>>>>>> 6dc23df4f984da460b2696f347d4b461255441a6
-  
 end
