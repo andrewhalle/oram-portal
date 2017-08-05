@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+	
+	include UsersHelper
+	
 	before_action :require_login
 
 	def show
@@ -19,15 +22,12 @@ class UsersController < ApplicationController
 		end
 		if @user.role == "referrer"
 			type = 1
+			@form_hash = get_form(@user, type)
 			render :referrer_profile
 		elsif @user.role == "client"
-			type = 2
+			type = 3
+			@form_hash = get_form(@user, type)
 			render :client_profile
-		end
-		if !@user.forms.empty? && !@user.forms.where(form_type: type).empty?
-			user_forms = @user.forms.where(form_type: type)
-			@form_id = user_forms.first.id
-			@form_hash = JSON.parse(user_forms.first.form_json)
 		end
 	end
 

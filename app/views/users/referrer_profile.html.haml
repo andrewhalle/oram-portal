@@ -39,15 +39,6 @@
 				= render "partials/status_feed.html.erb"
 			#form.tab-pane.fade
 				%h3.text-center Referrer Form
-				.panel-body
-					- @form_hash.each do |key, value|
-						.form-info
-							%div.form-question
-								= key + ":"
-							%div.form-response
-								- if value.instance_of?(Array)
-									= value.join(', ')
-								- else
-									= value				
+				= render 'partials/form.html.haml'
 
 = render 'partials/delete_user.html.haml'

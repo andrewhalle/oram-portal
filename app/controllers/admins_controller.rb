@@ -44,7 +44,7 @@ class AdminsController < ApplicationController
 		@referrer = User.find_by_id(params[:id])
 		#form_type for referrers is number 1
 		mark_status(@referrer, params[:status], 1)
-		flash[:notice] = message
+		
 		redirect_to referrers_path
 	end
 

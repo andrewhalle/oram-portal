@@ -1,7 +1,7 @@
 module AdminsHelper
     
 	def mark_status(user, status, type)
-		message = "Form of user #{@client.full_name} has been marked as #{status.downcase} by admin #{current_admin.full_name}"
+		message = "Form of user #{user.full_name} has been marked as #{status.downcase} by admin #{current_admin.full_name}"
 		if !user.forms.empty?
 			form = user.forms.where(form_type: type).first
 			if !form.nil?
