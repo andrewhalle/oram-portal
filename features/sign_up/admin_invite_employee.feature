@@ -12,7 +12,7 @@ Background: Logging in as an admin
     | oram        | admin     | admin321@gmail.com  | oramadmin  | central  |
 
 Scenario: Admins can invite users to make an account
-  When I follow "Invite User"
+  When I follow "Invitations"
   Then I should be on the new user invitation page
 
 Scenario: Admins can invite users by email
