@@ -14,8 +14,7 @@
 	<% end %>
 <!----------------------------------------------------------------------------------------------->
 		<div id="events">
-		  <h1>Notifications</h1>
-		  <h2>Latest updates from ORAM clients and admins</h2>
+		  <h1>Admins</h1>
 		  
 		  <!-- Responsive table starts here -->
 		  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
@@ -24,21 +23,17 @@
 		  <table id="table" class="table table-striped table-mc-light-blue">
 		      <thead>
 		        <tr>
-		          <th>Client</th>
-		          <th>Admin</th>
-		          <th>Event</th>
-		          <th>Created</th>
-		          <th>Last Modified</th>
+		          <th>First Name</th>
+		          <th>Last Name</th>
+		          <th>Profile</th>
 		        </tr>
 		      </thead>
 		      <tbody>
-		      	<% @events.each do |e| %>
+		      	<% @admins.each do |admin| %>
 					<tr>
-						<td><%= if !e.user.nil? && !e.user.first_name.nil? then link_to(e.user.full_name, client_path(:id => e.user.id)) end %></td>
-						<td><%= if !e.admin.nil? && !e.admin.first_name.nil? then e.admin.full_name end%></td>
-						<td><%= e.message %></td>
-						<td><%= e.created_at %></td>
-						<td><%= e.updated_at %></td>
+						<td><%= if !admin.nil?  then admin.first_name end %></td>
+						<td><%= if !admin.nil?  then admin.last_name end%></td>
+						<td><%= link_to "View Profile", admin_path(admin.id) %></td>
 					</tr>
 				<% end %>
 		      </tbody>
@@ -63,4 +58,3 @@
 	
 	</div>
 <% end %>
-
