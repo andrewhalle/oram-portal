@@ -1,7 +1,7 @@
 <% if @user != nil or @curr_admin != nil %>
 <!----------------------------------------------------------------------------------------------->
 		<div id="events">
-		  <h1>Admins</h1>
+		  <h1>Referrers</h1>
 		  
 		  <!-- Responsive table starts here -->
 		  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
@@ -12,15 +12,23 @@
 		        <tr>
 		          <th>First Name</th>
 		          <th>Last Name</th>
+		          <th><%=  if @curr_admin == 'central'  then 
+		          	select_tag "status",
+		            options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),
+		            id: 'select_button',
+		            class: 'filter',
+		            :onchange => "filter_by_status(this.value)"
+		          end%>Status</th>
 		          <th>Profile</th>
 		        </tr>
 		      </thead>
 		      <tbody>
-		      	<% @admins.each do |admin| %>
+		      	<% @referrers.each do |referrer| %>
 					<tr>
-						<td><%= if !admin.nil?  then admin.first_name end %></td>
-						<td><%= if !admin.nil?  then admin.last_name end%></td>
-						<td><%= link_to "View Profile", admin_path(admin.id) %></td>
+						<td><%= if !referrer.nil?  then referrer.first_name end %></td>
+						<td><%= if !referrer.nil?  then referrer.last_name end%></td>
+						<td><%= if @curr_admin.role == 'central'  then referrer.status end%></td>
+						<td><%= link_to "View Profile", referrer_path(referrer.id) %></td>
 					</tr>
 				<% end %>
 		      </tbody>
@@ -45,3 +53,11 @@
 	
 	</div>
 <% end %>
+
+
+<!---if @curr_admin == 'central'-->
+<!--        %th= select_tag "status",-->
+<!--            options_for_select(["Status", "Incomplete", "Complete", "Approved", "Rejected"], @status),-->
+<!--            id: 'select_button',-->
+<!--            class: 'filter',-->
+<!--            :onchange => "filter_by_status(this.value)"-->
