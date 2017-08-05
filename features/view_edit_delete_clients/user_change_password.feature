@@ -19,6 +19,7 @@ Scenario: Changing password should let me log in with new password
   Then I should be on the home page
   
 Scenario: user changes their password and logs in with old password
+  Given I am on the settings page of user "Donald Trump"
   Given I change my password from "oram123" to "newpassword" as user
   Then I should be on the home page
   When I login as user with email "donald@trump.com" and password "oram123"
@@ -26,6 +27,7 @@ Scenario: user changes their password and logs in with old password
   When I login as user with email "donald@trump.com" and password "newpassword"
 
 Scenario: user tries to change password with password under 5 characters
+  Given I am on the settings page of user "Donald Trump"
   Given I change my password from "oram123" to "cat" as user
   Then I should be on the settings page of user "Donald Trump"
 
@@ -40,5 +42,6 @@ Scenario: user tries to change password with passwords that don't match
   Then I should be on the settings page of user "Donald Trump"
 
 Scenario: user tries to change password with incorrect old password
+  Given I am on the settings page of user "Donald Trump"
   Given I change my password from "incorrectpassword" to "password" as user
   Then I should be on the settings page of user "Donald Trump"
