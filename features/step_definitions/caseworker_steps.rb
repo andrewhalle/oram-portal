@@ -74,3 +74,7 @@ Then(/^"([^"]*)" should not be a caseworker of client "([^"]*)"$/) do |arg1, arg
     Then I should not see "arg1"
   } # Write code here that turns the phrase above into concrete actions
 end
+
+Then(/^there should not be the caseworker dropdown$/) do
+  expect(page).not_to have_selector(".assign-caseworker-select")
+end

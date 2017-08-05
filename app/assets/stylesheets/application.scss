@@ -29,6 +29,7 @@
  @import 'forms.scss';
  @import 'status.scss';
  @import 'notes.scss';
+ @import url(https://fonts.googleapis.com/css?family=Hind);
 
 html, body {
 	height: 100%;
@@ -51,4 +52,7 @@ html, body {
 	left: 50%;
 	transform: translateX(-50%);
 	top: 150px;
+}
+.p {
+ font-family: 'Hind';
 }

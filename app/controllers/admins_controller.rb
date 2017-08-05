@@ -6,11 +6,11 @@ class AdminsController < ApplicationController
 		@curr_admin = current_admin
 		#@referrers = User.where(role: User.roles[:referrer]).where.not(invitation_accepted_at: nil)
 		if @curr_admin.role == "central"
-			@referrers = User.where(role: 0).all
+			@referrers = User.where(role: 0).where.not(:first_name => nil).all
 		elsif @curr_admin.role == "employee"
 			@referrers = User.where(role:0).where(status: "Approved").all
 			if params[:status] and params[:status] != 'Status'
-				@referrers = @referrers.where(status: params[:status])
+				@referrers = @referrers.where(status: params[:status]).where.not(:first_name => nil)
 			end
 			@status = params[:status]
 		end
@@ -20,12 +20,12 @@ class AdminsController < ApplicationController
 	def show_clients
 		@curr_admin = current_admin
 		if @curr_admin.role == "central"
-			@clients = User.where(role: 1).all
+			@clients = User.where(role: 1).where.not(:first_name => nil).all
 		elsif @curr_admin.role == "employee"
 			@clients = @curr_admin.users
 			#@clients = Form.where(form_type: 3).order("created_at DESC")
 			if params[:status] and params[:status] != 'Status'
-				@clients = @clients.where(status: params[:status]).all
+				@clients = @clients.where(status: params[:status]).where.not(:first_name => nil).all
 			end
 			@status = params[:status]
 		end
@@ -44,13 +44,16 @@ class AdminsController < ApplicationController
 		status = params[:status]
 		@referrer = User.find_by_id(id)
 		@form = @referrer.forms.where(form_type: 1).first
-		@form.status = status
-		@form.save
+		if !@form.nil?
+			@form.status = status
+			@form.save
+		end
 		@referrer.status = status
 		@referrer.save
 		message = "Referrer #{@referrer.full_name} has been marked as #{@referrer.status.downcase} by admin #{current_admin.full_name}"
 		flash[:notice] = message
-		@referrer.events.build(:user_id => @referrer.id, :admin_id => current_admin.id, :message => message)
+		e = @referrer.events.build(:user_id => @referrer.id, :admin_id => current_admin.id, :message => message)
+		e.save
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@referrer).deliver_now # sends the email
@@ -65,13 +68,16 @@ class AdminsController < ApplicationController
 		status = params[:status]
 		@client = User.find_by_id(id)
 		@form = Form.find_by_id(form_id)
-		@form.status = status
+		if !@form.nil?
+			@form.status = status
+			@form.save
+		end
 		@client.status = status
-		@form.save
 		@client.save
 		message = "Questionnaire of client #{@client.full_name} has been marked as #{@client.status.downcase} by admin #{current_admin.full_name}"
 		flash[:notice] = message
-		@client.events.build(:user_id => @client.id, :admin_id => current_admin.id, :message => message)
+		e = @client.events.build(:user_id => @client.id, :admin_id => current_admin.id, :message => message)
+		e.save
 		if status == "Incomplete"
 			# send notification to them via email
 			NotifierMailer.incomplete_referrer_profile(@client).deliver_now # sends the email
@@ -83,10 +89,13 @@ class AdminsController < ApplicationController
 		id = params[:id]
 		status = params[:status]
 		@form = Form.find(id)
-		@form.status = status
-		@form.save
+		if !@form.nil?
+			@form.status = status
+			@form.save
+		end
 		message = "Referral #{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase} by admin #{current_admin.full_name}"
-		Admin.find_by_id(current_admin.id).events.build(:admin_id => current_admin.id, :message => message)
+		e = Admin.find_by_id(current_admin.id).events.build(:admin_id => current_admin.id, :message => message)
+		e.save
 		if status == "Approved"
 			flash[:notice] = "#{@form.first_name} #{@form.last_name} has been marked as #{@form.status.downcase}, next step is to invite as client."
 			redirect_to new_user_invitation_path

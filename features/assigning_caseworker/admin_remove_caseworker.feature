@@ -23,6 +23,8 @@ Background: Logging in as an Admin
     And I am logged in as the following admin:
     | first_name  | last_name | email               | password   | role     |
     | oram        | admin     | admin321@gmail.com  | oramadmin  | central |
+    
+
 
 Scenario: Removing a caseworker from a client on the client profile page
     Given I am on the profile page of user "Michael Jordan"

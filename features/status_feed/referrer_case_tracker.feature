@@ -18,5 +18,13 @@ Scenario: A referrer checking a client status
   Given pending
   Given I follow "Case Status"
   Then the status of "Bryan Adams" should be "Approved"
-  And the status of "George Clooney" should be "Rejected"
-  And the status of "Michael Jordan" should be "Incomplete"
+
+Scenario: A referrer checking a client status
+  Given pending
+  Given I follow "Case Status"
+  Then the status of "George Clooney" should be "Rejected"
+  
+Scenario: A referrer checking a client status
+  Given pending
+  Given I follow "Case Status"
+  Then the status of "Michael Jordan" should be "Incomplete"
