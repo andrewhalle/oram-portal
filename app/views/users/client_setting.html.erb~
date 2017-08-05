@@ -1,5 +1,0 @@
-
-   <h2 class="header-link content-link"><%= link_to "Edit", client_setting_path(current_user.id), class: "hvr-underline-from-left"%> </h2>
-  
-   <h2 class="header-link content-link"><%= link_to "Delete", client_destroy_path(current_user.id),data: {confirm: "Are you sure?"}, class: "hvr-underline-from-left"%> </h2>
-  

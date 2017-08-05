@@ -19,7 +19,7 @@ Scenario: central admin can view all admins
     And I press "Log in"
     Then I should not see "Invalid Email or password."
     And I should be on the home page
-    Then I should see "Admins"
+    Then I should see "ADMINS"
     When I follow "Admins"
     Then I should see "central admin"
         And I should see "employee admin"

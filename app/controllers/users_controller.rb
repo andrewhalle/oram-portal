@@ -223,7 +223,6 @@ class UsersController < ApplicationController
 	
 	def case_status
 		@status = {phase_one: "Applicant vetting"}
-		
 	end 
 	
 	def user_pass_change
