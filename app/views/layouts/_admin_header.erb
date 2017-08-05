@@ -42,6 +42,7 @@
               <div class="dropdown-content">
                   <li class="header-link content-link"><%= link_to 'Invite User', new_user_invitation_path, :method => :get %> </li>
                   <li class="header-link content-link"><%= link_to 'Invite Admin', new_admin_invitation_path, :method => :get %> </li>
+                  <li class="header-link content-link"><%= link_to "Pending", pending_path, :value => "display_clients_button", :method => :get%></li>
               </div>
             </div>
           <% elsif current_admin.role == 'employee' %>
