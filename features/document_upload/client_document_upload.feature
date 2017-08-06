@@ -15,6 +15,6 @@ Scenario: Viewing Case Document
 Scenario: Ensuring the client's country of origin is accounted for 
   Given Pending
   Given I follow "Profile"
-  And I press "New Upload Documents"
+  And I press "Upload Document""
   Then I should see "Save"
   
