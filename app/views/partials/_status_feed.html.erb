@@ -10,7 +10,11 @@
 			</div>
 		</div>
 		<script>
-			setTimeout(function() { animateStatus(<%= @user.phase[-1] %>); }, 200);
+			setTimeout(function() {
+				<% /Phase (\d+):/ =~ @user.phase %>
+				<% phase = $1.to_i %>
+				animateStatus(<%= phase %>);
+			}, 200);
 		</script>
 	<% end %>
 		<div id="case_tracker">
