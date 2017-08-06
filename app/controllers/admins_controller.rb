@@ -20,7 +20,9 @@ class AdminsController < ApplicationController
 	def show_clients
 		@curr_admin = current_admin
 		if @curr_admin.role == "central"
-			@clients = User.where(role: 1).where.not(:first_name => nil).all
+			@prm = User.where(role: 1).where.not(:first_name => nil).all
+			@search = User.search(@prm)
+			@clients = @prm
 		elsif @curr_admin.role == "employee"
 			@clients = @curr_admin.users
 			#@clients = Form.where(form_type: 3).order("created_at DESC")

@@ -16,13 +16,20 @@
         class: 'filter',
         :onchange => "filter_by_phase(this.value)"
       %th
+    
   %tbody
     - @clients.each do |client|
       %tr
-        %td.first_name= client.first_name
-        %td.last_name= client.last_name
-        %td.status= client.status
-        %td.phase= client.phase
-        %td.more_info= link_to "View Profile", client_path(client.id)
+        
+        %th= sort_link @search, :first_name, client.first_name
+
+        %td.last_name
+          = sort_link @search, :last_name, client.last_name
+        %td.status
+          = sort_link @search, :client_status, client.status
+        %td.phase
+          = sort_link @search, :client_phase, client.phase
+        %td.more_info
+          = link_to "View Profile", client_path(client.id)
         %br
 
