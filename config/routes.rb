@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   get 'referrer/:id/case_status' => 'users#case_status', :as => 'case_status'
   
   
-  
+  #For uploading documents
   get 'clients/:id/updocs/' =>'updocs#index', :as => 'updocs'
   post 'clients/:id/updocs/' =>'updocs#create'
   get 'clients/:id/updocs/new' =>'updocs#new', :as => 'new_updocs'
@@ -78,7 +78,12 @@ Rails.application.routes.draw do
   get 'clients/:id/updocs/destroy' =>'updocs#destroy', :as => 'updocs_destroy'
   
   get '/pending' => 'admins#show_pending', :as => 'pending'
-  
-  
-  
+
+  #For connecting to the Google Calendar API
+  get 'clients/:id/redirect', to: 'calendars#redirect', as: 'calendar_redirect'
+  get 'clients/:id/callback', to: 'calendars#callback', as: 'calendar_callback'
+  get 'clients/:id/calendars', to: 'calendars#calendars', as: 'calendars'
+  post 'clients/:id/calendars', to: 'calendars#set_calendar', as: 'set_calendar'
+  delete 'clients/:id', to: 'calendars#delete', as: 'calendar_delete'
+
 end

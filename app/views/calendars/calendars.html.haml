@@ -1,0 +1,10 @@
+%ul
+  - @calendar_list.items.each do |calendar|
+    %li
+      = calendar.summary
+      = button_to "Add Calendar", set_calendar_path(calendar_id: calendar.id), {:method => 'post', :class => 'btn btn-sm btn-success'}
+%ul
+  - @all_events.each do |event|
+    %li
+      = event.summary
+      (#{event.id})
