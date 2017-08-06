@@ -1,3 +1,5 @@
+%br
+%br
 .container-fluid.panel.panel-default
 	.panel-body.container-fluid
 		.row
@@ -20,7 +22,6 @@
 						= form_for :edit_client, :url => admin_change_client_phase_path(:action => 'post') do |f|
 							.row.form-group
 								= f.select :changed_phase, options_for_select(User.Application_phases_array, @user.phase), id: 'changed_phase', class: 'form-control inline-block select'
-								= f.submit 'Change Phase', class: 'btn btn-sm btn-default inline-block'
 	.panel-body
 		%ul.nav.nav-tabs
 			%li.active

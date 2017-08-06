@@ -1,3 +1,5 @@
+%br
+%br
 .container-fluid.panel.panel-default
 	.panel-body.container-fluid
 		.row
@@ -21,7 +23,6 @@
 					.panel.panel-review.panel-info
 						%h5 Change Referrer Status
 						%b 
-						%br
 						.form-profile-button
 							= button_to 'Approve', mark_referrer_status_path(:status => "Approved", :form_id => @form_id), {:method => 'post', :class => 'btn btn-md btn-success'}
 						.form-profile-button
@@ -36,8 +37,7 @@
 				%a{"data-toggle" => "tab", :href => "#form"} Referrer Form
 		.tab-content
 			#home.tab-pane.fade.in.active
-				%h3 Referrer Activity Feed
-				%p Shows a feed of latest events related to the referrer.
+				%h3.text-center Referrer Activity Feed
 				= render "partials/status_feed.html.erb"
 			#form.tab-pane.fade
 				%h3.text-center Referrer Form

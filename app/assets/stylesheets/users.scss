@@ -24,7 +24,8 @@
 
 .panel-info {
   border-color: #f5f5f5;
-  border-radius: 20px 0 30px 0;
+  border-radius: 5px 5px 5px 5px;
+  width: -10px;
 }
 
 .panel-user {
@@ -38,8 +39,8 @@
   display: block;
 }
 
-.select {
-  width: auto;
+.phase-change-select {
+ padding-left: 0.4cm;
 }
 
 
@@ -71,6 +72,8 @@
 .form-profile-button {
 	display: inline-block;
 	margin-bottom: 16px;
+	padding-top: 0.25cm;
+	padding-right: 0.30cm;
 }
 
 .form-response {
