@@ -106,3 +106,4 @@ group :production do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'google-api-client', '~> 0.11', require: 'google/apis/calendar_v3'

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 		@notes = @user.notes.reverse
 		@updocs = Updoc.where(user_id: @user.id).all
 		@events = Event.where(:user_id => @user.id).all.reverse
+		@calendar_url = get_calendar_url(@user.calendar_id)
 		if !@user.ownerships.nil?
 			@user.ownerships.each do |ownership|
 				@caseworker_names.append(Admin.find_by_id(ownership.admin_id).full_name)
@@ -162,11 +163,11 @@ class UsersController < ApplicationController
 		redirect_to root_path
 	end
 
-	def client_documents
-		@client = User.find_by_id(params[:id])
-		@document = @client.case_document
-		render :client_documents
-	end
+	# def client_documents
+	# 	@client = User.find_by_id(params[:id])
+	# 	@document = @client.case_document
+	# 	render :client_documents
+	# end
 	
     def user_settings_edit
 		@user = current_user
