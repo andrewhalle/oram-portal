@@ -284,7 +284,7 @@ class UsersController < ApplicationController
 				elsif @user.language == "Arabic"
 					#fill non-syrian arabic forms
 				elsif @user.language == "Farsi"
-					#fill farsi forms
+					doc = Updoc.new(:name => "")
 				end
 				generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", "test.pdf").to_s, Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "test.pdf").to_s
 				doc = Updoc.new(:name => "test", :attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "test.pdf").open)
