@@ -89,16 +89,13 @@ class AdminsController < ApplicationController
 	
 	def assign_caseworker
 		@client = User.find_by_id(params[:id])
-		caseworker = params[:edit_client]["assign_caseworker"]
-		first, last = caseworker.split(' ')
-		caseworker_id = Admin.where(role: 1).where(first_name: first).where(last_name: last).first.id
-		
+		caseworker_id, caseworker_name = params[:edit_client]["assign_caseworker"].split(",")
 		if !@client.ownerships.where(user_id: params[:id]).empty? && !@client.ownerships.where(user_id: params[:id]).where(admin_id: caseworker_id).empty?
 			#means that this ownership already exists!
-			flash[:warning] = "#{@client.first_name} #{@client.last_name} has already been assigned to caseworker #{first} #{last}!"
+			flash[:warning] = "#{@client.full_name} has already been assigned to caseworker #{caseworker_name}!"
 		else
 			@client.ownerships.build(:user_id => params[:id], :admin_id => caseworker_id)
-			message = "#{@client.first_name} #{@client.last_name} has been assigned to caseworker #{first} #{last}"
+			message = "#{@client.first_name} #{@client.last_name} has been assigned to caseworker #{caseworker_name}"
 			@client.events.build(:user_id => params[:id], :message => message)
 			@client.save
 			flash[:notice] = message
@@ -109,12 +106,11 @@ class AdminsController < ApplicationController
 	def delete_caseworker
 		@client = User.find_by_id(params[:id])
 		caseworker = params[:caseworker]
-		
-		first, last = caseworker.split(' ')
-		caseworker_id = Admin.where(role: 1).where(first_name: first).where(last_name: last).first.id	
+		caseworker_id = caseworker
+		caseworker_name = Admin.find_by_id(caseworker_id.to_i).full_name
 		if !@client.ownerships.where(admin_id: caseworker_id).empty?
 			@client.ownerships.where(admin_id: caseworker_id).destroy_all
-			message = "Admin #{current_admin.full_name} deleted caseworker #{caseworker} from client #{@client.full_name}"
+			message = "Admin #{current_admin.full_name} deleted caseworker #{caseworker_name} from client #{@client.full_name}"
 			flash[:notice] = message
 			@client.events.build(:user_id => @client.id, :admin_id => current_admin.id, :message => message)
 			@client.save
