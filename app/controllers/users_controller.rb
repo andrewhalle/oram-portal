@@ -279,6 +279,8 @@ class UsersController < ApplicationController
 			if !(Dir.exists? Rails.root.join("public", "ag_forms", "clients", user.id.to_s))
 				pdftk = PdfForms.new('/usr/bin/pdftk')
 				Dir.mkdir Rails.root.join("public", "ag_forms", "clients", user.id.to_s)
+				if @user.country == "Syria"
+				end 
 				generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", "test.pdf").to_s, Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "test.pdf").to_s
 				doc = Updoc.new(:name => "test", :attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "test.pdf").open)
 				user.updocs << doc

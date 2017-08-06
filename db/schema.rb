@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20170805003151) do
-=======
 ActiveRecord::Schema.define(version: 20170805192652) do
->>>>>>> 1f5b4761508f781a4515ef9a2add4b79543e2271
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -145,12 +141,9 @@ ActiveRecord::Schema.define(version: 20170805192652) do
     t.string   "skype",                  default: ""
     t.string   "phase",                  default: "Phase 1: Applicant Vetting"
     t.string   "status",                 default: "Incomplete"
-<<<<<<< HEAD
     t.string   "country"
     t.text     "languages"
-=======
     t.string   "calendar_id",            default: ""
->>>>>>> 1f5b4761508f781a4515ef9a2add4b79543e2271
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
