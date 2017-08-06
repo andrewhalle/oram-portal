@@ -10,7 +10,7 @@ Background: Client in the database
 
 Scenario: Viewing Case Document
   Given I follow "Documents"
-  Then I should see "New Upload Document"
+  Then I should see "Upload Document"
 
 Scenario: Ensuring the client's country of origin is accounted for 
   Given Pending
