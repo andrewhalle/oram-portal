@@ -10,7 +10,10 @@ https://www.pivotaltracker.com/n/projects/2069417
 
 ORAM (http://oramrefugee.org/) is an international non-profit organization dedicated to protecting the world's most vulnerable refugees. We seek to create a multi-language registration system allowing LGBTI refugees worldwide to enter information and upload documents on a secure platform that will save time and increase accuracy.
 
-export form_key=iDEDgbGZr0nVHshYs8jK0TnJpWo2fOSyhZlQdmtCHJv2eXXFVlZlGiAGbA2h5CKdM4DTfyBbh8BuFhCn
+## Getting Started
+Several features for this project require more setup than the usual "clone, bundle install..." process. First you must set the environment variable `form_key` in your local environment. This is a long string used for encrypting form data. We generated strings using [random.org](https://www.random.org). An example of a string which you can use for development is `iDEDgbGZr0nVHshYs8jK0TnJpWo2fOSyhZlQdmtCHJv2eXXFVlZlGiAGbA2h5CKdM4DTfyBbh8BuFhCn` (but a key that has never been published anywhere should be used for production).
+
+E-mail sending features won't work until you set up a [SENDGRID](https://sendgrid.com/) account. The environment variables `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` need to be set up in the deployment environment (like Heroku). Sending e-mails won't work from the local environment (like c9).
 
 ------
 
