@@ -53,7 +53,8 @@ Given(/^I remove caseworker "([^"]*)" from client "([^"]*)"$/) do |arg1, arg2|
     And I view "Caseworkers"
   } 
   client_id = User.get_id_by_name(arg2)
-  caseworker_id = Admin.get_id_by_name(arg1)
+  first, last = arg1.split(' ')
+  caseworker_id = Admin.where(first_name: first).where(last_name: last).first.id
   #action = find("#remove_caseworker")[admin_delete_caseworker_path(:id => client_id, :caseworker => arg1)]
   find(:xpath, "//form[@action = '#{admin_delete_caseworker_path(:id => client_id, :caseworker => caseworker_id)}']//button").click
   

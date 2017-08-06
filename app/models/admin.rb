@@ -51,10 +51,7 @@ class Admin < ActiveRecord::Base
     true
   end
 
-  def self.get_id_by_name(full_name)
-    first, last = full_name.split(' ')
-    self.where(first_name: first).where(last_name: last).first.id
-  end
+
   
   # def self.Caseworkers
   #   caseworkers_db = self.all
