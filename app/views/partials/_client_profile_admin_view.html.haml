@@ -46,11 +46,11 @@
 			#menu1.tab-pane.fade
 				%h3.text-center Caseworkers
 				.caseworkers.text-center
-					- @caseworker_names.each do |caseworker|
+					- @caseworkers.each do |caseworker|
 						.container-fluid
 							.row
 								.panel.panel-info.panel-user.col-centered.inline-block
-									%h6.text-center= caseworker
+									%h6.text-center= caseworker.full_name
 								.remove-button.inline-block.select.btn.btn-sm.btn-default
 									= form_for :remove_client, :url => admin_delete_caseworker_path(:action => 'post', :caseworker => caseworker),  :html => {:id => "remove_caseworker"} do |f|
 										= button_tag( :class => ".glyphicon.glyphicon-remove") do
@@ -59,7 +59,7 @@
 					= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|
 						.row.form-group.panel-default
 							.col-md-9
-								= f.select :assign_caseworker, options_for_select(Admin.Caseworkers), id: 'assign_caseworker', class: 'form-control'
+								= f.select :assign_caseworker, options_for_select(Admin.all.map {|c| [c.full_name, "#{c.id},#{c.full_name}"]}), id: 'assign_caseworker', class: 'form-control'
 							.col-md-3
 								= f.submit 'Assign Caseworker', class: 'btn btn-sm btn-default'
 			#menu2.tab-pane.fade

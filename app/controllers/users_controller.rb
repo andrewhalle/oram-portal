@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 	def show
 		@curr_admin = current_admin
 		@user = User.find(params[:id])
-		@caseworker_names = []
+		@caseworkers = []
 		@form_hash = {}
 		@notes = @user.notes.reverse
 		@updocs = Updoc.where(user_id: @user.id).all
@@ -15,7 +15,8 @@ class UsersController < ApplicationController
 		@calendar_url = get_calendar_url(@user.calendar_id)
 		if !@user.ownerships.nil?
 			@user.ownerships.each do |ownership|
-				@caseworker_names.append(Admin.find_by_id(ownership.admin_id).full_name)
+				@caseworkers.append(Admin.find_by_id(ownership.admin_id))
+				# @caseworkers["#{Admin.find_by_id(ownership.admin_id).full_name}"] = ownership.admin_id
 			end
 		end
 		if !@user.events.last.nil?
