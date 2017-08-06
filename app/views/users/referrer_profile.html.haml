@@ -5,6 +5,7 @@
 		.row
 			.col-md-8
 				%h1= @user.full_name
+				%br
 				%p= @user.email
 				%p= @user.phone
 				%p= @user.address
@@ -37,9 +38,11 @@
 				%a{"data-toggle" => "tab", :href => "#form"} Referrer Form
 		.tab-content
 			#home.tab-pane.fade.in.active
+				%br
 				%h3.text-center Referrer Activity Feed
 				= render "partials/status_feed.html.erb"
 			#form.tab-pane.fade
+				%br
 				%h3.text-center Referrer Form
 				= render 'partials/form.html.haml'
 
