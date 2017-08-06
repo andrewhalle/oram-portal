@@ -1,7 +1,19 @@
-.panel.panel-default.panel-form
-	.panel-heading
-		%h3= "Name:   " + @admin.full_name
-		%h5= "Email:   " + @admin.email
-		%h5= "Phone:" + @admin.phone
-		%h5= "Address:" + @admin.address
-		%h5= "Skype: " + @admin.skype
+%br
+%br
+.container-fluid.panel.panel-default
+	.panel-body.container-fluid
+		.row
+			.col-md-8
+				%h1= @admin.full_name
+				%p= @admin.email
+				%p= @admin.phone
+				%p= @admin.address
+				%p= @admin.skype
+				%hr
+				
+				// - button_to "Edit Profile", admin_settings_edit_path(current_admin.id), :method => :get, class: "hvr-underline-from-left"
+				// - button_to "Change Password", admin_pass_change_path(), :method => :get, class: "hvr-underline-from-left"
+				
+				= if current_admin.role == 'central'
+					%h2.header-link.content-link
+					- button_to "Delete Profile", admin_destroy_path(@admin.id), :method => :get, data: {confirm: "Are you sure you want to delete this profile? This action cannot be undone."},  class: "hvr-underline-from-left"

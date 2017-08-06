@@ -1,0 +1,10 @@
+%br
+%br
+.container-fluid.panel.panel-default
+	.panel-body.container-fluid
+		.row
+			.col-md-8
+				- button_to "Edit Profile", admin_settings_edit_path(current_admin.id), {:method => :get, class: "hvr-underline-from-left btn btn-lg btn-default"}
+				- button_to "Change Password", admin_pass_change_path(), {:method => :get, class: "hvr-underline-from-left  btn btn-lg btn-default"}
+				- button_to "Delete Profile", admin_destroy_path(current_admin.id), :method => :get, data: {confirm: "Are you sure you want to delete your profile? This action cannot be undone."},  class: "hvr-underline-from-left  btn btn-lg btn-default"
+				
