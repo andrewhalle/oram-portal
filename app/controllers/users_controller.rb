@@ -281,14 +281,13 @@ class UsersController < ApplicationController
 				Dir.mkdir Rails.root.join("public", "ag_forms", "clients", user.id.to_s)
 				if @user.country == "Syria"
 					#fill syrian arabic forms
-				elsif @user.language == "Arabic"
-					#fill non-syrian arabic forms
+				elsif @user.languages.include? "Arabic"
+					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", "Arabic_Non_Syrian", "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, {:client_name1 => user.full_name, :resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country}
+					doc = Updoc.new(:name => "1)ORAM_Confidentiality_Waiver[English_Arabic]", :attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").open)
+					user.updocs << doc
 				elsif @user.language == "Farsi"
 					#fill farsi forms
 				end
-				generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", "test.pdf").to_s, Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "test.pdf").to_s
-				doc = Updoc.new(:name => "test", :attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "test.pdf").open)
-				user.updocs << doc
 			end
 		end
 
