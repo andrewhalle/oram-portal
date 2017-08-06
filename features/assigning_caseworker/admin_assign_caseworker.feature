@@ -48,7 +48,8 @@ Scenario: Assigning multiple clients to a caseworker
   And I should see "Anna Karenina"
   Given I follow "Admins"
   And I view the profile of "Anna Karenina"
-  And I should see "Clients: Bryan Adams,George Clooney"
+  And I should see "Bryan Adams"
+  And I should see "George Clooney"
   
 Scenario: Assigning multiple caseworkers to a client
   Given I assign caseworker "Sam Iam" to client "Bryan Adams"

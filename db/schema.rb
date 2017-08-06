@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170805003151) do
+=======
+ActiveRecord::Schema.define(version: 20170805192652) do
+>>>>>>> 1f5b4761508f781a4515ef9a2add4b79543e2271
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -49,6 +53,9 @@ ActiveRecord::Schema.define(version: 20170805003151) do
   add_index "admins", ["invitations_count"], name: "index_admins_on_invitations_count"
   add_index "admins", ["invited_by_id"], name: "index_admins_on_invited_by_id"
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+
+  create_table "calendars", force: :cascade do |t|
+  end
 
   create_table "documents", force: :cascade do |t|
     t.string "user_id"
@@ -138,8 +145,12 @@ ActiveRecord::Schema.define(version: 20170805003151) do
     t.string   "skype",                  default: ""
     t.string   "phase",                  default: "Phase 1: Applicant Vetting"
     t.string   "status",                 default: "Incomplete"
+<<<<<<< HEAD
     t.string   "country"
     t.text     "languages"
+=======
+    t.string   "calendar_id",            default: ""
+>>>>>>> 1f5b4761508f781a4515ef9a2add4b79543e2271
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

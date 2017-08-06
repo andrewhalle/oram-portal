@@ -56,23 +56,44 @@ Then /I should not have admin access/ do
     pending
 end
 
-Given(/I change my password from "([^"]*)" to "([^"]*)"$/) do |arg1, arg2|
+Given(/I change my password from "([^"]*)" to "([^"]*)" as admin$/) do |arg1, arg2|
   steps %Q{ 
-    Given I follow "Settings"
     And I press "Change Password"
     And I fill in "admin_encrypted_password" with "#{arg1}"
     And I fill in "admin_pass_reset1" with "#{arg2}"
     And I fill in "admin_pass_reset2" with "#{arg2}"
     And I press "Update Admin"
-    Then I should see "ORAM Website"
+    Then I should see " "
+  }
+end
+
+Given(/I change my password from "([^"]*)" to "([^"]*)" as user$/) do |arg1, arg2|
+  steps %Q{ 
+    And I press "Change Password"
+    And I fill in "user_encrypted_password" with "#{arg1}"
+    And I fill in "user_pass_reset1" with "#{arg2}"
+    And I fill in "user_pass_reset2" with "#{arg2}"
+    And I press "Update User"
+    #next line looks useless but it's important because otherwise poltergeist doesn't
+    #accept the alert that pops up on the page for some reason
+    Then I should see " "
   }
 end
 
 When(/^I login as admin with email "([^"]*)" and password "([^"]*)"$/) do |arg1, arg2|
   steps %Q{
     When I go to the admin login page
-    When I fill in "admin_email" with "donald@trump.com"
-    And I fill in "admin_password" with "oram123"
+    When I fill in "admin_email" with "#{arg1}"
+    And I fill in "admin_password" with "#{arg2}"
+    And I press "Log in"
+  }
+end
+
+When(/^I login as user with email "([^"]*)" and password "([^"]*)"$/) do |arg1, arg2|
+  steps %Q{
+    When I go to the login page
+    When I fill in "user_email" with "#{arg1}"
+    And I fill in "user_password" with "#{arg2}"
     And I press "Log in"
   }
 end

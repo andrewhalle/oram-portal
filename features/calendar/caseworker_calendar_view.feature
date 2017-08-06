@@ -4,10 +4,9 @@ Feature: Caseworker changing and addting to Client's calendars
   and edit existing events that are on them.
 
 Background: Logging is an an caseworker to check calendars
-  Given pending
-  Given that I am logged in as the following caseworker:
+  Given that I am logged in as the following admin:
     | first_name	| last_name	| email             	| password	| invitation_accepted_at | role           |
-    | employee	    | Admin     | employee@admin.com   | password	| 'test'                 | caseworker     |
+    | employee	    | Admin     | employee@admin.com   | password	| 'test'                 | employee   |
 
   Given pending
   Given the following clients exist:
@@ -23,9 +22,9 @@ Background: Logging is an an caseworker to check calendars
     | complete questionnaire | 1/1/2025 | Central Admin |
 
 Scenario: caseworker viewing an event on a client's calendar
-  Given pending
   Given I follow "Clients"
   When I press "View Profile"
+  And I view "Calendar"
   Then I should see "Calendar"
   Then I should not see "incomplete questionnaire"
   Then I should see "complete questionnaire"

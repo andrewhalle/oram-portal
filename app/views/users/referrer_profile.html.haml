@@ -8,7 +8,8 @@
 				%p= @user.address
 				%p= @user.skype
 				%hr
-				%h5= "Referrer status: " + @user.status
+				%h5= "Referrer status: " 
+				%p= @user.status
 				%p<
 					%h5 Last Activity: 
 					= @last_event_message
@@ -18,7 +19,8 @@
 			- if current_admin
 				.col-md-4
 					.panel.panel-review.panel-info
-						%b Change Referrer Status
+						%h5 Change Referrer Status
+						%b 
 						%br
 						.form-profile-button
 							= button_to 'Approve', mark_referrer_status_path(:status => "Approved", :form_id => @form_id), {:method => 'post', :class => 'btn btn-md btn-success'}

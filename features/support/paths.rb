@@ -31,6 +31,9 @@ module NavigationHelpers
     when /^the clients list page$/
       clients_path
     
+    when /^the referrers list page$/
+      referrers_path
+      
     when /^the profile page of user "(.*)\s(.*)"$/
       user_id = User.where(first_name: $1).where(last_name: $2).first.id
       '/clients/' + user_id.to_s
@@ -53,7 +56,19 @@ module NavigationHelpers
     
     when /^the change password page of admin "(.*)\s(.*)"$/
       admin_id = Admin.where(first_name: $1).where(last_name: $2).first.id
-      admin_pass_change_path(:id => admin_id)  
+      admin_pass_change_path(:id => admin_id) 
+    
+    when /^the settings edit page of user "(.*)\s(.*)"$/
+      id = User.where(first_name: $1).where(last_name: $2).first.id
+      user_settings_edit_path(:id => id)
+    
+    when /^the settings page of user "(.*)\s(.*)"$/
+      id = User.where(first_name: $1).where(last_name: $2).first.id
+      user_setting_path(:id => id)  
+    
+    when /^the change password page of user "(.*)\s(.*)"$/
+      id = User.where(first_name: $1).where(last_name: $2).first.id
+      user_pass_change_path(:id => id)  
       
       
     when /^the invite lawyers page$/

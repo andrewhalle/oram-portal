@@ -9,7 +9,7 @@ Background: Referrer in the database
     | Bryan       | Adams     	| bryan@adams.com       | oram123         | referrer			|
 
 Scenario: Referring a client correctly
-	Given I should see "ORAM Website"
+	Given I should see "Home"
 	Given I should see "Refer Client"
   Given I follow "Refer Client"
   And I complete the client referral form
@@ -18,7 +18,7 @@ Scenario: Referring a client correctly
   #Then I should see "Client has been successfully referred"
 
 Scenario: Viewing the form for a client that was referred
-  Given I should see "ORAM Website"
+  Given I should see "Home"
 	Given I should see "Refer Client"
   Given I follow "Refer Client"
   And I complete the client referral form
