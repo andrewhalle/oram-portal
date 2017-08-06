@@ -23,7 +23,7 @@ class UpdocsController < ApplicationController
    end
    
    def destroy
-      @updoc = Updoc.find(params[:id])
+      @updoc = Updoc.find(params[:doc_id])
       @updoc.destroy
       redirect_to updocs_path, notice:  "The #{@updoc.name} has been deleted."
    end

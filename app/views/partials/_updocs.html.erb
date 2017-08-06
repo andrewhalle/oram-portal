@@ -34,7 +34,7 @@
            <tr>
               <td><%= updoc.name %></td>
               <td><%= link_to "Download File", updoc.attachment_url %></td>
-              <td><%= button_to "Delete",  updoc, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{updoc.name}?" %></td>
+              <td><%= button_to "Delete",  updoc_path(:doc_id => updoc.id), method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{updoc.name}?" %></td>
            </tr>
      
         <% end %>
