@@ -11,10 +11,11 @@ Background: Referrer creating referrals and loggin in as Case Worker
   And I follow "Refer Client"
   And I complete the client referral form
   And I press "Submit"
+  And I follow "Sign out"
 
-  Given that I am logged in as the following Case Worker:
-    | first_name  | last_name | email               | password   |
-    | oram        | Case Worker     | Case Worker321@gmail.com  | oramCase Worker  |
+  Given that I am logged in as the following admin:
+    | first_name  | last_name | email               | password   | role |
+    | oram        | Case Worker     | admin@gmail.com  | password  | employee |
 
 Scenario: Case Worker checking to see if the client appears in the table
   Given I follow "Referrals"
@@ -26,7 +27,7 @@ Scenario: Case Worker marking referrals as approved
   When I view the profile of "Billy Joe"
   Then I should see "Billy Joe"
   When I press "Approve"
-  Then the status of "Billy Joe" should be "Approved"
+  Then I should be on the new user invitation page
 
 Scenario: Case Worker marking referrals as rejected
   Given I follow "Referrals"
