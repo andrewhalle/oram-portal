@@ -1,10 +1,7 @@
-%br
-%br
 .container-fluid.panel.panel-default
 	.panel-body.container-fluid
 		.row
 			= render 'partials/client_summary.html.haml'
-
 			.col-md-4
 				.panel.panel-review.panel-info
 					%b Change Questionnaire Status
@@ -40,10 +37,10 @@
 				%a{"data-toggle" => "tab", :href => "#menu5"} Calendar
 		.tab-content
 			#home.tab-pane.fade.in.active
-				%h3 Client Activity Feed
-				%p Shows a feed of latest events related to the client.
 				= render "partials/status_feed.html.erb"
+				// %h3.text-center Client Activity Feed
 			#menu1.tab-pane.fade
+				%br
 				%h3.text-center Caseworkers
 				.caseworkers.text-center
 					- @caseworkers.each do |caseworker|
@@ -63,7 +60,8 @@
 							.col-md-3
 								= f.submit 'Assign Caseworker', class: 'btn btn-sm btn-default'
 			#menu2.tab-pane.fade
-				%h3 All Documents
+				%br
+				%h3 Documents
 				= render "partials/updocs.html.erb"
 
 			#menu3.tab-pane.fade
@@ -71,6 +69,7 @@
 				
 			= javascript_include_tag "load_separately/notes_accordion"
 			#menu4.tab-pane.fade
+				%br
 				%h3 Notes
 				%input{:type => "text", :placeholder => "Title for new note", :id => "add_note_title"}
 				%button{:id => "add_note"}
@@ -89,6 +88,7 @@
 								Save
 								// =button_to "Save", update_path(n.id), method: :put
 			#menu5.tab-pane.fade
+				%br
 				%h3 Calendar
 				= render 'partials/calendar.html.haml'
 = render 'partials/delete_user.html.haml'

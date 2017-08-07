@@ -4,5 +4,5 @@ function animateStatus(phase) {
 		width: newWidth,
 		easing: "swing"
 	}, 500, function() {});
-	$("#status_text").html("You are currently in phase " + phase.toString());
+	$("#status_text").html("Phase " + phase.toString() + " out of 10");
 }

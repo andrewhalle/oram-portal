@@ -1,11 +1,13 @@
 <% if @user != nil or @curr_admin != nil %>
 
 	<% if @user and @user.role == "client" %>
+		<br></br>
+		
 		<div id="case_tracking_status">
 			<p id="status_text">You're currently in phase 1.</p>
 			<div id="design_bar">
 				<div id="design_bar_interior">
-					<div id="status_bar"></div>
+					<div class = "progress-bar-striped  progress-bar-animated" id="status_bar"></div>
 				</div>
 			</div>
 		</div>
@@ -18,6 +20,7 @@
 		</script>
 	<% end %>
 		<div id="events">
+		  <h1>Client Activity Feed</h1>
 		  <div class="table-responsive-vertical shadow-z-1">
 		  <!-- Table starts here --> 
 		  <table id="table" class="table table-striped table-mc-light-blue">
