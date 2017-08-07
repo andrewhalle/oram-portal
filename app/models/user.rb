@@ -95,10 +95,10 @@ class User < ActiveRecord::Base
         first_name + " " + last_name
     end
     
-    def self.get_id_by_name(full_name)
-      first, last = full_name.split(' ')
-      self.where(first_name: first).where(last_name: last).first.id
-    end
+    # def self.get_id_by_name(full_name)
+    #   first, last = full_name.split(' ')
+    #   self.where(first_name: first).where(last_name: last).first.id
+    # end
     
     def gender_identity_options
     	return ["Male", "Female", "Cisgender", "Transgender", "Genderqueer", "Intersex", "Heterosexual", "Lesbian", "Gay", "Bisexual", "Queer", "Decline to answer"]
