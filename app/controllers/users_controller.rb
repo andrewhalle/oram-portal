@@ -286,7 +286,7 @@ class UsersController < ApplicationController
 		def gen_forms(user)
 			return if user.role != "client" or user.languages == nil
 			if !(Dir.exists? Rails.root.join("public", "ag_forms", "clients", user.id.to_s))
-				pdftk = PdfForms.new('/usr/bin/pdftk')
+				pdftk = PdfForms.new('/app/.apt/usr/bin/pdftk')
 				Dir.mkdir Rails.root.join("public", "ag_forms", "clients", user.id.to_s)
 				if user.country == "Syrian Arab Republic"
 					#fill syrian arabic forms
