@@ -24,11 +24,11 @@
 			#menu1.tab-pane.fade
 				%h3.text-center Caseworkers
 				.caseworkers.text-center
-					- @caseworker_names.each do |caseworker|
+					- @caseworkers.each do |caseworker|
 						.container-fluid
 							.row
 								.panel.panel-info.panel-user.col-centered.inline-block
-									%h6.text-center= caseworker
+									%h6.text-center= caseworker.full_name
 			#menu2.tab-pane.fade
 				%h3 All Documents
 				= render "partials/updocs.html.erb"

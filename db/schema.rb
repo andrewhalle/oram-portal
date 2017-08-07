@@ -141,6 +141,8 @@ ActiveRecord::Schema.define(version: 20170805192652) do
     t.string   "skype",                  default: ""
     t.string   "phase",                  default: "Phase 1: Applicant Vetting"
     t.string   "status",                 default: "Incomplete"
+    t.string   "country"
+    t.text     "languages"
     t.string   "calendar_id",            default: ""
   end
 

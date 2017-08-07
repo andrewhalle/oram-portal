@@ -31,24 +31,24 @@ class CalendarsController < ApplicationController
 
     events = service.list_events("#{@calendar_list.items[0].id}")
 
-    @my_calendar = @calendar_list.items[6]
-
     @all_events = events.items
     # nice = cast_google_events(events, foregroundColor, backgroundColor)
-    calendar_id = @my_calendar.id
-    @calender_url = "https://calendar.google.com/calendar/embed?src=berkeley.edu_ekjciavasf7fqh2jp1ka7pht00%40group.calendar.google.com&ctz=America/Los_Angeles"
-    @new_url = "https://calendar.google.com/calendar/embed?src=#{calendar_id}&ctz=America/Los_Angeles"
   end
   
   def redirect
-    client = Signet::OAuth2::Client.new({
-      client_id: Rails.application.secrets.google_client_id,
-      client_secret: Rails.application.secrets.google_client_secret,
-      authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
-      scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
-      redirect_uri: calendar_callback_url
-    })
-    redirect_to client.authorization_uri.to_s
+    session[:id] = params[:id]
+    if session[:authorization].nil?
+      client = Signet::OAuth2::Client.new({
+        client_id: Rails.application.secrets.google_client_id,
+        client_secret: Rails.application.secrets.google_client_secret,
+        authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
+        scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
+        redirect_uri: calendar_callback_url
+      })
+      redirect_to client.authorization_uri.to_s and return
+    else
+      redirect_to calendars_url and return
+    end
   end
   
   def callback
@@ -62,9 +62,10 @@ class CalendarsController < ApplicationController
   
     response = client.fetch_access_token!
   
+    id = session[:id]
+    
     session[:authorization] = response
-  
-    redirect_to calendars_url
+    redirect_to calendars_url(:id => id)
   end
   
 

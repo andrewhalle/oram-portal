@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   get 'clients/:id/updocs/' =>'updocs#index', :as => 'updocs'
   post 'clients/:id/updocs/' =>'updocs#create'
   get 'clients/:id/updocs/new' =>'updocs#new', :as => 'new_updocs'
-  delete 'clients/:id/updocs/:id' =>'updocs#destroy', :as => 'updoc'
+  delete 'clients/:id/updocs/:doc_id' =>'updocs#destroy', :as => 'updoc'
   # get '/' => 'updoc#index', :as => 'root'
   get 'clients/:id/updocs/index' =>'updocs#index', :as => 'updocs_index'
   get 'clients/:id/updocs/new' =>'updocs#new', :as => 'updocs_new'
@@ -81,7 +81,7 @@ Rails.application.routes.draw do
 
   #For connecting to the Google Calendar API
   get 'clients/:id/redirect', to: 'calendars#redirect', as: 'calendar_redirect'
-  get 'clients/:id/callback', to: 'calendars#callback', as: 'calendar_callback'
+  get 'callback', to: 'calendars#callback', as: 'calendar_callback'
   get 'clients/:id/calendars', to: 'calendars#calendars', as: 'calendars'
   post 'clients/:id/calendars', to: 'calendars#set_calendar', as: 'set_calendar'
   delete 'clients/:id', to: 'calendars#delete', as: 'calendar_delete'

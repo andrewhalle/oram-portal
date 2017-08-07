@@ -51,16 +51,18 @@ class Admin < ActiveRecord::Base
     true
   end
   
-  def self.Caseworkers
-    caseworkers_db = self.where(role: 1).all
-    caseworkers = []
-    caseworkers_db.each do |caseworker|
-        caseworkers.append("#{caseworker.first_name}" + " " + "#{caseworker.last_name}")
-    end
-    caseworkers
-  end
+  # def self.Caseworkers
+  #   caseworkers_db = self.all
+  #   caseworkers = {}
+  #   byebug
+  #   caseworkers_db.each do |caseworker|
+  #       caseworker["#{caseworker.id}"] = caseworker.full_name
+  #   end
+  #   byebug
+  #   caseworkers
+  # end
   
-  # def get_by_full_name(full_name)
+  # def self.get_by_full_name(full_name)
   #   first, last = full_name.split(' ')
   #   Admin.where(first_name: first).where(last_name: last).first
   # end
