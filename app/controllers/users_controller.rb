@@ -287,6 +287,7 @@ class UsersController < ApplicationController
 		end
 		
 		def gen_forms(user)
+			return if user.role != "client"
 			if !(Dir.exists? Rails.root.join("public", "ag_forms", "clients", user.id.to_s))
 				pdftk = PdfForms.new('/usr/bin/pdftk')
 				Dir.mkdir Rails.root.join("public", "ag_forms", "clients", user.id.to_s)
