@@ -295,7 +295,7 @@ class UsersController < ApplicationController
 					fill_form(pdftk, user, "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", form_folder, {:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name})
 					fill_form(pdftk, user, "3)ORAM_Client_in_take_Form[Arabic].pdf", form_folder, {})
 					fill_form(pdftk, user, "4)ORAM_Engagement_Agreement_Syrian[English_Arabic].pdf", form_folder, {:creation_date1 => (Date.today).to_s, :client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, :client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, :email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone})
-					fill_form(pdftk, user, "5)ORAM_Client_Claim_Guide_[Arabic].pdf", form_folder{})
+					fill_form(pdftk, user, "5)ORAM_Client_Claim_Guide_[Arabic].pdf", form_folder, {})
 				elsif user.languages.include? "Arabic"
 					form_folder = "Arabic_Non_Syrian"
 					fill_form(pdftk, user, "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf", form_folder, {:client_name1 => user.full_name, :residence_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country})
