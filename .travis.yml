@@ -5,6 +5,7 @@ script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - sudo apt install pdftk
+  - ln -s /usr/local/pdftk /usr/bin/pdftk
   - bundle exec rspec
   - bundle exec cucumber
 addons:
