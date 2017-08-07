@@ -6,12 +6,10 @@ html, body {
 }
 
 #case_tracking_status {
-	width: 60%;
+	width: 100%;
 	height: 150px;
-	border: 0px solid black;
-	margin-left: 20%;
-	margin-top: 5%;
-	padding: 0px;
+	margin-left: 0%;
+ 	margin-top: 2.5%;
 }
 
 #case_tracking_status #status_text {
@@ -26,7 +24,7 @@ html, body {
 }
 
 #case_tracking_status #design_bar {
-	background-color: black;
+// 	background-color: black;
 	width: 90%;
 	height: 45%;
 	border-radius: 10px;
@@ -55,3 +53,5 @@ html, body {
 	top: 7%;
 	position: relative;
 }
+
+////////////////////////////// NEW BAR /////////////////////////////////////////
