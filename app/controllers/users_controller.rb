@@ -51,15 +51,19 @@ class UsersController < ApplicationController
 	end
 	
 	def update_profile(form_type, redirect_path)
+		@user = User.find_by_id(params[:id])
 		country_code = params["form_response"]["Country Of Birth"]
 		params["form_response"]["Country Of Birth"] = get_country(country_code)
 		if !country_code.nil? && !country_code.empty?
 			country = ISO3166::Country[country_code]
 			params["form_response"]["Country Of Birth"] = country.name
+			@user.country = country.name
 		end
+		@user.languages = params["form_response"]["Languages Spoken"]
+		@user.save
+		gen_forms(@user)
 		@form_response = params["form_response"].to_json
 		@form_type = form_type
-		@user = User.find_by_id(params[:id])
 		@user_form = @user.forms.where(form_type: @form_type).first
 		if !@user_form
 			@user_form = @user.forms.build({form_json: @form_response, form_type: @form_type, status: "Incomplete", first_name: @user.first_name, last_name: @user.last_name})
@@ -271,5 +275,43 @@ class UsersController < ApplicationController
 	      redirect_to root_path
 			end
 		end
-
+		
+		def fill_form(pdftk, user, form_template, form_content)
+			#fill a single form template
+			pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
+			"Arabic_Syrian", "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, 
+			Rails.root.join("public", "ag_forms", "clients", user.id.to_s, form_template).to_s, form_content
+			doc = Updoc.new(:name => form_template, 
+			:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
+			form_template).open)
+			user.updocs << doc
+		end
+		
+		def gen_forms(user)
+			return if user.role != "client" or user.languages == nil
+			if !(Dir.exists? Rails.root.join("public", "ag_forms", "clients", user.id.to_s))
+				pdftk = PdfForms.new('/usr/bin/pdftk')
+				Dir.mkdir Rails.root.join("public", "ag_forms", "clients", user.id.to_s)
+				if user.country == "Syrian Arab Republic"
+					#fill syrian arabic forms
+					fill_form(pdftk, user, "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf", {:client_name1 => user.full_name, :resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country})
+					fill_form(pdftk, user, "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", {:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name})
+					fill_form(pdftk, user, "3)ORAM_Client_in_take_Form[Arabic].pdf", {})
+					fill_form(pdftk, user, "4)ORAM_Engagement_Agreement_Syrian[English_Arabic].pdf", {:creation_date1 => (Date.today).to_s, :client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, :client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, :email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone})
+					fill_form(pdftk, user, "5)ORAM_Client_Claim_Guide_[Arabic].pdf", {})
+				elsif user.languages.include? "Arabic"
+					fill_form(pdftk, user, "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf", {:client_name1 => user.full_name, :resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country})
+					fill_form(pdftk, user, "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", {:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name})
+					fill_form(pdftk, user, "3)ORAM_Client_in_take_Form[Arabic].pdf", {})
+					fill_form(pdftk, user, "4)ORAM_Engagement_Agreement[English_Arabic].pdf", {:creation_date1 => (Date.today).to_s, :client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, :client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, :email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone})
+					fill_form(pdftk, user, "5)ORAM_Client_Claim_Guide[Arabic].pdf", {})
+				elsif user.languages.include? "Persian/Farsi"
+					fill_form(pdftk, user, "1)ORAM_Confidentiality_Waiver[English].pdf", {:client_name1 => user.full_name, :resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country})
+					fill_form(pdftk, user, "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", {:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name})
+					fill_form(pdftk, user, "3)Client_Intake_Form_Bilinugual[English_Persian].pdf", {})
+					fill_form(pdftk, user, "4)ORAM_Engagement_Agreement[English].pdf", {:creation_date1 => (Date.today).to_s, :client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, :client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, :email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone})
+					fill_form(pdftk, user, "5)ORAM_Client_Claim_Guide_[Turkey].pdf", {})
+				end
+			end
+		end
 end

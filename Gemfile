@@ -59,6 +59,9 @@ gem 'figaro'
 #encryption
 gem 'attr_encrypted'
 
+#auto-generate forms
+gem 'pdf-forms'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
