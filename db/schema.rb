@@ -141,9 +141,9 @@ ActiveRecord::Schema.define(version: 20170805192652) do
     t.string   "skype",                  default: ""
     t.string   "phase",                  default: "Phase 1: Applicant Vetting"
     t.string   "status",                 default: "Incomplete"
+    t.string   "calendar_id",            default: ""
     t.string   "country"
     t.text     "languages"
-    t.string   "calendar_id",            default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
