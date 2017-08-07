@@ -41,6 +41,7 @@ RSpec.describe UsersController, type: :controller do
     user = double()
     allow(user).to receive(:role).and_return("client")
     allow(user).to receive(:country).and_return("Syrian Arab Republic")
+    allow(user).to receive(:languages).and_return(["Arabic"])
     allow(user).to receive(:id).and_return(1000)
     allow(user).to receive(:full_name).and_return("Andrew Halle")
     allow(user).to receive(:email).and_return("ahalle@berkeley.edu")
