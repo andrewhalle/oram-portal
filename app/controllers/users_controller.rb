@@ -275,157 +275,40 @@ class UsersController < ApplicationController
 			end
 		end
 		
+		def fill_form(pdftk, user, form_template, form_content)
+			#fill a single form template
+			pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
+			"Arabic_Syrian", "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, 
+			Rails.root.join("public", "ag_forms", "clients", user.id.to_s, form_template).to_s, form_content
+			doc = Updoc.new(:name => form_template, 
+			:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
+			form_template).open)
+			user.updocs << doc
+		end
+		
 		def gen_forms(user)
 			if !(Dir.exists? Rails.root.join("public", "ag_forms", "clients", user.id.to_s))
 				pdftk = PdfForms.new('/usr/bin/pdftk')
 				Dir.mkdir Rails.root.join("public", "ag_forms", "clients", user.id.to_s)
 				if user.country == "Syrian Arab Republic"
 					#fill syrian arabic forms
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
-					"Arabic_Syrian", "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, 
-					{:client_name1 => user.full_name, :resident_country1 => user.country, :client_name2 => user.full_name, 
-					:resident_country2 => user.country}
-					doc = Updoc.new(:name => "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
-					"Arabic_Syrian", "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").to_s, 
-					{:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name}
-					doc = Updoc.new(:name => "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").open)
-					user.updocs << doc
-					#need :DateOfBirthEng => user. 
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
-					"Arabic_Syrian", "3)ORAM_Client_in_take_Form[Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "3)ORAM_Client_in_take_Form[Arabic].pdf").to_s
-					doc = Updoc.new(:name => "3)ORAM_Client_in_take_Form[Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"3)ORAM_Client_in_take_Form[Arabic].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", 
-					"templates", "Arabic_Syrian", "4)ORAM_Engagement_Agreement_Syrian[English_Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"4)ORAM_Engagement_Agreement_Syrian[English_Arabic].pdf").to_s, {:creation_date1 => (Date.today).to_s, 
-					:client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, 
-					:client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, 
-					:email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone}
-					doc = Updoc.new(:name => "4)ORAM_Engagement_Agreement_Syrian[English_Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"4)ORAM_Engagement_Agreement_Syrian[English_Arabic].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", 
-					"templates", "Arabic_Syrian", "5)ORAM_Client_Claim_Guide_[Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "5)ORAM_Client_Claim_Guide_[Arabic].pdf").to_s
-					doc = Updoc.new(:name => "5)ORAM_Client_Claim_Guide_[Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"5)ORAM_Client_Claim_Guide_[Arabic].pdf").open)
-					user.updocs << doc
-					
+					fill_form(pdftk, user, "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf", {:client_name1 => user.full_name, :resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country})
+					fill_form(pdftk, user, "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", {:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name})
+					fill_form(pdftk, user, "3)ORAM_Client_in_take_Form[Arabic].pdf", {})
+					fill_form(pdftk, user, "4)ORAM_Engagement_Agreement_Syrian[English_Arabic].pdf", {:creation_date1 => (Date.today).to_s, :client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, :client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, :email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone})
+					fill_form(pdftk, user, "5)ORAM_Client_Claim_Guide_[Arabic].pdf", {})
 				elsif user.languages.include? "Arabic"
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
-					"Arabic_Non_Syrian", "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, {:client_name1 => user.full_name, 
-					:resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country}
-					doc = Updoc.new(:name => "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
-					"Arabic_Non_Syrian", "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").to_s, 
-					{:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name}
-					doc = Updoc.new(:name => "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").open)
-					user.updocs << doc
-					#need :DateOfBirthEng => user. 
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", 
-					"templates", "Arabic_Non_Syrian", "3)ORAM_Client_in_take_Form[Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "3)ORAM_Client_in_take_Form[Arabic].pdf").to_s
-					doc = Updoc.new(:name => "3)ORAM_Client_in_take_Form[Arabic].pdf", :attachment => 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "3)ORAM_Client_in_take_Form[Arabic].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", 
-					"templates", "Arabic_Non_Syrian", "4)ORAM_Engagement_Agreement[English_Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"4)ORAM_Engagement_Agreement[English_Arabic].pdf").to_s, {:creation_date1 => (Date.today).to_s, 
-					:client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, 
-					:client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, 
-					:email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone}
-					doc = Updoc.new(:name => "4)ORAM_Engagement_Agreement[English_Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"4)ORAM_Engagement_Agreement[English_Arabic].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", 
-					"templates", "Arabic_Non_Syrian", "5)ORAM_Client_Claim_Guide[Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "5)ORAM_Client_Claim_Guide[Arabic].pdf").to_s
-					doc = Updoc.new(:name => "5)ORAM_Client_Claim_Guide[Arabic].pdf", :attachment => 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "5)ORAM_Client_Claim_Guide[Arabic].pdf").open)
-					user.updocs << doc
-					
+					fill_form(pdftk, user, "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf", {:client_name1 => user.full_name, :resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country})
+					fill_form(pdftk, user, "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", {:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name})
+					fill_form(pdftk, user, "3)ORAM_Client_in_take_Form[Arabic].pdf", {})
+					fill_form(pdftk, user, "4)ORAM_Engagement_Agreement[English_Arabic].pdf", {:creation_date1 => (Date.today).to_s, :client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, :client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, :email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone})
+					fill_form(pdftk, user, "5)ORAM_Client_Claim_Guide[Arabic].pdf", {})
 				elsif user.languages.include? "Persian/Farsi"
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", 
-					"templates", "Farsi", "1)ORAM_Confidentiality_Waiver[English].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"1)ORAM_Confidentiality_Waiver[English].pdf").to_s, {:client_name1 => user.full_name, 
-					:resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country}
-					doc = Updoc.new(:name => "1)ORAM_Confidentiality_Waiver[English].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"1)ORAM_Confidentiality_Waiver[English].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", "Farsi", 
-					"2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").to_s, 
-					{:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name}
-					doc = Updoc.new(:name => "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf").open)
-					user.updocs << doc
-					#need :DateOfBirthEng => user. 
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
-					"Farsi", "3)Client_Intake_Form_Bilinugual[English_Persian].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"3)Client_Intake_Form_Bilinugual[English_Persian].pdf").to_s
-					doc = Updoc.new(:name => "3)Client_Intake_Form_Bilinugual[English_Persian].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s,
-					"3)Client_Intake_Form_Bilinugual[English_Persian].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", "Farsi", 
-					"4)ORAM_Engagement_Agreement[English].pdf").to_s, Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"4)ORAM_Engagement_Agreement[English].pdf").to_s, {:creation_date1 => (Date.today).to_s, 
-					:client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, 
-					:client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, 
-					:email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone}
-					doc = Updoc.new(:name => "4)ORAM_Engagement_Agreement[English].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "4)ORAM_Engagement_Agreement[English].pdf").open)
-					user.updocs << doc
-					
-					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", 
-					"templates", "Farsi", "5)ORAM_Client_Claim_Guide_[Turkey].pdf").to_s, 
-					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "5)ORAM_Client_Claim_Guide_[Turkey].pdf").to_s
-					doc = Updoc.new(:name => "5)ORAM_Client_Claim_Guide_[Turkey].pdf", 
-					:attachment => Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
-					"5)ORAM_Client_Claim_Guide_[Turkey].pdf").open)
-					user.updocs << doc
+					fill_form(pdftk, user, "1)ORAM_Confidentiality_Waiver[English].pdf", {:client_name1 => user.full_name, :resident_country1 => user.country, :client_name2 => user.full_name, :resident_country2 => user.country})
+					fill_form(pdftk, user, "2)ORAM_Authorization_to_Act_as_Legal_Representative[English_Arabic].pdf", {:NameOfApplicantEng => user.full_name, :NameOfApplicantAra => user.full_name})
+					fill_form(pdftk, user, "3)Client_Intake_Form_Bilinugual[English_Persian].pdf", {})
+					fill_form(pdftk, user, "4)ORAM_Engagement_Agreement[English].pdf", {:creation_date1 => (Date.today).to_s, :client_name1 => user.full_name, :creation_date2 => (Date.today).to_s, :client_name2 => user.full_name, :client_name3 => user.full_name, :client_name4 => user.full_name, :email1 => user.email, :email2 => user.email, :phone_number1 => user.phone, :phone_number2 => user.phone})
+					fill_form(pdftk, user, "5)ORAM_Client_Claim_Guide_[Turkey].pdf", {})
 				end
 			end
 		end
