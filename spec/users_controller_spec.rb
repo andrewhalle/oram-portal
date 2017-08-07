@@ -39,6 +39,7 @@ RSpec.describe UsersController, type: :controller do
   it "should auto-generate forms for Syrian user" do
     allow(Dir).to receive(:exists?).and_return(false)
     user = double()
+    allow(user).to receive(:role).and_return("client")
     allow(user).to receive(:country).and_return("Syrian Arab Republic")
     allow(user).to receive(:id).and_return(1000)
     allow(user).to receive(:full_name).and_return("Andrew Halle")
@@ -54,6 +55,7 @@ RSpec.describe UsersController, type: :controller do
   it "should auto-generate forms for Arabic (non-syrian) user" do
     allow(Dir).to receive(:exists?).and_return(false)
     user = double()
+    allow(user).to receive(:role).and_return("client")
     allow(user).to receive(:country).and_return("Afghanistan")
     allow(user).to receive(:languages).and_return(["Arabic"])
     allow(user).to receive(:id).and_return(1000)
@@ -70,6 +72,7 @@ RSpec.describe UsersController, type: :controller do
   it "should auto-generate forms for Farsi user" do
     allow(Dir).to receive(:exists?).and_return(false)
     user = double()
+    allow(user).to receive(:role).and_return("client")
     allow(user).to receive(:country).and_return("Afghanistan")
     allow(user).to receive(:languages).and_return(["Persian/Farsi"])
     allow(user).to receive(:id).and_return(1000)
