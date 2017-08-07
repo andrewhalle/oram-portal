@@ -50,7 +50,8 @@
 									%h6.text-center= caseworker.full_name
 								.remove-button.inline-block.select.btn.btn-sm.btn-default
 									= form_for :remove_client, :url => admin_delete_caseworker_path(:action => 'post', :caseworker => caseworker),  :html => {:id => "remove_caseworker"} do |f|
-										= button_to "Remove Caseworker", user_destroy_path(:id => @user.id), :method => :get, :class => 'btn btn-md btn-danger'
+										= button_tag( :class => ".glyphicon.glyphicon-remove") do
+											.glyphicon.glyphicon-remove
 				.assign-caseworker-select.container-fluid
 					= form_for :edit_client, :url => admin_assign_caseworker_path(:action => 'post') do |f|
 						.row.form-group.panel-default
