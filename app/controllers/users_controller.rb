@@ -279,7 +279,7 @@ class UsersController < ApplicationController
 			if !(Dir.exists? Rails.root.join("public", "ag_forms", "clients", user.id.to_s))
 				pdftk = PdfForms.new('/usr/bin/pdftk')
 				Dir.mkdir Rails.root.join("public", "ag_forms", "clients", user.id.to_s)
-				if @user.country == "Syrian Arab Republic"
+				if user.country == "Syrian Arab Republic"
 					#fill syrian arabic forms
 					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
 					"Arabic_Syrian", "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, 
@@ -330,7 +330,7 @@ class UsersController < ApplicationController
 					"5)ORAM_Client_Claim_Guide_[Arabic].pdf").open)
 					user.updocs << doc
 					
-				elsif @user.languages.include? "Arabic"
+				elsif user.languages.include? "Arabic"
 					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", "templates", 
 					"Arabic_Non_Syrian", "1)ORAM_Confidentiality_Waiver[English_Arabic].pdf").to_s, 
 					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
@@ -378,7 +378,7 @@ class UsersController < ApplicationController
 					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, "5)ORAM_Client_Claim_Guide[Arabic].pdf").open)
 					user.updocs << doc
 					
-				elsif @user.languages.include? "Persian/Farsi"
+				elsif user.languages.include? "Persian/Farsi"
 					generated_document = pdftk.fill_form Rails.root.join("public", "ag_forms", 
 					"templates", "Farsi", "1)ORAM_Confidentiality_Waiver[English].pdf").to_s, 
 					Rails.root.join("public", "ag_forms", "clients", user.id.to_s, 
