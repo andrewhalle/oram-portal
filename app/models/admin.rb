@@ -50,11 +50,6 @@ class Admin < ActiveRecord::Base
     Event.create(:created_at => Time.now, :updated_at => Time.now, :message => "Admin #{first_name} #{last_name} deleted their own account.")
     true
   end
-
-  def self.get_id_by_name(full_name)
-    first, last = full_name.split(' ')
-    self.where(first_name: first).where(last_name: last).first.id
-  end
   
   # def self.Caseworkers
   #   caseworkers_db = self.all
@@ -67,10 +62,10 @@ class Admin < ActiveRecord::Base
   #   caseworkers
   # end
   
-  def self.get_by_full_name(full_name)
-    first, last = full_name.split(' ')
-    Admin.where(first_name: first).where(last_name: last).first
-  end
+  # def self.get_by_full_name(full_name)
+  #   first, last = full_name.split(' ')
+  #   Admin.where(first_name: first).where(last_name: last).first
+  # end
   
 
   def get_user_ids
