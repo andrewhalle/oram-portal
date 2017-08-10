@@ -53,7 +53,7 @@ class AdminsController < ApplicationController
 		#form_type for client questionnaires is number 3
 		mark_status(@client, params[:status], 3)
 		
-		redirect_to clients_path
+		redirect_to client_path[:id]
 	end
 
 	def mark_form_status
