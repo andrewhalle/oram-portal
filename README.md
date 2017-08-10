@@ -27,7 +27,7 @@ Forms (represented in :form_type in :forms) : [ Form 2: Referral, Form 3: Client
 
 User Roles (represented in :role in :users) : [role 0: referrer, role 1: client]
 
-###Notes
+Notes
 * phantomjs installation is required for testing with cucumber and rspec
 * form_key: iDEDgbGZr0nVHshYs8jK0TnJpWo2fOSyhZlQdmtCHJv2eXXFVlZlGiAGbA2h5CKdM4DTfyBbh8BuFhCn
 
