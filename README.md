@@ -15,6 +15,20 @@ Several features for this project require more setup than the usual "clone, bund
 
 E-mail sending features won't work until you set up a [SENDGRID](https://sendgrid.com/) account. The environment variables `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` need to be set up in the deployment environment (like Heroku). Sending e-mails won't work from the local environment (like c9).
 
+Explicitly, to clone this repo and get it running in a blank c9 instance (per the instructions on the course site), the commands we run are
+```
+curl -fsSL c9setup.saasbook.info | bash --login && rvm use 2.3.0 --default
+sudo apt update
+sudo apt install pdftk
+git clone https://github.com/andrewhalle/oram-portal.git
+cd oram-portal
+gem install bundler
+bundle install
+export form_key=iDEDgbGZr0nVHshYs8jK0TnJpWo2fOSyhZlQdmtCHJv2eXXFVlZlGiAGbA2h5CKdM4DTfyBbh8BuFhCn
+rails s -p $PORT -b $IP
+rake cucumber
+rake spec
+```
 ------
 
 Notes from Spring 2017 Team:
